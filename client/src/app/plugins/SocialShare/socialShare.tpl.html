@@ -1,0 +1,7 @@
+<h5 ng-if="model.shareStyle !== 'ListInline'"><span class="initialism">{{'Share'|translate}}</span></h5>
+<ul class="{{shareClassName}}">
+	<li class="navbar-btn"><a href="#" ng-click="$event.preventDefault(); $event.stopPropagation();" socialshare socialshare-provider="facebook" socialshare-url="{{share}}" socialshare-trigger="click" title="{{'Facebook'|translate}}" class="text-muted"><i class="fa fa-facebook {{iconSize}}"></i> </a></li>
+	<li class="navbar-btn"> <a href="#" ng-click="$event.preventDefault(); $event.stopPropagation();" socialshare socialshare-provider="twitter" socialshare-text="{{shareTitle}}" socialshare-url="{{share}}" socialshare-trigger="click" title="{{'Twitter'|translate}}" class="text-muted"><i class="fa fa-twitter {{iconSize}}"></i> </a></li>
+	<li class="navbar-btn"><a href="#" ng-click="$event.preventDefault(); $event.stopPropagation();" socialshare socialshare-provider="google+" socialshare-url="{{share}}" socialshare-trigger="click" title="{{'Google plus'|translate}}" class="text-muted"> <i class="fa fa-google-plus {{iconSize}}"></i> </a></li>
+</ul>
+

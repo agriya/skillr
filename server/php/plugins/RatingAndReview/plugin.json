@@ -1,0 +1,9 @@
+{
+	"name": "RatingAndReview", 
+	"class": "fa fa-2x fa-star",
+	"description": "By enabling this plugin, learner can provide their feedback about the courses.",
+	"dependencies": "Courses",
+	"module_id": "",
+	"module_hash": "",
+	"display_order": "6"
+}

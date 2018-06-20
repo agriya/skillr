@@ -1,0 +1,3 @@
+<a href="#!/user/{{user_id}}/{{model.userDisplayName|slugify}}/" title="{{model.userDisplayName}}{{model.userNameStyle}}" ng-if="$root.settings['site.enabled_plugins'].indexOf('UserProfile') > -1" class="{{model.userNameClass}}">{{model.userDisplayName}}</a>
+<span title="{{model.userDisplayName}}" ng-if="$root.settings['site.enabled_plugins'].indexOf('UserProfile') === -1" class="{{model.userNameClass}}">{{model.userDisplayName}}</span>
+<p ng-if="model.userDesignation === 'yes' && model.userDesignationText && $root.settings['site.enabled_plugins'].indexOf('UserProfile') > -1">{{model.userDesignationText}}</p>

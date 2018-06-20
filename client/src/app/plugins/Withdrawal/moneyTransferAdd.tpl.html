@@ -1,0 +1,47 @@
+<div class="container">
+	<div class="text-center"><h3 >{{'Money Transfer Accounts'|translate}}</h3></div>
+	<div class="well-sm"></div>
+	<div class="row">
+	  <ol class="breadcrumb">
+		<li><a href="#!/user_cash_withdrawals" class="text-primary">{{'Withdraw Fund Requests'|translate}}</a></li>
+		<i class="fa fa-angle-double-right well-sm"></i>
+		<li class="active"><span class="text-muted">{{'Money Transfer Accounts'|translate}}</span></li>
+	  </ol>
+    </div>
+	<div ng-if="model.moneyTransferAccountList.length > 0">
+		<ul class="list-group">
+		<li class="list-group-item" ng-repeat='moneyTransferAccountList in model.moneyTransferAccountList'>
+			<div class="clearfix">
+				<div class=" col-md-6"><span><p ng-bind-html="moneyTransferAccountList.account|nl2br"></p></span></div>
+				<div class=" col-md-6 text-right"><a class="btn btn-default" ng-click='model.deleteMoneyTransferAccount(moneyTransferAccountList.id)'>{{'Delete'|translate}}</a></div>
+			</div>
+		</li>
+		</ul>
+		<div  class="text-center" ng-show="_metadata.total_records === 0"><h3 class="text-muted">{{'No records found'|translate}}</h3></div>
+	</div>
+	<div class="well-sm"></div>
+	<form role="form" class="form-horizontal clearfix" name="moneyTransferAdd" ng-submit="model.moneyTransferAddFormSubmit();moneyTransferAdd.$setPristine()">
+		<div class="form-group" ng-class="{ 'has-error' : moneyTransferAdd.account_details.$invalid && moneyTransferAdd.account_details.$dirty }">
+		  <label class="col-md-3 col-sm-3 control-label" for="account_details">{{'Account Details'|translate}}</label>
+		  <div class="col-md-5 col-sm-9">
+			<textarea  class="form-control" name="account_details" id="account_details" placeholder="{{'Account Details'|translate}}" ng-model='model.moneyTransferAdd.account' required></textarea> 
+			<div class="help-block text-danger" ng-if="moneyTransferAdd.account_details.$dirty" ng-messages="moneyTransferAdd.account_details.$error">
+				  <div ng-message="required">{{'You must enter the Account details'|translate}}.</div>
+			</div>
+			<span class="help-block">
+				<p>{{'e.g.,'|translate}}</p>
+				<p>{{'Bank'|translate}}:&nbsp;{{'HDFC'|translate}},<span>&nbsp;&nbsp;{{'Account No'|translate}}:&nbsp;<span>1111111111</span></span></p>
+				<p>{{'IFSC Code'|translate}}:&nbsp;<span>XXXXX</span></p>
+				<p>({{'or'|translate}})</p>
+				<p>{{'PayPal Account'|translate}}:&nbsp;<span>example@domain.com</span></p>
+			</span>
+			</div>
+		</div>
+		<div class="well well-sm clearfix">
+		  <div class="pull-right">
+			<label class="sr-only" for="submit">{{'Submit'|translate}}</label>
+			<input type="submit" class="btn btn-primary btn-lg" id="submit" value="{{'Submit'|translate}}">
+		  </div>
+		</div>
+	</form>
+</div>

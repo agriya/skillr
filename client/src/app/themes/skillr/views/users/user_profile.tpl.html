@@ -1,0 +1,144 @@
+<div class="navbar-btn list-group-item-heading"></div>
+<section class="container">
+
+  <h3 class="text-primary"><strong>{{'My Profile'|translate}}</strong></h3>
+  <hr class="list-group-item-heading navbar-btn">
+  <aside class="col-md-3 col-sm-4 col-xs-12">
+	<div class="row">
+	  <ul role="tablist" class="nav nav-pills nav-stacked">
+		<li role="presentation" class="active" ><a title="{{'My Profile'|translate}}" role="tab" href="#!/users/edit-profile">{{'My Profile'|translate}}</a></li>
+		<li role="presentation" class=""><a href="#!/users/change_password" title="{{'Password'|translate}}" aria-controls="password" role="tab">{{'Change Password'|translate}}</a></li>
+	  </ul>
+	</div>
+  </aside>
+  <div class="tab-content">
+	<div class="well-sm navbar-btn list-group-item-heading"></div>
+	<div id="Contact-Info" class="tab-pane active" role="tabpanel">
+	  <div class="col-md-9 col-sm-8 col-xs-12">
+		<form class="form-horizontal" name="editprofile" ng-submit="editProfile()" >
+		  <div class="form-group has-feedback" ng-class="{ 'has-error' : editprofile.designation.$invalid && editprofile.designation.$dirty }">
+			<label for="designation" class="col-sm-3 col-xs-12 control-label">{{'Designation'|translate}}</label>
+			<div class="col-sm-6 col-xs-12">
+				<input type="text" class="form-control" name="designation" id="designation" placeholder="{{'Designation'|translate}}" ng-model="model.user_profile.designation" maxlength="60" required autofocus/>
+				<div class="help-block text-danger" ng-if="editprofile.designation.$dirty" ng-messages="editprofile.designation.$error">
+					<div ng-message="required">{{'You must enter your Designation'|translate}}.</div>
+				</div>
+			</div>
+		  </div>
+		  <div class="form-group has-feedback"  ng-class="{ 'has-error' : editprofile.displayname.$invalid && editprofile.displayname.$dirty }">
+			<label for="displayname" class="col-sm-3 col-xs-12 control-label">{{'Display Name'|translate}}</label>
+			<div class="col-sm-6 col-xs-12">
+			  <input id="displayname" type="text" class="form-control" name="displayname" placeholder="{{'Display Name'|translate}}" ng-model="model.user_profile.displayname" required autofocus/>
+			  <div class="help-block text-danger" ng-if="editprofile.displayname.$dirty" ng-messages="editprofile.displayname.$error">
+					<div ng-message="required">{{'You must enter your Display Name'|translate}}.</div>
+			  </div>
+			</div>
+		  </div>
+		  
+		  <div class="form-group has-feedback" ng-class="{ 'has-error' : editprofile.headline.$invalid && editprofile.headline.$dirty }">
+			<label for="headline" class="col-sm-3 col-xs-12 control-label">{{'Headline'|translate}}</label>
+			<div class="col-sm-6 col-xs-12">
+			  <input id="headline" type="text" name="headline" class="form-control" placeholder="{{'Headline'|translate}}" ng-model="model.user_profile.headline" required autofocus />
+			  <div class="help-block text-danger" ng-if="editprofile.headline.$dirty" ng-messages="editprofile.headline.$error">
+					<div ng-message="required">{{'You must enter your Headline'|translate}}.</div>
+			  </div>
+			</div>
+		  </div>		  
+		  <div class="form-group has-feedback" ng-class="{ 'has-error' : editprofile.biography.$invalid && editprofile.biography.$dirty }">
+			<label class="col-sm-3 col-xs-12 control-label" for="biography">{{'Biography'|translate}}</label>
+			<div class="col-sm-6 col-xs-12">
+				<textarea class="form-control" name="biography" id="biography" placeholder="{{'Biography'|translate}}" ng-model="model.user_profile.biography" required autofocus></textarea>
+				 <div class="help-block text-danger" ng-if="editprofile.biography.$dirty" ng-messages="editprofile.biography.$error">
+					<div ng-message="required">{{'You must enter your Biography'|translate}}.</div>
+				</div>
+			</div>
+		  </div>
+		  
+		  <div class="form-group">
+				<label class="col-sm-3 col-xs-12 control-label" for="inputTaskAttachments">{{'Avatar'|translate}}</label>
+				<div class="col-sm-6 col-xs-12">
+					<input type="file" id="inputTaskAttachments" name="attachment" onchange="angular.element(this).scope().uploadFile(this.files)" />
+					<span class="text-danger help-block">{{'Allowed extensions: jpg, jpeg, gif, png'|translate}}</span>
+				</div>
+		  </div>
+		  
+		 <div class="form-group has-feedback" ng-class="{ 'has-error' : editprofile.website.$invalid && editprofile.website.$dirty }">
+				<label class="col-sm-3 col-xs-12 control-label" for="website">{{'Website'|translate}}</label>
+				<div class="col-sm-6 col-xs-12">
+					<input type="url" class="form-control" name="website" id="website" placeholder="{{'Website'|translate}}" ng-model="model.user_profile.website" />
+					<span class="text-danger help-block">{{'Enter your website URL start with http:// or https://'|translate}}</span>
+					<div class="help-block text-danger" ng-if="editprofile.website.$dirty" ng-messages="editprofile.website.$error">
+						<div ng-message="url">{{'URL is invalid'|translate}}.</div>
+					</div>
+				</div>
+		  </div>
+		  
+		  <div class="form-group has-feedback" ng-class="{ 'has-error' : editprofile.facebook_profile_link.$invalid && editprofile.facebook_profile_link.$dirty }">
+			<label class="col-sm-3 col-xs-12 control-label" for="facebook_profile_link">{{'Facebook profile link'|translate}}</label>
+			<div class="col-sm-6 col-xs-12">
+				<input type="url" class="form-control" name="facebook_profile_link" id="facebook_profile_link" placeholder="{{'Facebook profile link'|translate}}" ng-model="model.user_profile.facebook_profile_link" />
+				<span class="text-danger help-block">{{'Enter your facebook URL start with http:// or https://'|translate}}</span>
+				<div class="help-block text-danger" ng-if="editprofile.facebook_profile_link.$dirty" ng-messages="editprofile.facebook_profile_link.$error">
+					<div ng-message="url">{{'URL is invalid'|translate}}.</div>
+				</div>
+			</div>
+		  </div>
+		  
+		 <div class="form-group has-feedback" ng-class="{ 'has-error' : editprofile.twitter_profile_link.$invalid && editprofile.twitter_profile_link.$dirty }">
+				<label class="col-sm-3 col-xs-12 control-label" for="twitter_profile_link">{{'Twitter profile link'|translate}}</label>
+				<div class="col-sm-6 col-xs-12">
+					<input type="url" class="form-control" name="twitter_profile_link" id="twitter_profile_link" placeholder="{{'Twitter profile link'|translate}}" ng-model="model.user_profile.twitter_profile_link" />
+					<span class="text-danger help-block">{{'Enter your twitter URL start with http:// or https://'|translate}}</span>
+					<div class="help-block text-danger" ng-if="editprofile.twitter_profile_link.$dirty" ng-messages="editprofile.twitter_profile_link.$error">
+						<div ng-message="url">{{'URL is invalid'|translate}}.</div>
+					</div>
+				</div>
+		  </div>
+		  
+		  <div class="form-group has-feedback" ng-class="{ 'has-error' : editprofile.google_plus_profile_link.$invalid && editprofile.google_plus_profile_link.$dirty }">
+				<label class="col-sm-3 col-xs-12 control-label" for="google_plus_profile_link">{{'Google Plus profile link'|translate}}</label>
+				<div class="col-sm-6 col-xs-12">
+					<input type="url" class="form-control" name="google_plus_profile_link" id="google_plus_profile_link" placeholder="{{'Google Plus profile link'|translate}}" ng-model="model.user_profile.google_plus_profile_link" />
+					<span class="text-danger help-block">{{'Enter your google plus URL start with http:// or https://'|translate}}</span>
+				    <div class="help-block text-danger" ng-if="editprofile.google_plus_profile_link.$dirty" ng-messages="editprofile.google_plus_profile_link.$error">
+						<div ng-message="url">{{'URL is invalid'|translate}}.</div>
+					</div>
+				</div>
+		  </div>
+		  
+		  <div class="form-group has-feedback" ng-class="{ 'has-error' : editprofile.linkedin_profile_link.$invalid && editprofile.linkedin_profile_link.$dirty }">
+				<label class="col-sm-3 col-xs-12 control-label" for="linkedin_profile_link">{{'LinkedIn profile link'|translate}}</label>
+				<div class="col-sm-6 col-xs-12">
+					<input type="url" class="form-control" name="linkedin_profile_link" id="linkedin_profile_link" placeholder="{{'LinkedIn profile link'|translate}}" ng-model="model.user_profile.linkedin_profile_link" />
+					<span class="text-danger help-block">{{'Enter your LinkedIn URL start with http:// or https://'|translate}}</span>
+					<div class="help-block text-danger" ng-if="editprofile.linkedin_profile_link.$dirty" ng-messages="editprofile.linkedin_profile_link.$error">
+						<div ng-message="url">{{'URL is invalid'|translate}}.</div>
+					</div>
+				</div>
+		  </div>
+		  
+		  <div class="form-group has-feedback" ng-class="{ 'has-error' : editprofile.youtube_profile_link.$invalid && editprofile.youtube_profile_link.$dirty }">
+				<label class="col-sm-3 col-xs-12 control-label" for="youtube_profile_link">{{'Youtube profile link'|translate}}</label>
+				<div class="col-sm-6 col-xs-12">
+					<input type="url" class="form-control" name="youtube_profile_link" id="youtube_profile_link" placeholder="{{'Youtube profile link'|translate}}" ng-model="model.user_profile.youtube_profile_link" />
+					<span class="text-danger help-block">{{'Enter your youtube URL start with http:// or https://'|translate}}</span>
+					<div class="help-block text-danger" ng-if="editprofile.youtube_profile_link.$dirty" ng-messages="editprofile.youtube_profile_link.$error">
+						<div ng-message="url">{{'URL is invalid'|translate}}.</div>
+					</div>
+				</div>
+		 </div>
+		 <div class="well well-sm clearfix">
+			<div class="pull-right">
+				<label class="sr-only" for="user_profile_save">{{'Save'|translate}}</label>
+				<input type="submit" class="btn btn-primary btn-lg"  id="user_profile_save" value="{{'Save'|translate}}" ng-hide="disableSave" >
+				<button type="submit" class="btn btn-primary btn-lg" ng-disabled="true" id="user_profile_save" ng-hide="!disableSave" >{{' Validating'|translate}} <span><i class="fa fa-spinner fa-pulse fa-lg"></i></span></button>
+			</div>
+		 </div>
+		</form>
+	  </div>
+	</div>
+  </div>
+</section>
+<div oc-lazy-load='loadSeo'>
+	<user-profile-seo></user-profile-seo>
+</div>

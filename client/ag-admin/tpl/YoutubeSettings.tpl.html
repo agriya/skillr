@@ -1,0 +1,81 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="page-header">
+			<ma-view-actions>
+				<ma-back-button></ma-back-button>
+			</ma-view-actions>
+			<h1><span> Edit-YouTube</span></h1>
+	    </div>
+	</div>
+</div>
+
+<div class="row" id="edit-view">
+	<form class="col-lg-12 form-horizontal" name="youtubesettings" ng-submit="updateUploadSettings()">
+		<div class="row">
+			<div id="row-youtubelessontypename" class="form-group has-feedback" ng-class="youtubesettings.ylessontypename.$dirty ? (youtubesettings.ylessontypename.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="ylessontypename" class="col-sm-2 control-label">Lesson Type Name</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text" ng-model="UploadSettings.online_lesson_type_name" name="ylessontypename" class="form-control" required="" readonly/>				
+					<span ng-show="youtubesettings.ylessontypename.$dirty" class="glyphicon form-control-feedback" ng-class="youtubesettings.ylessontypename.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>	
+			<div id="row-youtubeservicename" class="form-group has-feedback" ng-class="youtubesettings.yservicename.$dirty ? (youtubesettings.yservicename.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="yservicename" class="col-sm-2 control-label">Upload Service Name</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text" ng-model="UploadSettings.upload_service_name" name="yservicename" class="form-control" required="" readonly/>				
+					<span ng-show="youtubesettings.yservicename.$dirty" class="glyphicon form-control-feedback" ng-class="youtubesettings.yservicename.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>	
+			<div id="row-youtubeactive" class="form-group has-feedback" ng-class="youtubesettings.yactive.$dirty ? (youtubesettings.yactive.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="yactive" class="col-sm-2 control-label">Active?</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<label class="radio-inline" ng-repeat="setting in uploadsettingoption">
+						<input type="radio" value="setting.value"  name="yactive" ng-model="UploadSettings.is_active"  data-ng-value="setting.value" />
+						{{setting.label}}
+					</label>			
+					<span ng-show="youtubesettings.yactive.$dirty" class="glyphicon form-control-feedback" ng-class="youtubesettings.yactive.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-youtubeemail" class="form-group has-feedback" ng-class="youtubesettings.yemail.$dirty ? (youtubesettings.yemail.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="yemail" class="col-sm-2 control-label">Youtube Email</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text" ng-model="UploadSettings.youtube_email" name="yclientid" class="form-control" required=""/>				
+					<span ng-show="youtubesettings.yemail.$dirty" class="glyphicon form-control-feedback" ng-class="youtubesettings.yemail.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>			
+			<div id="row-youtubeclientid" class="form-group has-feedback" ng-class="youtubesettings.yclientid.$dirty ? (youtubesettings.yclientid.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="yclientid" class="col-sm-2 control-label">Youtube Client Id</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text" ng-model="UploadSettings.youtube_client_id" name="yclientid" class="form-control" required=""/>				
+					<span ng-show="youtubesettings.yclientid.$dirty" class="glyphicon form-control-feedback" ng-class="youtubesettings.yclientid.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-youtubedeveloperkey" class="form-group has-feedback" ng-class="youtubesettings.ydevkey.$dirty ? (youtubesettings.ydevkey.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="ydevkey" class="col-sm-2 control-label">Youtube Developer Key</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text" ng-model="UploadSettings.youtube_developer_key" name="ydevkey" class="form-control" required=""/>				
+					<span ng-show="youtubesettings.ydevkey.$dirty" class="glyphicon form-control-feedback" ng-class="youtubesettings.ydevkey.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-youtubepassword" class="form-group has-feedback" ng-class="youtubesettings.ypassword.$dirty ? (youtubesettings.ypassword.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="ypassword" class="col-sm-2 control-label">Youtube Password</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text" ng-model="UploadSettings.youtube_password" name="ypassword" class="form-control" required=""/>				
+					<span ng-show="youtubesettings.ypassword.$dirty" class="glyphicon form-control-feedback" ng-class="youtubesettings.ypassword.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-youtubeusername" class="form-group has-feedback" ng-class="youtubesettings.yusername.$dirty ? (youtubesettings.yusername.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="yusername" class="col-sm-2 control-label">Youtube Username</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text" ng-model="UploadSettings.youtube_username" name="yusername" class="form-control" required=""/>				
+					<span ng-show="youtubesettings.yusername.$dirty" class="glyphicon form-control-feedback" ng-class="youtubesettings.yusername.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+				<button class="btn btn-primary" type="submit"  ng-click="updateUploadSettings()"><span class="glyphicon glyphicon-ok"></span> Save Changes</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

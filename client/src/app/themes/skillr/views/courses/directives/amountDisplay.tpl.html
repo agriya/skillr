@@ -1,0 +1,5 @@
+<span ng-if="($root.settings['site.enabled_plugins'].indexOf('CourseCheckout') > -1 && model.amount !== '0') || (isCoursePrice === 'no')">
+  <span ng-if="$root.settings['site.currency_symbol'] !== ''">{{ model.amount | currency : $root.settings['site.currency_symbol'] : model.fraction}} </span>
+  <span ng-if="$root.settings['site.currency_symbol'] === ''">{{ model.amount | currency : $root.settings['site.currency_code'] : model.fraction}} </span>
+</span>
+<span ng-if="isCoursePrice === 'yes' && $root.settings['site.enabled_plugins'].indexOf('CourseCheckout') > -1 && model.amount === '0'">{{'Free'|translate}}</span>

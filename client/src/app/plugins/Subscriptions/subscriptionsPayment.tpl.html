@@ -1,0 +1,158 @@
+<div class="container">
+<div class="well-lg"></div>
+<div class="well-lg"></div>
+	<div class="btn-success">
+		<div class="panel-heading">
+			<strong>{{'Confirm Your Subscription Payment'|translate}}</strong>
+		</div>		
+	</div>
+	<div class="clearfix well-lg">
+		<div class="loading_container text-center" ng-show="model.loading === true">
+			<div class="well-lg"></div>
+			<i class="fa fa-pulse fa-3x  text-success fa-spinner"></i>
+			<div class="well-lg"></div>
+		</div>
+		<div ng-include src="'get_gateways.html'" ng-show="model.loading === false"></div>
+	</div>
+</div>
+<script type="text/ng-template" id="get_gateways.html">
+  <!-- Admin Gateways index index start -->
+	<div class="clearfix">
+		<form role="form" class="form-horizontal clearfix navbar-btn" name="subscribePlan" >	
+			<div class="form-group">
+				<div class="col-md-6 col-xs-12">
+				<div class="btn" ng-repeat="subscribeplan in model.subscribeplan" ng-class="{ 'btn-success' : model.subscriptions.id === subscribeplan.id  }" popover-placement="bottom" popover-html-unsafe="{{subscribeplan.description}}"  >
+					<div class="radio" ng-click="model.subscriptions.id = subscribeplan.id;model.getSubscribePlan()" >
+						<h4><label for="{{subscribeplan.name}}" class="control-label" ng-class="{ 'text-muted' : model.subscriptions.id !== subscribeplan.id  }">
+						<input type="radio"  value="{{subscribeplan.id}}" id="subscriptions_{{subscribeplan.id}}" name="subscriptions_Level" ng-model="model.subscriptions.id">
+						{{subscribeplan.name}} - <amount-display amount='{{subscribeplan.price}}' fraction='0' is-course-price='no'> / {{subscribeplan.interval_unit}}</label><h4>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				</div>
+			</div>
+		</form>
+	</div>
+  <div class="text-primary"><h3><strong>{{'Name'| translate}}: {{model.subscriptions.name}}</strong></h3></div>
+	
+	<div ng-if="gatewayError" ><div class="well-sm"></div><div class="alert alert-warning">{{gatewayError}}</div></div>
+	
+	<article id="get-gateways-index">
+		<div class="get-gateways">
+			<div class="ver-space">  
+				<div id="paymentgateways-tab-container" class="navbar-btn">
+					<ul class="nav nav-tabs">
+						<!-- paypal tabs -->
+						<li ng-if="paypal_enabled" ng-class='{active:paypal_enabled}'>
+							<a data-target="#Paypal" data-toggle="tab"  >
+								<div>
+									<img src="assets/img/paypal.png" data-target="#Paypal" />
+								</div>
+							</a>
+						</li>
+						<!-- sudopay tabs -->
+						<li ng-repeat="gateway_group in gateway_groups"  ng-class='{active:$first && !paypal_enabled}'>
+							<a data-target="#{{gateway_group.id}}" data-toggle="tab"  ng-click="paneChanged(gateway_group.display_name)">
+								<div>
+									<img ng-src="{{gateway_group.thumb_url}}" data-target="#{{gateway_group.id}}" />
+									<!--<span>{{gateway_group.display_name}}</span>-->
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="tab-content">
+					<div ng-repeat="gateway_group in gateway_groups" id="{{gateway_group.id}}" class="tab-pane" ng-class='{active:$first && !paypal_enabled}'>
+						<div ng-repeat="payment_gateway in payment_gateways" ng-if="payment_gateway.group_id == gateway_group.id" class="pull-left clearfix">
+							<div ng-if="payment_gateway.group_id == 4922" class="alert alert-info ver-mspace space navbar-btn">{{'Please enter your credit card details below' | translate}}.</div>							
+							<div  ng-if="payment_gateway.group_id != 4922" class="input radio no-mar hor-mspace radio_buttons">
+								<input type="radio" name="data" ng-model="gateways" id="PaymentGatewayIdSp{{payment_gateway.id}}" class="js-payment-type js-no-pjax pull-left" value="sp_{{payment_gateway.id}}" ng-click="rdoclick(payment_gateway.id, payment_gateway.form_fields)"/>
+								<label for="PaymentGatewayIdSp{{payment_gateway.id}}">
+									<div class="pull-left">
+										<img ng-src="{{payment_gateway.thumb_url}}" alt="{{payment_gateway.name}}" />
+										<!--<span class="show">{{payment_gateway.display_name}}</span>-->
+									</div>
+								</label>
+							</div>
+						</div>	
+						<form role="form" class="form-horizontal clearfix navbar-btn" name="payment" ng-submit="payNowClick()">			
+							<div class="js-form col-xs-12 js-form navbar-btn row">
+								<div class="alert alert-danger alert-dismissible well-lg" role="alert" ng-if='validation_msg' >
+									<!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+									<span class="navbar-btn">{{validation_msg}}</span>
+								</div>
+							
+								<div class="js-gatway_form_tpl clearfix" ng-repeat="(key, value) in form_fields_tpls" id="form_tpl_{{key}}">								
+									<div ng-if="gateway_group.id == 4922" ng-if="show_form[key]">
+										<div ng-bind-html="form_fields[key]" ng-if="key === 'credit_card'" class="payment-form cc-section">
+										</div>
+										<div class="no-mar space clearfix" ng-if="key == 'buyer'">
+											<h3 class="well space textb text-16 ver-mspace">{{'Payer Details' | translate}}</h3>
+										</div>
+										<div ng-bind-html="form_fields[key]" ng-if="key === 'buyer'" class="payment-form">
+										</div>
+										
+									</div>
+									<div ng-if="gateway_group.id == 5333" ng-if="show_form[key]"  >
+										<div class="no-mar space clearfix" ng-if="key == 'buyer'">
+											<h3 class="well space textb text-16 ver-mspace">{{'Payer Details' | translate}}</h3>
+										</div>	
+										<div ng-bind-html="form_fields[key]" ng-if="key === 'buyer'" class="payment-form">
+										</div>
+									</div>
+									<div ng-if="gateway_group.id == 5346" ng-if="show_form[key]" >
+										<div class="no-mar space clearfix" ng-if="key == 'manual'">
+											<h3 class="well space textb text-16 ver-mspace">{{'Manual Details' | translate}}</h3>
+										</div>	
+										<div ng-bind-html="form_fields[key]" ng-if="key === 'manual'" class="payment-form">
+										</div>
+										<div class="no-mar space clearfix" ng-if="key == 'buyer'">
+											<h3 class="well space textb text-16 ver-mspace">{{'Payer Details' | translate}}</h3>
+										</div>	
+										<div ng-bind-html="form_fields[key]" ng-if="key === 'buyer'" class="payment-form">
+										</div>
+										
+									</div>	
+								</div>							
+							</div>
+							<div class="ver-space ver-mspace navbar-btn mob-clr col-xs-12 row">
+								<div class="clearfix btn-group"> 
+									<button type="submit" ng-disabled="paynow_is_disabled" class="textb text-13 btn btn-lg btn-primary" title="{{'Subscribe Now' | translate}}">{{'Subscribe Now' | translate}} <span ng-show="paynow_is_disabled"><i class="fa fa-spinner fa-pulse fa-lg"></i></span></button>
+								</div>
+								<div class="clearfix btn-group"> 	
+									<a href="#!/me/subscriptions"  class="h4 well-lg text-primary">{{'Cancel'|translate}}</a>
+								</div>			
+							</div>
+							<div class="ver-space ver-mspace navbar-btn mob-clr col-xs-12 row">
+								<span class="text-info">{{'By clicking the "Subscribe Now" button, you agree to these '|translate}} <a target="_blank" href="#!/page/terms" title="{{'Terms of Service'|translate}}">{{'Terms of Service.'|translate}}</a></span>
+							</div>
+						</form>
+					</div>
+					
+					<!-- paypal form -->
+					<div  class="tab-pane" id="Paypal" ng-class='{active: paypal_enabled}'>	
+						<div class="js-form col-xs-12 js-form navbar-btn row">													
+						<div class="well-sm"></div>
+						<div class="well-sm"></div>
+						<div class="clearfix btn-group"> 
+							<button type="submit" value="{{'Subscribe'| translate}}" ng-click="payNowPayPalClick()" ng-disabled="paynow_is_disabled" class="textb text-13 btn btn-lg btn-primary" title="{{'Subscribe Now' | translate}}">{{'Subscribe Now' | translate}} <span ng-show="paynow_is_disabled"><i class="fa fa-spinner fa-pulse fa-lg"></i></span></button>
+						</div>
+						<div class="clearfix btn-group"> 	
+							<a href="#!/me/subscriptions"  class="h4 well-lg text-primary">{{'Cancel'|translate}}</a>
+						</div>
+						<div class="well-sm"></div>		
+						<div class="ver-space ver-mspace navbar-btn mob-clr col-xs-12 row">
+							<span class="text-info">{{'By clicking the "Subscribe Now" button, you agree to these '|translate}} <a target="_blank" href="#!/page/terms" title="{{'Terms of Service'|translate}}">{{'Terms of Service.'|translate}}</a></span>
+						</div>
+						<div ng-bind-html='form_data'>
+							
+						</div>												
+					
+					</div>
+					
+				</div>
+		  </div>
+		</div>
+    </article>
+  <!-- Admin Gateways_index index end -->
+</script>

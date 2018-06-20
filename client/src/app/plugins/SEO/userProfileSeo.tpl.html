@@ -1,0 +1,36 @@
+<section class="clearfix">
+	<div class="container">	
+		<div class="panel">
+			<div class="list-header text-center well-sm">
+				<h3>{{'Meta Details'|translate}}</h3>
+			</div>					
+		</div>
+		<div class="well-lg panel clearfix">
+			<div growl></div>
+			<form class="form-horizontal" name="saveUserSeo" ng-submit="model.saveUserSeo()">
+				<div class="form-group has-feedback"  ng-class="{ 'has-error' : saveUserSeo.meta_keywords.$invalid && saveUserSeo.meta_keywords.$dirty }">
+					<label class="col-md-3 col-sm-3 control-label" for="MetaKeyword">{{'Meta Keyword'|translate}}</label>
+					<div class="col-md-5 col-sm-9">
+						<input type="text" class="form-control" name="MetaKeyword" id="MetaKeyword" placeholder="{{'Meta Keyword'|translate}}" ng-model="model.userSeo.meta_keywords" required/>
+						
+					</div>
+				</div>
+				<div class="form-group has-feedback" ng-class="{ 'has-error' : saveUserSeo.meta_description.$invalid && saveUserSeo.meta_description.$dirty }">
+					<label class="col-md-3 col-sm-3 control-label" for="meta_description">{{'Meta Description'|translate}}</label>
+					<div class="col-md-5 col-sm-9">
+						<textarea type="text" class="form-control" id="meta_description" name="meta_description" placeholder="{{'Meta Description'|translate}}" ng-model="model.userSeo.meta_description" required> </textarea>
+						
+					</div>
+				</div>
+				<div class="well well-sm clearfix">
+					<div class="pull-right">
+						<label class="sr-only" for="saveUserSeo">{{'Save'|translate}}</label>
+						<input type="submit" class="btn btn-primary btn-lg" id="saveUserSeo"  value="{{'Save'|translate}}" >
+					</div>
+				</div>
+			</form>
+		</div>
+		   
+	</div>		  		
+</section>
+

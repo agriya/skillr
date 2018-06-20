@@ -1,0 +1,9 @@
+{
+	"name": "UserProfile", 
+	"class": "fa fa-2x fa-user",
+	"description": "By enabling this plugin, users can show the other user's entire course history which is belongs to that user. It has the user's Learning courses, Teaching courses, their favourite courses, bio and social network links.",
+	"dependencies": "",
+	"module_id": "",
+	"module_hash": "",
+	"display_order": "16"
+}

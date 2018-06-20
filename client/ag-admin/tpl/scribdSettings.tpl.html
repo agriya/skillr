@@ -1,0 +1,74 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="page-header">
+			<ma-view-actions>
+				<ma-back-button></ma-back-button>
+			</ma-view-actions>
+			<h1><span> Edit-Scribd</span></h1>
+	    </div>
+	</div>
+</div>
+
+<div class="row" id="edit-view">
+	<form class="col-lg-12 form-horizontal" name="scribdsettings" ng-submit="updateUploadSettings()"> 
+		<div class="row">
+			<div id="row-slessontype" class="form-group has-feedback" ng-class="scribdsettings.slessontype.$dirty ? (scribdsettings.slessontype.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="slessontype" class="col-sm-2 control-label">Lesson Type Name</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text"  ng-model="UploadSettings.online_lesson_type_name" name="slessontype" class="form-control" required="" readonly/>				
+					<span ng-show="scribdsettings.slessontype.$dirty" class="glyphicon form-control-feedback" ng-class="scribdsettings.slessontype.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-suploadservicename" class="form-group has-feedback" ng-class="scribdsettings.suploadservicename.$dirty ? (scribdsettings.suploadservicename.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="suploadservicename" class="col-sm-2 control-label">Upload Service Name</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text" ng-model="UploadSettings.upload_service_name" name="suploadservicename" class="form-control" required="" readonly/>				
+					<span ng-show="scribdsettings.suploadservicename.$dirty" class="glyphicon form-control-feedback" ng-class="scribdsettings.suploadservicename.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-sactive" class="form-group has-feedback" ng-class="scribdsettings.sactive.$dirty ? (scribdsettings.sactive.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="sactive" class="col-sm-2 control-label">Active?</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<label class="radio-inline" ng-repeat="setting in uploadsettingoption">
+						<input type="radio" value="setting.value"  name="sactive" ng-model="UploadSettings.is_active"  data-ng-value="setting.value" />
+						{{setting.label}}
+					</label>					
+					<span ng-show="scribdsettings.sactive.$dirty" class="glyphicon form-control-feedback" ng-class="scribdsettings.sactive.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-sapikey" class="form-group has-feedback" ng-class="scribdsettings.sapikey.$dirty ? (scribdsettings.sapikey.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="sapikey" class="col-sm-2 control-label">Scribd API Key</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text" ng-model="UploadSettings.scribd_api_key" name="sapikey" class="form-control" required=""/>				
+					<span ng-show="scribdsettings.sapikey.$dirty" class="glyphicon form-control-feedback" ng-class="scribdsettings.sapikey.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-sapisecret" class="form-group has-feedback" ng-class="scribdsettings.sapisecret.$dirty ? (scribdsettings.sapisecret.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="sapisecret" class="col-sm-2 control-label">Scribd API Secret</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text" ng-model="UploadSettings.scribd_api_secret" name="sapisecret" class="form-control" required=""/>				
+					<span ng-show="scribdsettings.sapisecret.$dirty" class="glyphicon form-control-feedback" ng-class="scribdsettings.sapisecret.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-susername" class="form-group has-feedback" ng-class="scribdsettings.susername.$dirty ? (scribdsettings.susername.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="susername" class="col-sm-2 control-label">Scribd Username</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text" ng-model="UploadSettings.scribd_username" name="susername" class="form-control" required=""/>				
+					<span ng-show="scribdsettings.susername.$dirty" class="glyphicon form-control-feedback" ng-class="scribdsettings.susername.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-scribdpassword" class="form-group has-feedback" ng-class="scribdsettings.spassword.$dirty ? (scribdsettings.spassword.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="spassword" class="col-sm-2 control-label">Scribd Password</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text" ng-model="UploadSettings.scribd_password" name="spassword" class="form-control" required=""/>				
+					<span ng-show="scribdsettings.spassword.$dirty" class="glyphicon form-control-feedback" ng-class="scribdsettings.spassword.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+				<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-ok"></span> Save Changes</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,81 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="page-header">
+			<ma-view-actions>
+				<ma-back-button></ma-back-button>
+			</ma-view-actions>
+			<h1><span> Edit-Vimeo</span></h1>
+	    </div>
+	</div>
+</div>
+
+<div class="row" id="edit-view">
+	<form class="col-lg-12 form-horizontal" name="vimeosettings" ng-submit="updateUploadSettings()"> 
+		<div class="row">
+			<div id="row-vimeo_lesson_type" class="form-group has-feedback" ng-class="vimeosettings.vlessontype.$dirty ? (vimeosettings.vlessontype.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="vlessontype" class="col-sm-2 control-label">Lesson Type Name</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text" ng-model="UploadSettings.online_lesson_type_name"  name="vlessontype" class="form-control" readonly/>				
+					<span ng-show="vimeosettings.vlessontype.$dirty" class="glyphicon form-control-feedback" ng-class="vimeosettings.vlessontype.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-vimeo_service_name" class="form-group has-feedback" ng-class="vimeosettings.vservicename.$dirty ? (vimeosettings.vservicename.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="vservicename" class="col-sm-2 control-label">Upload Service Name</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text" ng-model="UploadSettings.upload_service_name"  name="vservicename" class="form-control" readonly/>				
+					<span ng-show="vimeosettings.vservicename.$dirty" class="glyphicon form-control-feedback" ng-class="vimeosettings.vservicename.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-vimeoactive" class="form-group has-feedback" ng-class="vimeosettings.vactive.$dirty ? (vimeosettings.vactive.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="vactive" class="col-sm-2 control-label">Active?</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<label class="radio-inline" ng-repeat="setting in uploadsettingoption">
+						<input type="radio" value="setting.value"  name="vactive" ng-model="UploadSettings.is_active"  data-ng-value="setting.value"/>
+						{{setting.label}}
+					</label>			
+					<span ng-show="vimeosettings.vactive.$dirty" class="glyphicon form-control-feedback" ng-class="vimeosettings.vactive.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>		
+			<div id="row-vimeotoken" class="form-group has-feedback" ng-class="vimeosettings.vtoken.$dirty ? (vimeosettings.vtoken.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="vtoken" class="col-sm-2 control-label">Vimeo Access Token Secret</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text" ng-model="UploadSettings.vimeo_access_token_secret"  name="vtoken" class="form-control" required=""/>				
+					<span ng-show="vimeosettings.vtoken.$dirty" class="glyphicon form-control-feedback" ng-class="vimeosettings.vtoken.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-vimeoapikey" class="form-group has-feedback" ng-class="vimeosettings.vapikey.$dirty ? (vimeosettings.vapikey.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="vapikey" class="col-sm-2 control-label">Vimeo API Key</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text" ng-model="UploadSettings.vimeo_approved_domains" name="vapikey" class="form-control" required=""/>				
+					<span ng-show="vimeosettings.vapikey.$dirty" class="glyphicon form-control-feedback" ng-class="vimeosettings.vapikey.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>			
+			<div id="row-vimeodomains" class="form-group has-feedback" ng-class="vimeosettings.vdomains.$dirty ? (vimeosettings.vdomains.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="vdomains" class="col-sm-2 control-label">Vimeo Approved Domains</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text" ng-model="UploadSettings.vimeo_approved_domains" name="vdomains" class="form-control" required=""/>				
+					<span ng-show="vimeosettings.vdomains.$dirty" class="glyphicon form-control-feedback" ng-class="vimeosettings.vdomains.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-vimeosecretkey" class="form-group has-feedback" ng-class="vimeosettings.vsecretkey.$dirty ? (vimeosettings.vsecretkey.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="vsecretkey" class="col-sm-2 control-label">Vimeo Secret Key</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text" ng-model="UploadSettings.vimeo_secret_key" name="vsecretkey" class="form-control" required=""/>				
+					<span ng-show="vimeosettings.vsecretkey.$dirty" class="glyphicon form-control-feedback" ng-class="vimeosettings.vsecretkey.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-vimeousername" class="form-group has-feedback" ng-class="vimeosettings.vusername.$dirty ? (vimeosettings.vusername.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="vusername" class="col-sm-2 control-label">Vimeo Username</label>
+				<div class="ng-admin-type-text col-sm-10 col-md-8 col-lg-7">
+					<input type="text" ng-model="UploadSettings.vimeo_username" name="vusername" class="form-control" required=""/>				
+					<span ng-show="vimeosettings.vusername.$dirty" class="glyphicon form-control-feedback" ng-class="vimeosettings.vusername.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+				<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-ok"></span> Save Changes</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

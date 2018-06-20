@@ -1,0 +1,6 @@
+{
+    "name": "me/shopping-cart-app",
+    "require": {
+        "paypal/adaptivepayments-sdk-php":"v3.6.106"
+    }
+}

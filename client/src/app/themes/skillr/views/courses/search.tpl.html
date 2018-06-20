@@ -1,0 +1,139 @@
+<main id="main" class="">
+<section id="search-results">
+	<div banner position="topBanner" ng-if="$root.settings['site.enabled_plugins'].indexOf('Banner') > -1"></div>
+	<div class="container"> 
+		<div class="row search-results-sidebar"> 
+			<div class="col-md-2 col-sm-4 col-xs-12"> 
+				<div class="well-sm"></div>
+				<ul class="list-unstyled list-group-item-text" 
+					role="tablist" ng-if="$root.settings['site.enabled_plugins'].indexOf('Subscriptions') == -1 && $root.settings['site.enabled_plugins'].indexOf('CourseCheckout') > -1">
+					<li role="presentation" class="navbar-btn">
+						  <span role="tab" data-toggle="tab"><strong>{{'Price'|translate}}</strong></span>
+					</li>
+					<li role="presentation" class="navbar-btn">
+						  <a ui-sref="CourseSearch({ price: 'Paid', page: 1})" ng-if="'Paid' !== searchingCoursePrice" title="{{'Paid'|translate}}" class="checkbox"><input type="checkbox" class=""  ng-checked="searchingCoursePrice == 'Paid'"/>{{'Paid'|translate}}</a>
+						  <a ui-sref="CourseSearch({ price: '', page: 1 })"  ng-if="'Paid' === searchingCoursePrice" title="{{'Paid'|translate}}" class="checkbox"><input type="checkbox" class=""  ng-checked="searchingCoursePrice == 'Paid'"/><strong>{{'Paid'|translate}}</strong></a>
+					</li>
+					<li role="presentation" class="navbar-btn">
+						  <a ui-sref="CourseSearch({ price: 'Free', page: 1 })" ng-if="'Free' !== searchingCoursePrice" title="{{'Free'|translate}}" class="checkbox"><input type="checkbox" class="" ng-checked="searchingCoursePrice == 'Free'" />{{'Free'|translate}}</a>
+						  <a ui-sref="CourseSearch({ price: '', page: 1 })" ng-if="'Free' === searchingCoursePrice" title="{{'Free'|translate}}" class="checkbox"><input type="checkbox" class="" ng-checked="searchingCoursePrice == 'Free'" /><strong>{{'Free'|translate}}</strong></a>
+					</li>
+				</ul>
+				<div ng-if="$root.settings['site.enabled_plugins'].indexOf('Subscriptions') == -1 && $root.settings['site.enabled_plugins'].indexOf('CourseCheckout') > -1" class="well-sm"></div>
+				<ul class="list-unstyled list-group-item-text" 
+					role="tablist">
+					<li role="presentation" class="navbar-btn">
+						  <span role="tab" data-toggle="tab"></i><strong> {{'All Categories'|translate}}</strong></span>
+					</li>
+					<li role="presentation" class="navbar-btn" ng-repeat="parentCategory in model.common.parentCategories.data">
+						  <a ui-sref="CourseSearch({ category_id: {{parentCategory.id}}, page: 1 })" ng-if="parentCategory.id !== searchingCourseCategory"   role="tab"  title="{{parentCategory.sub_category_name}}" class="checkbox"><input type="checkbox" class=""  ng-checked="parentCategory.id == searchingCourseCategory" value="parentCategory.id" />{{parentCategory.sub_category_name}}</a>
+						  <a ui-sref="CourseSearch({ category_id: '', page: 1})" ng-if="parentCategory.id === searchingCourseCategory"  role="tab" title="{{parentCategory.sub_category_name}}" class="checkbox"><input type="checkbox" class=""  ng-checked="parentCategory.id == searchingCourseCategory"  value="parentCategory.id"/><strong>{{parentCategory.sub_category_name}}</strong></a>
+					</li>
+				</ul>
+				<div class="well-sm"></div>
+				<ul class="list-unstyled list-group-item-text" 
+					role="tablist">
+					<li role="presentation" class="navbar-btn">
+						  <span role="tab" data-toggle="tab"><strong>{{'Instructional Level'|translate}}</strong></span>
+					</li>
+					<li role="presentation" class="navbar-btn" ng-repeat="InstructionLevels in model.InstructionLevels">
+						  <a ui-sref="CourseSearch({ instructionLevel:{{InstructionLevels.id}}, page: 1 })"  ng-if="InstructionLevels.id !== searchingInstructionLevel" title="{{InstructionLevels.name}}" class="checkbox"><input type="checkbox" class="" ng-checked="InstructionLevels.id == searchingInstructionLevel" value="InstructionLevels.id"/>{{InstructionLevels.name}}</a>
+						  <a ui-sref="CourseSearch({ instructionLevel:'', page: 1})"  ng-if="InstructionLevels.id === searchingInstructionLevel" title="{{InstructionLevels.name}}"  class="checkbox"><input type="checkbox" class="" ng-checked="InstructionLevels.id == searchingInstructionLevel" value="InstructionLevels.id"/><strong>{{InstructionLevels.name}}</strong></a>
+					</li>
+				</ul>
+				<div class="well-sm"></div>
+				<ul class="list-unstyled list-group-item-text" 
+					role="tablist">
+					<li role="presentation" class="navbar-btn">
+						  <span role="tab" data-toggle="tab"><strong>{{'Languages'|translate}}</strong></span>
+					</li>
+					<li role="presentation" class="navbar-btn" ng-repeat ="languages in model.languages">
+						  <a ui-sref="CourseSearch({ language:{{languages.id}}, page: 1 })" ng-if="languages.id !== searchingCourseLanguage" title="{{InstructionLevels.name}}" class="checkbox"><input type="checkbox" class=""  ng-checked="languages.id == searchingCourseLanguage" />{{languages.name}}</a>
+						  <a ui-sref="CourseSearch({ language:'', page: 1 })" ng-if="languages.id === searchingCourseLanguage" title="{{InstructionLevels.name}}" class="checkbox"><input type="checkbox" class=""  ng-checked="languages.id == searchingCourseLanguage" /><strong>{{languages.name}}</strong></a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-md-10 col-sm-8 col-xs-12"> 
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="tab1">
+						<h3 class="h1">{{'All Courses'|translate}}</h3>
+						<hr>
+						<div class="clearfix" ng-if="model.courseLength > 0">
+							<div class="btn-group col-sm-3 col-sm-6 col-xs-12">
+								<div class="dropdown">			
+									<a href="javascript:void(0)" ng-show="sortValue === 'popular'" title="{{'Popularity'|translate}}" data-toggle="dropdown" class="btn btn-default btn-sm" >{{'Popularity'|translate}}  &nbsp;<i class="fa fa-chevron-down text-muted"></i> </a>
+									<a href="javascript:void(0)" ng-show="sortValue === 'reviews'" title="{{'Reviews'|translate}}" data-toggle="dropdown" class="btn btn-default btn-sm" ng-if="$root.settings['site.enabled_plugins'].indexOf('RatingAndReview') > -1">{{'Reviews'|translate}}  &nbsp;<i class="fa fa-chevron-down text-muted"></i> </a>
+									<a href="javascript:void(0)" ng-show="sortValue === 'id' || !sortValue" title="{{'Newest'|translate}}" data-toggle="dropdown" class="btn btn-default btn-sm" >{{'Newest'|translate}}  &nbsp;<i class="fa fa-chevron-down text-muted"></i> </a>
+									<a href="javascript:void(0)" ng-if="$root.settings['site.enabled_plugins'].indexOf('Subscriptions') == -1  && $root.settings['site.enabled_plugins'].indexOf('CourseCheckout') > -1"  ng-show="sortValue === 'ASC'" title="{{'Price: Low to High'|translate}}" data-toggle="dropdown" class="btn btn-default btn-sm" >{{'Price: Low to High'|translate}}  &nbsp;<i class="fa fa-chevron-down text-muted"></i> </a>
+									<a href="javascript:void(0)" ng-if="$root.settings['site.enabled_plugins'].indexOf('Subscriptions') == -1  && $root.settings['site.enabled_plugins'].indexOf('CourseCheckout') > -1" ng-show="sortValue === 'DESC'" title="{{'Price: High to Low'|translate}}" data-toggle="dropdown" class="btn btn-default btn-sm" >{{'Price: High to Low'|translate}}  &nbsp;<i class="fa fa-chevron-down text-muted"></i> </a>
+									<a href="javascript:void(0)" ng-show="sortValue === 'featured'"  title="{{'Featured'|translate}}" data-toggle="dropdown" class="btn btn-default btn-sm" >{{'Featured'|translate}}  &nbsp;<i class="fa fa-chevron-down text-muted"></i> </a>
+									  <ul class="dropdown-menu">					
+										<li><a ui-sref="CourseSearch({ sort:'popular', page: 1 })" title="{{'Popularity'|translate}}">{{'Popularity'|translate}}</a></li>
+										<li><a ui-sref="CourseSearch({ sort:'reviews', page: 1 })" title="{{'Reviews'|translate}}"  ng-if="$root.settings['site.enabled_plugins'].indexOf('RatingAndReview') > -1">{{'Reviews'|translate}}</a></li>
+										<li><a ui-sref="CourseSearch({ sort:'id', page: 1 })" title="{{'Newest'|translate}}">{{'Newest'|translate}}</a></li>
+										<li ng-if="$root.settings['site.enabled_plugins'].indexOf('Subscriptions') == -1  && $root.settings['site.enabled_plugins'].indexOf('CourseCheckout') > -1"><a ui-sref="CourseSearch({ sort:'ASC', page: 1 })" title="{{'Price: Low to High'|translate}}">{{'Price: Low to High'|translate}}</a></li>
+										<li ng-if="$root.settings['site.enabled_plugins'].indexOf('Subscriptions') == -1  && $root.settings['site.enabled_plugins'].indexOf('CourseCheckout') > -1"><a ui-sref="CourseSearch({ sort:'DESC', page: 1 })" title="{{'Price: High to Low'|translate}}">{{'Price: High to Low'|translate}}</a></li>
+										<li><a ui-sref="CourseSearch({ sort:'featured', page: 1 })" title="{{'Featured'|translate}}">{{'Featured'|translate}}</a></li>
+									  </ul>
+								</div>
+							</div>
+						</div>
+						<div class="navbar-btn list-group-item-heading"></div>
+						<ul class="clearfix row list-unstyled course-listing">
+							<li class="col-md-4 col-sm-6 col-xs-12 navbar-btn list-group-item-heading" ng-repeat="courses in model.courses.data" ng-if="model.courseLength > 0">
+								<div class="navbar-btn clearfix panel searchPanelHeight"> 
+									<span class="show pr"> 
+									<!-- course image when is_from_mooc_affiliate false -->
+									 <a href="#!/course/{{courses.id}}/{{courses.slug}}" ng-if="courses.image_hash && courses.is_from_mooc_affiliate !== 1" ><span class="course_thumb_img"><img animate-visible="{{ImgLazyLoad.AnimateVisible}}" animate-speed="{{ImgLazyLoad.AnimateSpeed}}" lazy-src="{{$root.site_url}}img/large_medium_thumb/Course/{{courses.image_hash}}" alt="[Image: {{courses.title}}]" title="{{courses.title}}"/></span> </a>
+									 
+									 <a href="#!/course/{{courses.id}}/{{courses.slug}}" ng-if="!courses.image_hash && courses.is_from_mooc_affiliate !== 1" >
+									  <span class="course_thumb_img"><img animate-visible="{{ImgLazyLoad.AnimateVisible}}" animate-speed="{{ImgLazyLoad.AnimateSpeed}}" lazy-src="{{$root.site_url}}img/large_medium_thumb/Course/0.default.jpg" alt="[Image: {{courses.title}}]" title="{{courses.title}}"/></span></a>
+									 
+									<!-- course image when is_from_mooc_affiliate true -->			
+									 <a href="#!/course/{{courses.id}}/{{courses.slug}}" ng-if="courses.course_image && courses.is_from_mooc_affiliate === 1"  >
+									  <span class="mooc_thumb_img mooc_search_img"><img ng-if="courses.course_image !== ''" animate-visible="{{ImgLazyLoad.AnimateVisible}}" animate-speed="{{ImgLazyLoad.AnimateSpeed}}" lazy-src="{{courses.course_image}}" alt="[Image: {{courses.title}}]" title="{{courses.title}}"/></span></a>
+									 		 
+									 <a href="#!/course/{{courses.id}}/{{courses.slug}}" ng-if="!courses.course_image && courses.is_from_mooc_affiliate === 1"  >
+									  <span class="course_thumb_img"><img animate-visible="{{ImgLazyLoad.AnimateVisible}}" animate-speed="{{ImgLazyLoad.AnimateSpeed}}" lazy-src="{{$root.site_url}}img/large_medium_thumb/Course/0.default.jpg" alt="[Image: {{courses.title}}]" title="{{courses.title}}"/></span></a>
+									
+									</span>
+									<div class="caption col-xs-12">
+										<div class="row">
+											<a href="#!/course/{{courses.id}}/{{courses.slug}}" class="h5 htruncate-m3 text-primary navbar-btn" 
+											title="{{courses.title}}"><strong>{{courses.title}}</strong></a>
+											<div class="navbar-btn"></div> 
+											<div class="cleafix">
+												<div class="show media">
+												<profile-image class="pull-left" user-image-hash='courses.user_image_hash' user-display-name='{{courses.displayname}}' user-profile-id='courses.user_id' ng-if="courses && $root.settings['site.enabled_plugins'].indexOf('Instructor') > -1" user-profile-thumb='micro_thumb' ></profile-image>
+												<profile-name class=" media-body" user-display-name='courses.displayname' user-profile-id='courses.user_id' user-name-class='htruncate-m1' ng-if="courses && $root.settings['site.enabled_plugins'].indexOf('Instructor') > -1 && $root.settings['site.enabled_plugins'].indexOf('CourseCheckout') == -1"></profile-name>
+												<profile-name class="row media-body col-xs-7" user-display-name='courses.displayname' user-profile-id='courses.user_id' user-name-class='htruncate-m1' ng-if="courses && $root.settings['site.enabled_plugins'].indexOf('Instructor') > -1 && $root.settings['site.enabled_plugins'].indexOf('CourseCheckout') > -1"></profile-name>
+												<span class="pull-right text-success h4  list-group-item-heading list-group-item-text"><amount-display amount='{{courses.price}}' fraction='0' is-course-price='yes'></amount-display></span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+							<div class="text-center" ng-if="model.courseLength === 0" >	
+								<h2 class="text-warning" ng-if="!noFiltersUsed">{{'Your search did not match any courses.'|translate}}</h2>
+								<h2 class="text-warning" ng-if="noFiltersUsed">{{'No courses available.'|translate}}</h2>
+							</div>
+							<div class="text-center" ng-if="model.courseLength === 0 && !searchingText" >
+								
+							</div>
+						</ul>
+						<div class="paging clearfix text-center" ng-show="_metadata.total_records > 0">
+							<pagination total-items="_metadata.total_records"  ng-model="currentPage" ng-change="paginate('#search-results')" max-size="_metadata.maxSize" boundary-links="true" num-pages="_metadata.noOfPages" items-per-page="_metadata.limit" first-text="{{'First'|translate}}" last-text="{{'Last'|translate}}" next-text="{{'Next'|translate}}" previous-text="{{'Previous'|translate}}"></pagination>
+						</div>
+					</div>
+				</div>
+			</div> 
+		</div>
+	</div>
+</section>
+<section ng-show="model.loading === false">
+	<div banner position="bottomBanner" ng-if="$root.settings['site.enabled_plugins'].indexOf('Banner') > -1"></div>
+</section>
+</main>
+<!--main section End-->
+

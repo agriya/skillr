@@ -1,0 +1,43 @@
+<div class="container">
+	<div class="text-center"><h3>{{'Transactions'|translate}}</h3></div>
+	<div class="well-sm"></div>
+	<div class="col-xs-12" ng-if="model.user_available_balance">
+		<div class="pull-right alert alert-success">
+			{{'Available Balance: '|translate}}<strong><amount-display amount='{{model.user_available_balance}}' fraction='2' is-course-price='no'></amount-display></strong>
+		</div>
+	</div>
+	<div class="col-xs-12" id="transactions_list">
+		<table class="table table-striped">
+			<thead>
+			<tr>	
+				<th class="text-center">{{'Date'|translate}}</th>
+				<th class="text-center">{{'Description'|translate}}</th>
+				<th class="text-center">{{'Credit' | translate}}</th>
+				<th class="text-center">{{'Debit' | translate}}</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr  ng-repeat="transactionsList in model.transactionsList">
+				<td class="text-center">{{transactionsList.created | timeago}}</td>	
+				<td class="text center" ng-if="currentuserId === transactionsList.user_id && transactionsList.classname === 'course_users'" translate="{{transactionsList.buyer_message}}" translate-values="{ BUYER: transactionsList.displayname, COURSE: transactionsList.course_title }"></td>
+				<td class="text center" ng-if="currentuserId === transactionsList.teacher_user_id"  translate="{{transactionsList.teacher_message}}" translate-values="{ BUYER: transactionsList.displayname, COURSE: transactionsList.course_title }"></td>				
+				<td class="text center" ng-if="currentuserId === transactionsList.user_id && transactionsList.classname === 'user_cash_withdrawals'" translate="{{transactionsList.buyer_message}}"></td>				
+				<td class="text-right"><amount-display amount='{{transactionsList.amount - transactionsList.site_commission_amount}}' fraction='2' is-course-price='no' ng-if="transactionsList.transaction_type_id === '1' && currentuserId === transactionsList.teacher_user_id"></td>
+				<td class="text-right"><amount-display amount='{{transactionsList.amount}}' fraction='2' is-course-price='no' ng-if="transactionsList.transaction_type_id === '1' && currentuserId !== transactionsList.teacher_user_id"></td>
+			</tr>
+			<tr ng-if="!model.transactionsList.length">
+			   <td colspan="4" class="text-center">
+				<span class="hor-space">{{'No Record Found' |translate}}</span>
+			   </td>
+			</tr>
+			</tbody>
+		</table>
+		<div class="paging clearfix text-center" ng-show="_metadata.total_records > 0">
+			<pagination total-items="_metadata.total_records"  ng-model="currentPage" ng-change="paginate('#transactions_list')" max-size="_metadata.maxSize" boundary-links="true" num-pages="_metadata.noOfPages" items-per-page="_metadata.limit" first-text="{{'First'|translate}}" last-text="{{'Last'|translate}}" next-text="{{'Next'|translate}}" previous-text="{{'Previous'|translate}}"></pagination>
+		</div>
+	</div>
+	<!-- transaction messages -->
+   <span class="ng-hide" translate>You bought course - {{COURSE}}</span>
+   <span class="ng-hide" translate>{{BUYER}} bought course - {{COURSE}}</span>
+   <span class="ng-hide" translate>{{BUYER}} bought your course - {{COURSE}}</span>
+</div>

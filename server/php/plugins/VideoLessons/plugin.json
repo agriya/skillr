@@ -1,0 +1,9 @@
+{
+	"name": "VideoLessons", 
+	"class": "fa fa-2x fa-play-circle",
+	"description": "By enabling this plugin, instructor can add video lessons into their courses.",
+	"dependencies": "Courses",
+	"module_id": "",
+	"module_hash": "",
+	"display_order": "2"
+}

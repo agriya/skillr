@@ -1,0 +1,126 @@
+<a class="btn btn-primary navbar-btn size-sm" title="{{'Add Video'|translate}}" ng-class="{'active' :showForm}" ng-click="uploadConfigure()" ng-if="action === 'add'" >
+<i class="fa fa-play-circle-o"></i>&nbsp;<span class="hidden-xs">{{label}}</span></a>
+<div ng-if="action === 'add' && showForm" class="col-xs-12">
+	<h4 class="text-muted navbar-btn">{{'Add Video'|translate}}</h4>	
+	<form class="col-lg-12 form-horizontal" name="add_video" ng-submit="addVideoDetails($event);add_video.$setPristine()">
+		<div class="row">
+			<div id="row-title" class="form-group has-feedback" ng-class="add_video.name.$dirty ? (add_video.name.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="name" class="col-sm-3 control-label text-muted">{{'Title'|translate}}&nbsp;*&nbsp;</label>
+				<div  class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">
+					<input type="text" ng-model="model.onlineVideoLesson.name" class="form-control"  name="name" required="" maxlength="50" />
+					<span ng-show="add_video.name.$dirty" class="glyphicon form-control-feedback" ng-class="add_video.name.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-description" class="form-group has-feedback" ng-class="add_video.description.$dirty ? (add_video.description.$valid ? 'has-success' : 'has-error') : ''">
+					<label for="description" class="col-sm-3 control-label text-muted">{{'Description'|translate}}</label>
+					<div class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">					
+						<textarea type="text" size="10" ng-model="model.onlineVideoLesson.description" name="description" class="form-control" maxlength="150"></textarea>
+					</div>
+			</div>
+			<div id="row-title" class="form-group has-feedback" ng-class="add_video.attachment.$dirty ? (add_video.attachment.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="attachment" class="col-sm-3 control-label text-muted">{{'Video'|translate}}&nbsp;*&nbsp;</label>
+				<div  class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">
+					<div class="alert alert-warning">
+						<p><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{'Should be 720p minimum with clear lighting, composition, and a steady camera exported in 16:9 format.'|translate}}</p>
+						<p ng-if="$root.settings['video.max_size_to_allow_video_file'] !== ''"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{'File size should be lesser than'|translate}} {{$root.settings['video.max_size_to_allow_video_file'] | bytes}}</p>
+					</div>
+					<input type="file" id="inputTaskAttachments" name="attachment" onchange="angular.element(this).scope().uploadVideo(this.files)" required="" ng-model="model.onlineVideoLesson.filename"/>
+					<div class="help-block">
+						<p>{{'Allowed extensions: mov, mpeg4, avi, wmv, mpeg, flv, 3gpp, webm, mp4'|translate}}</p>						
+					</div>
+					<span ng-show="add_video.attachment.$dirty" class="glyphicon form-control-feedback" ng-class="add_video.attachment.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-is_preview" class="form-group has-feedback" ng-class="add_video.is_preview.$dirty ? (add_video.is_preview.$valid ? 'has-success' : 'has-error') : ''">
+					<label for="is_preview" class="col-sm-3 control-label text-muted"></label>
+					<div class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">	
+						<div class="">
+							<label class="text-muted"><input type="checkbox" ng-model="model.onlineVideoLesson.is_preview" id="is_preview" ng-true-value="1" ng-false-value="0">
+							 &nbsp; {{'Preview Lesson?'|translate}} </label>
+						</div>											
+						<span class="help-block"><i class="fa fa-info-circle text-info "></i> &nbsp; {{'Students can view this lesson without pay'|translate}}.</span>
+					</div>					
+			</div>
+			<div id="row-is_active" class="form-group has-feedback" ng-class="add_video.is_active.$dirty ? (add_video.is_active.$valid ? 'has-success' : 'has-error') : ''">
+					<label for="is_active" class="col-sm-3 control-label text-muted"></label>
+					<div class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">	
+						<div class="">
+							<label class="text-muted"><input type="checkbox" ng-model="model.onlineVideoLesson.is_active" id="is_active" ng-true-value="true" ng-false-value="false">
+							 &nbsp;{{'Active?'|translate}}</label>
+						</div>															
+					</div>					
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+					<button ng-hide="disableSave" type="submit" ng-disabled="disableButton" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> {{'Submit'|translate}}</button>
+					<button ng-hide="!disableSave" ng-disabled="true" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> {{'Validating'|translate}} <span><i class="fa fa-spinner fa-pulse fa-lg"></i></span></button>
+					&nbsp;{{'or'|translate}} &nbsp;
+					<a href="#" ng-click="hideForm($event)" class="text-primary">{{'Cancel'|translate}}</a>
+				</div>
+			</div>
+			
+		</div>
+	</form>	
+</div>
+
+<div ng-if="action === 'edit' && editForm">
+	<h4 class="text-muted navbar-btn">{{'Edit Video'|translate}}</h4>	
+	<form class="col-lg-12 form-horizontal" name="edit_video" ng-submit="editVideodetails($event);edit_video.$setPristine()">
+		<div class="row">
+			<div id="row-title" class="form-group has-feedback" ng-class="edit_video.name.$dirty ? (edit_video.name.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="name" class="col-sm-3 control-label text-muted">{{'Title'|translate}}&nbsp;*&nbsp;</label>
+				<div  class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">
+					<input type="text" ng-model="model.editOnlineVideoLesson.lesson_name" class="form-control"  name="name" required="" maxlength="50" />
+					<span ng-show="edit_video.name.$dirty" class="glyphicon form-control-feedback" ng-class="edit_video.name.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-description" class="form-group has-feedback" ng-class="edit_video.description.$dirty ? (edit_video.description.$valid ? 'has-success' : 'has-error') : ''">
+					<label for="description" class="col-sm-3 control-label text-muted">{{'Description'|translate}}</label>
+					<div class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">					
+						<textarea type="text" size="10" ng-model="model.editOnlineVideoLesson.lesson_description" name="description" class="form-control" maxlength="150"></textarea>
+					</div>
+			</div>
+			<div id="row-title" class="form-group has-feedback" ng-class="edit_video.attachment.$dirty ? (edit_video.attachment.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="attachment" class="col-sm-3 control-label text-muted">Video&nbsp;*&nbsp;</label>
+				<div  class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">
+					<div class="alert alert-warning">
+						<p><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{'Should be 720p minimum with clear lighting, composition, and a steady camera exported in 16:9 format.'|translate}}</p>
+						<p ng-if="$root.settings['video.max_size_to_allow_video_file'] !== ''"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{'File size should be lesser than'|translate}} {{$root.settings['video.max_size_to_allow_video_file'] | bytes}}</p>
+					</div>
+					<input type="file" id="" name="attachment" onchange="angular.element(this).scope().uploadVideo(this.files)" ng-model="model.editOnlineVideoLesson.filename" />					
+					<div class="help-block">
+						<p>{{'Allowed extensions: mov, mpeg4, avi, wmv, mpeg, flv, 3gpp, webm, mp4'|translate}}</p>						
+					</div>
+					<span ng-show="edit_video.attachment.$dirty" class="glyphicon form-control-feedback" ng-class="edit_video.attachment.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-is_preview" class="form-group has-feedback" ng-class="edit_video.is_preview.$dirty ? (edit_video.is_preview.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="is_preview" class="col-sm-3 control-label text-muted"></label>
+				<div class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">	
+					<div class="">
+						<label class="text-muted"><input type="checkbox" ng-model="model.editOnlineVideoLesson.is_preview" id="is_preview" ng-true-value="1" ng-false-value="0">
+						 &nbsp; {{'Preview Lesson?'|translate}}</label>
+					</div>											
+					<span class="help-block"><i class="fa fa-info-circle text-info"></i> &nbsp; {{'Students can view this lesson without pay'|translate}}.</span>
+				</div>					
+			</div>
+			<div id="row-is_active" class="form-group has-feedback" ng-class="edit_video.is_active.$dirty ? (edit_video.is_active.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="is_active" class="col-sm-3 control-label text-muted"></label>
+				<div class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">	
+					<div class="">
+						<label class="text-muted"><input type="checkbox" ng-model="model.editOnlineVideoLesson.is_active" id="is_active" ng-true-value="true" ng-false-value="false">
+						 &nbsp;{{'Active?'|translate}}</label>
+					</div>											
+					
+				</div>					
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+					<button ng-hide="disableSave" ng-disabled="disableButton" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> {{'Submit'|translate}}</button>
+					<button ng-hide="!disableSave" ng-disabled="true" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> {{'Validating'|translate}} <span><i class="fa fa-spinner fa-pulse fa-lg"></i></span></button>
+				</div>
+			</div>
+			
+		</div>
+	</form>	
+</div>

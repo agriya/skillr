@@ -1,0 +1,39 @@
+<section class="clearfix" ng-show="model.loading === false">
+	<div class="container">	
+		<course-navbar></course-navbar>		
+		<div class="">
+		<div class="tab-content col-sm-8 col-xs-12 col-md-10 clearfix " ng-if="model.loading === false">	
+			<div class="navbar_default tab-pane active" id="price_coupons">
+				<div class="panel">					
+					<div class="list-header text-center">
+						<h3 class="text-default">{{'Price'|translate}}</h3>
+						<span class="text-default">{{'Set the price of your course.'|translate}}</span>						
+					</div>					
+				</div>	
+				<div ng-if="$root.settings['site.enabled_plugins'].indexOf('Subscriptions') === -1 && $root.settings['site.enabled_plugins'].indexOf('CourseCheckout') > -1">
+				<form role="form" class="form-horizontal panel clearfix" name="manage_course_price" ng-submit='model.priceSave()'>			
+					<div class="form-group navbar-btn" ng-class="{ 'has-error' : manage_course_price.price.$invalid && manage_course_price.price.$dirty }">
+						<label class="col-md-3 col-sm-3 control-label" for="course_price">{{'Price'|translate}}<span ng-if="$root.settings['site.currency_symbol'] !== ''">&nbsp;({{$root.settings['site.currency_symbol']}})</span>
+						<span ng-if="$root.settings['site.currency_symbol'] === ''">&nbsp;({{$root.settings['site.currency_code']}})</span></label>
+						<div class="col-md-5 col-sm-9">
+							<input type="number" class="form-control" name="price" id="course_price" placeholder="{{'Price'|translate}}" ng-model="model.coursePrice.price" min=0 max="{{$root.settings['course.max_course_fee']}}" required>						
+							<div class="help-block text-danger" ng-if="manage_course_price.price.$dirty" ng-messages="manage_course_price.price.$error">
+								<div ng-message="max">{{'You can set price upto '|translate}} <span><amount-display amount="{{$root.settings['course.max_course_fee']}}" fraction='0' is-course-price='no'></amount-display></span></div>
+							</div>						
+						</div>
+					</div>
+					<div class="well well-sm clearfix">
+						<div class="pull-right">
+							<label class="sr-only" for="submit">{{'Save'|translate}}</label>
+							<input type="submit" class="btn btn-primary btn-lg" id="submit" value="{{'Save'|translate}}" >
+						</div>
+					</div>
+				</form>
+				</div>
+				<div class="well-lg panel text-center clearfix" ng-if="$root.settings['site.enabled_plugins'].indexOf('Subscriptions') === -1 && $root.settings['site.enabled_plugins'].indexOf('CourseCheckout') === -1">{{'Site is not enabled any payment option. So this course will be free access.' | translate}}
+				</div>
+			</div>	
+		</div>
+	  </div>
+	</div>
+</section>

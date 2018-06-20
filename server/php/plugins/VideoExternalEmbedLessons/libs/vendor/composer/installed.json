@@ -1,0 +1,44 @@
+[
+    {
+        "name": "dereuromark/media-embed",
+        "version": "0.1.0",
+        "version_normalized": "0.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/dereuromark/MediaEmbed.git",
+            "reference": "e103332b2e6aa68630f9000d9e58663429b9f0b2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/dereuromark/MediaEmbed/zipball/e103332b2e6aa68630f9000d9e58663429b9f0b2",
+            "reference": "e103332b2e6aa68630f9000d9e58663429b9f0b2",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">5.3.0"
+        },
+        "time": "2015-03-16 18:57:56",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Mark Scherer",
+                "email": "euromark@web.de"
+            }
+        ],
+        "description": "A PHP library to deal with all those media services around, parsing their URLs and displaying their audios/videos.",
+        "keywords": [
+            "embed",
+            "media"
+        ]
+    }
+]

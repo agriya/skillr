@@ -1,0 +1,42 @@
+<div class="grid_view" ng-show ="category_view_type =='grid'">
+	<section>
+		<div class="container">
+		<div class="row">
+		  <div class="col-xs-12 navbar-btn">
+			<ul class="clearfix list-unstyled navbar-btn">
+			  <li class="col-sm-4 col-lg-3 col-xs-12" ng-repeat="courses in model.courses.data">
+				<div class="panel"> 
+					<course-wishlist course-wishlist='courses' wishlist-label='Wishlist' wishlisted-label='Wishlisted' wishlist-type='onlyHeart' ng-if="model.courses && $root.settings['site.enabled_plugins'].indexOf('CourseWishlist') > -1"></course-wishlist>			 					
+					<!-- course image when is_from_mooc_affiliate false -->			
+					<a ng-if="courses.image_hash && courses.is_from_mooc_affiliate !== 1" href="#!/course/{{courses.id}}/{{courses.slug}}" title="{{courses.title}}"> 
+						<img ng-src="{{$root.site_url}}img/medium_thumb/Course/{{courses.image_hash}}" alt="[Image: {{courses.title}}]" title="{{courses.title}}" class="img-responsive" />
+					</a>	
+					<a ng-if="!courses.image_hash && courses.is_from_mooc_affiliate !== 1" href="#!/course/{{courses.id}}/{{courses.slug}}" title="{{courses.title}}"> 
+						<img ng-src="{{$root.site_url}}img/medium_thumb/Course/0.default.jpg" alt="[Image: {{courses.title}}]" title="{{courses.title}}" class="img-responsive" />
+					</a>
+					<!-- course image when is_from_mooc_affiliate true -->		
+					<a ng-if="courses.course_image && courses.is_from_mooc_affiliate === 1"  href="#!/course/{{courses.id}}/{{courses.slug}}" title="{{courses.title}}"> 
+						<img ng-src="{{courses.course_image}}" alt="[Image: {{courses.title}}]" title="{{courses.title}}" class="img-responsive" />
+					</a>
+					
+					<a ng-if="!courses.course_image && courses.is_from_mooc_affiliate === 1" href="#!/course/{{courses.id}}/{{courses.slug}}" title="{{courses.title}}"> 
+						<img ng-src="{{$root.site_url}}img/medium_thumb/Course/0.default.jpg" alt="[Image: {{courses.title}}]" title="{{courses.title}}" class="img-responsive" />
+					</a>
+					
+				  <div class="panel-body">
+					<h4> <a href="#!/course/{{courses.id}}/{{courses.slug}}" title="{{courses.title}}" class="htruncate-m2 text-muted">{{courses.title}}</a></h4>
+					<p ng-if="$root.settings['site.enabled_plugins'].indexOf('Instructor') > -1">{{'By'|translate}}  <a href="#!/course/{{courses.id}}/{{courses.slug}}" title="{{courses.displayname}}" class="text-muted"><profile-name  user-display-name='courses.displayname'  user-profile-id='courses.user_id' ng-if='model.courses'></profile-name></a></p>
+					<div><a href="#!/course/{{courses.id}}/c=CDFGH" title="{{}}{{'Enrolled'| translate}}" class="text-muted h6"><i class="fa fa-group fa-lg"></i> {{courses.course_user_count}} {{'Enrolled'| translate}}</a> 
+					<span class="pull-right text-success h4  list-group-item-heading list-group-item-text"><strong><amount-display amount='{{courses.price}}' fraction='0' is-course-price='yes'></amount-display></strong></span>
+					</div>
+				  </div>
+				</div>
+			  </li>
+			</ul>    
+		</div>
+		</div>
+	</section>
+ </div> 
+<div class="list_view" ng-show ="category_view_type =='list'">
+
+</div>

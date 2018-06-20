@@ -1,0 +1,28 @@
+<div class="">
+	<div ng-if="model.courseFeedback.course_user_feedback_count > 0" class="navbar-btn" class="reviews" id="reviews">	
+		<strong class="ng-binding">{{'Reviews'|translate}}</strong>
+		<ul class="list-unstyled navbar-btn course-list">
+			<li ng-repeat="feedbacks in model.courseFeedback">
+				<div class="media well-sm">
+					<div class="navbar-left">
+					 <profile-image image-type ='imagecircle' user-image-hash='feedbacks.image_hash' user-display-name='{{feedbacks.displayname}}' user-profile-id='feedbacks.user_id' user-profile-thumb='medium_thumb' ng-if='feedbacks'></profile-image>
+					</div>
+					<div class="media-body well-sm"> 	
+						<profile-name user-profile-name='feedbacks.user_id' ng-if='feedbacks'></profile-name>
+						<p> 
+						<rating-stars average-rating='{{feedbacks.rating}}' ng-if="model.courseFeedback && $root.settings['site.enabled_plugins'].indexOf('RatingAndReview') > -1" ></rating-stars>
+						<span>{{feedbacks.created|timeago}}</span>
+						</p>
+						<p>
+						{{feedbacks.feedback}}
+						</p>
+					</div>		
+				</div>
+				<hr/>
+			</li>
+		</ul>
+	</div>	
+	<div class="paging clearfix text-center" ng-show="_metadata.total_records > feedbackLimit">
+		<pagination total-items="_metadata.total_records"  ng-model="currentPage" ng-change="paginate()" max-size="_metadata.maxSize" boundary-links="true" num-pages="_metadata.noOfPages" items-per-page="_metadata.limit" first-text="{{'First'|translate}}" last-text="{{'Last'|translate}}" next-text="{{'Next'|translate}}" previous-text="{{'Previous'|translate}}"></pagination>
+	</div>
+</div>

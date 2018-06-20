@@ -1,0 +1,22 @@
+<div class="container"><!-- addCourse container starts -->
+	<form role="form" class="form-horizontal clearfix" name="addCourse" ng-submit="model.save()"><!-- addCourse form starts -->
+		<div class="clearfix well-lg"></div>
+		<div class="clearfix well-lg"></div>
+		<h3 class="text-center">{{'Ready to Create a Course'|translate}}</h3>
+		<h5 class="text-center">{{'Start by entering the title of a course:'|translate}}</h5>
+		<div class="clearfix well-sm"></div>
+		<div class="clearfix form-group">
+			<div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+				<input type="text" class="form-control" id="course_title" placeholder="{{'e.g. Learn Photoshop CC from scratch'|translate}}" ng-model="model.course.title" required>
+				<!--<span class="help-block">Please Enter Title</span>-->
+			</div>
+		</div>
+		<div class="clearfix">
+			<div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+				<input type="submit" class="btn btn-primary btn-block"  ng-disabled="disableButton" id="submit2" value="{{'Create Course'|translate}}">
+			</div>
+        </div>
+	</form><!-- addCourse form end -->
+	<div class="clearfix well-lg"></div>
+	<div class="clearfix well-lg"></div>
+</div><!-- addCourse container end -->

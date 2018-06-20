@@ -1,0 +1,66 @@
+      <section id="wishlist-courses">
+      <div class="container">
+        <div class="col-xs-12">
+          <div class="col-sm-3 navbar-btn nav">
+            <h3 class="h1 navbar-btn list-group-item-text">{{'My Courses'|translate}}</h3>
+          </div>
+          <div class="col-sm-6 navbar-btn">
+            <ul class="list-inline navbar-btn nav nav-tabs" role="tablist">
+              <li class=""><a href="#!/my-courses/learning" title="{{'Learning'|translate}}" aria-controls="learning" role="tab">{{'Learning'|translate}}</a></li>
+              <li class="active" ng-if="$root.settings['site.enabled_plugins'].indexOf('CourseWishlist') > -1"><a href="#!/my-courses/wishlist" title="{{'Wishlist'|translate}}" aria-controls="wishlist" role="tab" >{{'Wishlist'|translate}}</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-3 h1 hidden-xs">
+           
+          </div>
+         </div>
+      </div>
+       <hr class="list-group-item-text list-group-item-heading">
+    </section>
+	<section>
+      <div class="container">
+       <div class="col-xs-12">	   
+         <div class="col-xs-12">		
+            <div class="tab-content row navbar-btn">    			
+              <div id="wishlist" class="tab-pane active" role="tabpanel">               
+                <ul class="clearfix list-unstyled navbar-btn row course-listing">
+                  <li class="col-md-3 col-sm-4 col-xs-12" ng-repeat="wishlistCourses in model.wishlistCourses.data" ng-if="$root.settings['site.enabled_plugins'].indexOf('CourseWishlist') > -1" id="Wishlist_elements_{{wishlistCourses.id}}">
+                    <div class="panel dashboardPanelHeight">
+						<!-- course image when is_from_mooc_affiliate false -->
+						<a ng-if="wishlistCourses.image_hash && wishlistCourses.is_from_mooc_affiliate !== 1" href="#!/course/{{wishlistCourses.course_id}}/{{wishlistCourses.course_slug}}" title="{{wishlistCourses.course_title}}"><span class="course_thumb_img"><img animate-visible="{{ImgLazyLoad.AnimateVisible}}" animate-speed="{{ImgLazyLoad.AnimateSpeed}}" lazy-src="{{$root.site_url}}img/medium_thumb/Course/{{wishlistCourses.image_hash}}" alt="[Image: {{wishlistCourses.course_title}}]" title="{{wishlistCourses.course_title}}" /></span></a>
+						<a ng-if="!wishlistCourses.image_hash && wishlistCourses.is_from_mooc_affiliate !== 1" href="#!/course/{{wishlistCourses.course_id}}/{{wishlistCourses.course_slug}}" title="{{wishlistCourses.course_title}}"><span class="course_thumb_img"><img animate-visible="{{ImgLazyLoad.AnimateVisible}}" animate-speed="{{ImgLazyLoad.AnimateSpeed}}" lazy-src="{{$root.site_url}}img/medium_thumb/Course/0.default.jpg" alt="[Image: {{wishlistCourses.course_title}}]" title="{{wishlistCourses.course_title}}"/></span></a>  
+						
+						<!-- course image when is_from_mooc_affiliate true -->
+						<a ng-if="wishlistCourses.course_image && wishlistCourses.is_from_mooc_affiliate === 1" href="#!/course/{{wishlistCourses.course_id}}/{{wishlistCourses.course_slug}}" title="{{wishlistCourses.course_title}}"><span class="mooc_thumb_img mooc_dashboard_img"><img animate-visible="{{ImgLazyLoad.AnimateVisible}}" animate-speed="{{ImgLazyLoad.AnimateSpeed}}" lazy-src="{{wishlistCourses.course_image}}" alt="[Image: {{wishlistCourses.course_title}}]" title="{{wishlistCourses.course_title}}" /></span></a>  						
+						<a ng-if="!wishlistCourses.course_image && wishlistCourses.is_from_mooc_affiliate === 1" href="#!/course/{{wishlistCourses.course_id}}/{{wishlistCourses.course_slug}}" title="{{wishlistCourses.course_title}}"><span class="course_thumb_img"><img animate-visible="{{ImgLazyLoad.AnimateVisible}}" animate-speed="{{ImgLazyLoad.AnimateSpeed}}" lazy-src="{{$root.site_url}}img/medium_thumb/Course/0.default.jpg" alt="[Image: {{wishlistCourses.course_title}}]" title="{{wishlistCourses.course_title}}"/></span></a>  
+						
+						<div class="pull-right dropdown action-btn">
+							<a href="javascript:void(0);" title="{{'Options'|translate}}" class="btn btn-default btn-sm" data-toggle="dropdown"><i class="fa fa-ellipsis-v fa-lg"></i></a> 
+							<ul class="dropdown-menu">
+							  <li><a href="javascript:void(0);" title="{{'Unfavourite'|translate}}" ng-click="model.deleFavourites(model.wishlistCourses.data[$index].id, $event)" class="text-muted">{{'Unfavourite'|translate}}</a></li>
+							</ul>
+						</div>
+                      <div class="panel-body"> <a href="#!/course/{{wishlistCourses.course_id}}/{{wishlistCourses.course_slug}}"  title="{{wishlistCourses.course_title}}" class="text-muted htruncate-m2"><strong>{{wishlistCourses.course_title}}</strong> </a>
+                        <p ng-if="$root.settings['site.enabled_plugins'].indexOf('Instructor') > -1"><profile-name user-profile-id='wishlistCourses.teacher_user_id' ng-if='wishlistCourses' user-display-name='wishlistCourses.teacher_name' user-name-class='text-muted' ></profile-name> </p>
+                        <div class="clearfix">
+						  <rating-stars average-rating='{{wishlistCourses.average_rating}}' ng-if="model.wishlistCourses && $root.settings['site.enabled_plugins'].indexOf('RatingAndReview') > -1" ></rating-stars>
+						</div>
+                        <div class="clearfix">
+						<span class="text-muted initialism text-warning"><amount-display amount='{{wishlistCourses.price}}' fraction='0' is-course-price='yes'></amount-display></span>
+                          <div class="well-sm"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>                 
+                </ul>
+              </div>
+			  <div  class="text-center" ng-show="_metadata.total_records === 0"><h3 class="text-muted">{{'No records found'|translate}}</h3></div>
+			  <div class="well-sm"></div>
+			  <div class="paging clearfix text-center" ng-show="_metadata.total_records > 0">
+				<pagination total-items="_metadata.total_records"  ng-model="currentPage" ng-change="paginate('#wishlist-courses')" max-size="_metadata.maxSize" boundary-links="true" num-pages="_metadata.noOfPages" items-per-page="_metadata.limit" first-text="{{'First'|translate}}" last-text="{{'Last'|translate}}" next-text="{{'Next'|translate}}" previous-text="{{'Previous'|translate}}"></pagination>
+			  </div>
+            </div>
+          </div>
+       </div>
+      </div>
+    </section>

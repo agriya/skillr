@@ -1,0 +1,54 @@
+	<div class="h2 list-group-item-heading">
+		<strong><amount-display amount='{{model.coursePrice}}' fraction='2' is-course-price='yes'></amount-display></strong>
+	</div>
+	<!-- if both payment and cart plugin && subscription plugin disabled , now all courses will be free of access and course should not be mooc affliated -->
+	<div ng-if="$root.settings['site.enabled_plugins'].indexOf('Subscriptions') === -1 && $root.settings['site.enabled_plugins'].indexOf('CourseCheckout') === -1 && !model.btnLink && ($root.auth.id !== model.userId)">
+		<a href="#" ng-click ="model.startLearnCourse($event, paidStatus)" title="{{'Start Learning Now'|translate}}" class="btn btn-lg btn-primary">{{'Start Learning Now'|translate}}</a>
+	</div>
+	<!-- if subscription plugin enabled, it allows courses based on instructions levels based on subscriptions and course should not be mooc affliated -->	
+	<div ng-if="$root.settings['site.enabled_plugins'].indexOf('Subscriptions') > -1 && !model.btnLink && ($root.auth.id !== model.userId)">
+		<div ng-if='!$root.isAuth || subscriptionStatus === false'>
+			<a href="#!/subscribe/plans" title="{{'Start Learning Now'|translate}}" class="btn btn-lg btn-primary" >{{'Start Learning Now'| translate}}</a>
+		</div>	
+		<div ng-if='$root.isAuth && subscriptionStatus'>
+			<div  class="navbar-btn" ng-show="course_level_access">					
+				<a href="#" ng-click ="model.startLearnCourse($event, false)" title="{{'Start Learning Now'|translate}}" class="btn btn-lg btn-primary">{{'Start Learning Now'|translate}}</a>
+			</div>
+			<div  class="navbar-btn" ng-hide="course_level_access">		
+				<div class="navbar-btn alert alert-warning clearfix">
+					<span class="clearfix text-info">{{'Your subscription plan not enough to access this course level.'|translate}}</span>				
+				</div>
+				<a href="#!/me/subscriptions"  title="{{'Change Your Plan'|translate}}" class="btn btn-lg btn-primary">{{'Change Plan'|translate}}</a>
+			</div>		
+		</div>	
+	</div>	
+	<!-- payment and cart plugin enabled && subscription plugin disabled and course should not be mooc affliated-->	
+	<div ng-if="$root.settings['site.enabled_plugins'].indexOf('CourseCheckout') > -1 && $root.settings['site.enabled_plugins'].indexOf('Subscriptions') === -1 && !model.btnLink && ($root.auth.id !== model.userId)">
+		<!-- If logged in -->
+		<div ng-if="$root.isAuth" >
+			<!-- Free courses or already paid courses -->
+			<div ng-if="model.coursePrice === '0' || paidStatus" class="navbar-btn">
+				<a href="#" ng-click ="model.startLearnCourse($event, paidStatus)" title="{{'Start Learning Now'|translate}}" class="btn btn-lg btn-primary">{{'Start Learning Now'|translate}}</a>
+			</div>
+			<!-- not paid and not purchased courses -->	
+			<div ng-if="paidStatus === false && model.coursePrice !== '0'" class="navbar-btn">					
+				<buy-button modal-size='md' course-price='{{model.coursePrice}}' course-id='{{model.courseId}}' course-status='{{model.takenCourseStatus}}' ng-if='model.courseId' ></buy-button>
+			</div>
+		</div>
+		<!-- If not logged in -->
+		<div ng-if="!$root.isAuth" class="navbar-btn">
+			<a href="#" ng-click ="model.startLearnCourse($event, '')" title="{{'Start Learning Now'|translate}}" class="btn btn-lg btn-primary" ng-if="model.coursePrice === '0'">{{'Start Learning Now'|translate}}</a>
+			<a href="#" ng-click ="model.startLearnCourse($event, '')" title="{{'Take This Course'|translate}}" class="btn btn-lg btn-primary" ng-if="model.coursePrice !== '0'">{{'Take This Course'|translate}}</a>
+		</div>
+	</div>
+	<!--Mooc affliated courses-->
+	<div ng-if="model.btnLink !== '' && model.btnLink && ($root.auth.id !== model.userId)">
+		<div class="navbar-btn" >
+			<a href="{{model.btnLink}}" target="_blank" title="{{'Take This Course'|translate}}" class="btn btn-lg btn-primary" ng-if="$root.isAuth" >{{'Take This Course'|translate}}</a>
+			<a href="#" ng-click ="model.startLearnCourse($event, '')" title="{{'Take This Course'|translate}}" class="btn btn-lg btn-primary" ng-if="!$root.isAuth">{{'Take This Course'|translate}}</a>
+		</div>
+	</div>
+	<!-- Teachers own course -->
+	<div ng-if="$root.auth.id === model.userId && $root.settings['site.enabled_plugins'].indexOf('Instructor') > -1" class="navbar-btn">
+			<a href="#!/manage-course/add/{{model.courseId}}/{{model.slug}}" class="btn btn-lg btn-primary" >{{'Edit Course'|translate}}</a>
+	</div>

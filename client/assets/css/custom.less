@@ -1,0 +1,397 @@
+/* Custom style */
+.pr {
+	position:relative;
+}
+.pa {
+	position:absolute;
+}
+.play-block {
+	right:45%;
+	bottom:30%;
+	i{
+		color:#333;
+	}
+}
+.offer-block {
+	right:0;
+	bottom:0;	
+	cursor:pointer;
+	padding:3px;
+}
+#course-list {
+	.affix {
+		width:11.6%;
+	}
+}
+#course {
+	.affix {
+		width: 100%;
+		top: 0;
+		z-index: 1000;
+		background: #fff;
+		padding-top: 20px;
+	}
+}
+
+.htruncate-m2 {
+	vertical-align: bottom;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display:block;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	height: 40px;
+}
+.htruncate-m3 {
+	vertical-align: bottom;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display:block;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	height: 32px;
+}
+.htruncate {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display:block;
+	height:20px;
+	width:170px;
+}
+.htruncate-m1 {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display:block;
+	height:20px;
+	width:120px;
+}
+/* Fade in/out */
+.content .page.fade {
+    left: 0;
+    right: 0;
+    height: 100%;
+    opacity: 1;
+}
+
+.content .page.fade.ng-enter,
+.content .page.fade.ng-leave {
+    -webkit-animation: my_fade_animation 0.5s linear;
+}
+
+.content .page.fade.ng-enter {
+    transition:0.5s linear all;
+    opacity: 0;
+}
+
+.content .page.fade.ng-enter-active {
+    opacity: 1;
+}
+
+.content .page.fade.ng-leave {
+    transition:0.5s linear all;
+    opacity: 1;
+}
+
+.content .page.fade.ng-leave-active {
+    opacity: 0;
+}
+
+// PRELOADER
+#preloader {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:#fff;
+    z-index:999;
+}
+
+#status {
+    width:200px;
+    height:200px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    background-image:url(../assets/img/loader.gif);
+    background-repeat:no-repeat;
+    background-position:center;
+    margin:-100px 0 0 -100px;
+}
+.payment-form {
+	input,select,textarea {
+		background: #fff;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+		webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+		color: #555;
+		display: block;
+		float: left;
+		font-size: 14px;
+		height: 30px;
+		line-height: 1.42;
+		margin-bottom: 15px;
+		margin-left: 12px;
+		padding: 4px 12px;
+		width: 48%;
+		&:focus {
+			border-color: #66afe9;
+			outline: 0;
+			-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+			box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+		}
+	}
+}
+/* cc fields animation */
+.cc-section {
+	position:relative;
+}
+fieldset.identified {
+	.cc-defalt {
+		transform:scale(2);
+		-webkit-transform:scale(2);
+		-moz-transform:scale(2);
+		opacity:0;
+	}
+	.cc-type {
+		transform:scale(1);
+		-webkit-transform:scale(1);
+		-moz-transform:scale(1);
+		opacity:1;
+	}
+}
+.cc-type,.cc-defalt {
+	background:url("../assets/img/cc-sprite.png") no-repeat 97% 2px;
+	bottom:-27px;
+	height:22px;
+	pointer-events:none;
+	position:absolute;
+	left:45%;
+	width:32px;
+	transition:all 0.4s cubic-bezier(0.455,0.03,0.515,0.955) 0s;
+	-webkit-transition:all 0.4s cubic-bezier(0.455,0.03,0.515,0.955) 0s;
+	-moz-transition:all 0.4s cubic-bezier(0.455,0.03,0.515,0.955) 0s;
+	-ms-transition:all 0.4s cubic-bezier(0.455,0.03,0.515,0.955) 0s;
+}
+.visa .cc-type {
+	background-position:97% -30px;
+}
+.mastercard .cc-type {
+	background-position:97% -61px;
+}
+.amex .cc-type {
+	background-position:97% -91px;
+}
+.dinersclub .cc-type {
+	background-position:97% -121px;
+}
+.maestro .cc-type {
+	background-position:97% -152px;
+}
+.laser .cc-type {
+	background-position:97% -182px;
+}
+.unionpay .card-type {
+	background-position:97% -211px;
+}
+.discover .cc-type {
+	background-position:97% -241px;
+}
+.jcb .cc-type {
+	background-position: 97% -273px;
+}
+//textangular 
+.ta-editor{
+	max-height:310px;
+}
+.growl {
+	z-index: 1050;
+}
+.vdivide [class*='teachinglist']:not(:last-child):after {
+  background: #e0e0e0;
+  width: 1px;
+  content: "";
+  display:block;
+  position: absolute;
+  top:0;
+  bottom: 0;
+  right: 0;
+  min-height: 40px;
+}
+//lesson page height
+.lesson_container{
+	.navbar-inverse{
+		min-height: 603px;
+	}
+}
+//course highlighting list
+.course-list { 
+    li:hover {
+		background: #eeeeee;
+	}
+}
+//course highlighting grid
+.course-listing {
+	li {
+		&:hover{
+			.panel {
+				box-shadow: 0 2px 2px rgba(0,0,0,0.25);
+				.course_thumb_img, .mooc_thumb_img  {  
+					display: block;
+					background: #333;
+					img {
+						opacity:0.4 !important; 			
+					}
+				}
+			}
+		}
+		.course_thumb_img {
+			align-items:center;
+			display: block;			
+			img {
+				max-width:100%;
+				margin: 0 auto;
+				width:100%;
+			}
+		}
+		.mooc_thumb_img{
+			text-align: center;
+			display: block;
+			img {
+				max-width:100%;
+				margin: 0px auto !important;
+			}
+		}
+	}
+}
+
+.action-btn{
+	position: relative;
+	.btn {
+		position: absolute;
+		right: 10px; 
+		bottom: 10px;
+		background-color: #fff;
+	}
+	i {
+		color:@brand-primary;
+	}
+}
+.max-img {
+	img {
+		max-width:100%;
+	}
+}
+#search_results div.text-center h2.text-success,
+#search_results div.text-center h2.text-warning,
+#search_results div.text-center h2.text-danger,
+#search_results div.text-center h2.text-info,
+.search-results-sidebar a,
+.subscription_plans, .lesson_details {
+	word-wrap: break-word;
+
+}	
+	
+//to disable caurosel indicators and arrows
+.right.carousel-control, .left.carousel-control, .carousel-indicators {
+    display: none;
+}
+
+ma-filter-button  .dropdown-menu>li>a { 
+	padding: 0px 7px;  
+}
+
+.navbar-default .form-horizontal input[type=radio], input[type=checkbox] {
+	margin-top:1px \9 !important;
+}
+.form-horizontal .control-label{
+	padding-top: 10px;
+}
+.page .panel{
+	 box-shadow: 0 1px 20px rgba(0, 0, 0, 0.1) !important;
+}
+ul {
+	&.course-listing {
+		li {
+			.panel {
+				span {
+					&.mooc_dashboard_img {
+						display:flex !important;
+						align-items:center;
+						height:168px;
+						overflow: hidden;
+						img{
+							margin: 0px auto !important;
+						}
+					}
+					&.mooc_search_img{
+						display:flex !important;
+						align-items:center;
+						height:165px;
+						overflow: hidden;
+						img{
+							margin: 0px auto !important;
+						}				
+					}
+					&.mooc_home_img{
+						display:flex !important;
+						align-items:center;
+						height:140px;
+						overflow: hidden;
+						img{
+							margin: 0px auto !important;
+						}
+					
+					}
+					&.mooc_user_img{
+						display:flex !important;
+						align-items:center;
+						height:174px;
+						overflow: hidden;
+						img{
+							margin: 0px auto !important;
+						}
+					
+					}
+					
+				}	
+			}	
+		}
+	} 
+ }
+#curriculum .add-lession-cancel {
+	margin-top:15px;
+} 
+.videoWrapper {
+	position: relative;
+	padding-bottom: 48%;
+	padding-top: 25px;
+	height: 0;
+}
+.videoWrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+video{
+	width:100%;
+	height:auto;
+}
+li.dropdown-img .user-img {
+	padding:9px;
+}
+.curriculum  .btn-default{
+	background-color:#f5f5f5;
+}
+.categories_lst li {
+	display: inline;
+    word-wrap: break-word;
+}
+.ml-4 {
+	left: 4%;
+}

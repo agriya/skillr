@@ -1,0 +1,127 @@
+<!--main section start-->
+<main id="main">
+	<section class="slider"> <!-- Banner section starts -->
+		<carousel interval="myInterval" no-wrap="noWrapSlides">
+			<slide active="active" >
+				<img src="assets/img/slide1.jpg" alt="[Image: {{'Image1' |translate}}]" title="{{'Image1' |translate}}" class="img-responsive center-block">
+			</slide>
+			<slide>
+				<img src="assets/img/slide2.jpg" alt="[Image: {{'Image1' |translate}}]" title="{{'Image1' |translate}}" class="img-responsive center-block">
+			</slide>
+			<div class="carousel-caption">
+			<div class="well-sm clearfix"></div>
+			<div class="well-lg clearfix">
+				<h2 class="h1 list-group-item-heading">{{'Learn New Creative Skills' |translate}}</h2>
+				<h3>{{'Join over 1 million students learning across thousands of online classes.' |translate}}</h3>
+				<div class="clearfix well-lg hidden-sm hidden-xs"></div>
+				<div class="col-xs-12 text-center"><a href="#!/users/signup" class="btn btn-lg btn-success"> <strong>{{'Get Started' |translate}}</strong></a></div>
+			</div>
+			  <div class="well-sm clearfix"></div>
+		</div>
+		</carousel>		
+	</section> <!-- Banner section ends -->
+  
+	<section> <!-- Learn today section starts -->
+		<div class="well-lg"></div>
+		<div class="container">
+			<div class="row">
+			  <home-course filter="most_popular" limit="12"></home-course>
+			</div>
+		</div>
+	<div class="well-lg"></div>
+	</section> <!-- Learn today section ends -->
+	
+	<section> <!-- Master skills section starts -->
+		<div class="well well-lg clearfix text-center">
+			<div class="container">
+				<div class="col-md-10 col-sm-8 col-xs-12 col-md-offset-1 col-sm-offset-0 col-xs-offset-0">
+					<h3 class="h2">{{'How Our Courses Work' |translate}}</h3>
+					<div class="well-sm"></div>
+					<div class="col-md-4 col-sm-6 col-xs-12">
+						<img src="assets/img/self-paced.png" alt="[Image: {{'Self-paced' |translate}}]" title="{{'Self-paced' |translate}}" class="img-responsive center-block">
+						<h4 class="h4 show"><strong>{{'Learn at your own pace' |translate}}</strong></h4>
+						<p class="text-muted"><strong>{{'Watch courses on your own schedule, anytime, anywhere.' |translate}}</strong></p>
+					</div>
+					<div class="col-md-4 col-sm-6 col-xs-12">
+						<img src="assets/img/bite-sized.png" alt="[Image: {{'bite-sized' |translate}}]" title="{{'bite-sized' |translate}}" class="img-responsive center-block">
+						<h4 class="h4 show"><strong>{{'Watch short lessons' |translate}}</strong></h4>
+						<p class="text-muted"><strong>{{'Lessons are bite-sized with most courses under few hours.' |translate}}</strong></p>
+					</div>
+					<div class="col-md-4 col-sm-6 col-xs-12">
+						<img src="assets/img/projects.png" alt="[Image: {{'projects' |translate}}]" title="{{'projects' |translate}}" 
+						class="img-responsive center-block">
+						<h4 class="h4 show"><strong>{{'Get Opportunities' |translate}}</strong></h4>
+						<p class="text-muted"><strong>{{'Learn more courses and get career opportunities.' |translate}}.</strong></p>
+					</div>
+				</div>
+			</div>
+			<div class="well-sm"></div>
+		</div>
+	</section> <!-- Master skills section ends -->
+	
+	<section class="clearfix container"> <!-- Community section starts -->
+		<div class="well-lg"></div>
+		<div class="col-xs-12 row">
+			<div class="col-md-6 nav">
+					<img src="assets/img/community.png" alt="[Image: {{'community' |translate}}]" title="{{'community' |translate}}" 
+						class="img-responsive center-block">
+				</div>
+			<div class="col-md-6">
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					<div class="well-lg"></div><div class="well-lg"></div>
+					<h3><strong>{{'Join a Community of 1 Million Students' |translate}}</strong></h3>
+					<h4 class="text-muted">{{'Get real course feedback, participate in online discussions and read course notes from other students.' |translate}}</h4>
+					<div class="well-lg"></div>
+				</div>
+			</div>
+			<div class="well-sm clearfix"></div>
+		</div>
+	</section> <!-- Community section ends --> 
+	
+	<section class="carousel slide clearfix"> <!-- Learn from anywhere section starts -->
+		<div class="well-lg"></div>
+		<div class="carousel-inner">
+			<div class="item active"> <img src="assets/img/skillr-ios.png" alt="[Image: {{'IOS' |translate}}]" class="img-responsive center-block"></div>
+		</div>
+		<div class="carousel-caption">
+			<div class="clearfix col-lg-6 col-md-12 col-sm-12 col-xs-12 text-left">
+				<h3>{{'Learn From Anywhere' |translate}}</h3>
+				<h4>{{'Take courses with your phone or tablet — on a plane, the subway, the park — wherever your creativity takes you.' |translate}}</h4>
+				<div class="clearfix well-sm navbar-btn"></div>
+				<div class="well-sm"></div><div class="well-sm"></div>
+			</div>
+		</div>
+	</section> <!-- Learn from anywhere section ends -->
+	
+	<section ng-if="$root.settings['site.enabled_plugins'].indexOf('Subscriptions') > -1"> <!-- Premium section starts -->
+		<div class="well-lg"></div>
+		<div class="container">
+			<div class="col-xs-12">
+				<div class="col-xs-12 text-center">
+					<h3 class="h2">{{'Try'|translate}} {{$root.settings['site.name']}} {{'Plans'|translate}}</h3>
+					<div class="well-sm"></div>
+					<subscriptions-plans ng-if="$root.settings['site.enabled_plugins'].indexOf('Subscriptions') > -1"></subscriptions-plans>
+					<div class="col-xs-12 text-center"><a href="#!/users/signup" class="btn btn-lg btn-success"> <strong>{{'Get Started ' |translate}}</strong></a></div>
+				</div>
+			</div>
+		</div>
+		<div class="well-sm"></div>
+	</section> <!-- Premium section ends -->
+	
+	<section class="carousel slide clearfix"> <!-- Teachers section starts -->
+		<div class="well-lg"></div>
+		<div class="carousel-inner">
+		  <div class="item active"><img src="assets/img/hische-hero.png" alt="[Image: {{'Teacher' |translate}}]" title="{{'Teacher' |translate}}" class="img-responsive center-block">
+		  </div>
+		</div>
+		<div class="carousel-caption clearfix">
+			<h3 class="h1">{{'Become a Teacher' |translate}}</h3>
+			<p class="lead">{{'Join thousands of industry leaders and practitioners who teach millions of students around the world. No teaching experience needed.' |translate}}</p>
+			<div class="well-sm clearfix"></div>
+			<div class="col-xs-12 text-center"><a href="#!/users/signup" class="btn btn-lg btn-success"> <strong>{{'Learn More' |translate}}</strong></a></div>
+			<div class="well-sm clearfix"></div><div class="well-sm clearfix"></div>
+		</div>
+	</section> <!-- Teachers section ends -->
+	<div banner position="bottomBanner" ng-if="$root.settings['site.enabled_plugins'].indexOf('Banner') > -1"></div>
+</main>
+<!--main section ends-->

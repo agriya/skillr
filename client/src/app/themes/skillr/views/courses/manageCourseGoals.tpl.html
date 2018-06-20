@@ -1,0 +1,92 @@
+<section class="clearfix" ng-show="model.loading === false">
+	<div class="container">	
+		<course-navbar></course-navbar>		
+		<div class="">
+		<div class="tab-content col-sm-8 col-xs-12 col-md-10 clearfix" ng-if="model.loading === false">	
+			<div class="tab-pane active" id="course_goals">	 
+				<div class="panel">					
+					<div class="list-header text-center">
+						<h3>{{'Course Goals'|translate}}</h3>
+						<span>{{'Set your audience, what students will learn, and what they need in order to be successful'|translate}}.</span>
+					</div>					
+				</div>
+				<div class="panel clearfix">
+					<div class="col-md-10 col-sm-10 col-md-offset-1 col-sm-offset-1 col-xs-12">
+						
+						<form role="form" class="form-horizontal clearfix navbar-btn" ng-submit="model.goalsSave()" name="manage_course_goals">											
+							<div class="form-group">
+								<div class="col-md-12 col-sm-12"><label><strong class="text-primary">{{'Instructional Level'|translate}}*</strong></label>							
+								</div>	
+								<div class="col-md-12 col-sm-12">
+								<div class="radio radio-inline" ng-repeat="InstructionLevels in model.InstructionLevels" ng-click='model.courseGoals.instructional_level_id = InstructionLevels.id'>
+									<label for="{{InstructionLevels.name}}"><input type="radio" value="{{InstructionLevels.id}}" id="Beginner_Level_{{InstructionLevels.id}}" name="course_Level" ng-model="model.courseGoals.instructional_level_id" required>
+									{{InstructionLevels.name}}</label>
+								</div>																
+								<div class="clearfix"></div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-12 col-sm-12"><label><strong class="text-primary">{{'At the end of my course, students will be able to...'|translate}}</strong></label>
+								<p>{{'Start with a verb. Include details on specific skills students will learn and where students can apply them.'|translate}}</p>
+								</div>					
+								<div class="col-md-12 col-sm-12">
+									<div text-angular ng-model="model.courseGoals.students_will_be_able_to" name="students_will_be_able_to"
+									ta-toolbar="[['p','pre','quote'], ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol'],  ['justifyLeft', 'justifyCenter', 'justifyRight', 'indent', 'outdent'], ['insertImage', 'insertLink', 'wordcount', 'charcount']]"
+									ta-toolbar-class="btn-toolbar" 
+									ta-toolbar-group-class="btn-group" 
+									ta-toolbar-button-class="btn btn-primary" 
+									ta-toolbar-button-active-class="active"
+									ta-focussed-class="focussed"
+									ta-text-editor-class="form-control"
+									ta-html-editor-class="form-control"></div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-12 col-sm-12"><label><strong class="text-primary">{{'Who should take this course? Who should not?'|translate}}</strong></label>
+								<p>{{'Students appreciate instructors who set the right expectations by telling them what specific student needs they are solving, who the course is best suited for, and who it is NOT for.'|translate}}</p>
+								</div>
+								<div class="col-md-12 col-sm-12">
+									<div text-angular ng-model="model.courseGoals.who_should_take_this_course_and_who_should_not" name="who_should_take_this_course_and_who_should_not"
+									ta-toolbar="[['p','pre','quote'], ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol'],  ['justifyLeft', 'justifyCenter', 'justifyRight', 'indent', 'outdent'], ['insertImage', 'insertLink', 'wordcount', 'charcount']]"
+									ta-toolbar-class="btn-toolbar" 
+									ta-toolbar-group-class="btn-group" 
+									ta-toolbar-button-class="btn btn-primary" 
+									ta-toolbar-button-active-class="active"
+									ta-focussed-class="focussed"
+									ta-text-editor-class="form-control"
+									ta-html-editor-class="form-control"></div>
+								</div>
+								
+							</div>
+							<div class="form-group">
+								<div class="col-md-12 col-sm-12"><label><strong class="text-primary">{{'What will students need to know or do before starting this course?'|translate}}</strong></label>
+								<p>{{'What materials/software do the students need and what actions do they have to perform before the course begins?'|translate}}</p>
+								</div>	
+								<div class="col-md-12 col-sm-12">
+									<div text-angular ng-model="model.courseGoals.what_actions_students_have_to_perform_before_begin" name="what_actions_students_have_to_perform_before_begin"
+									ta-toolbar="[['p','pre','quote'], ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol'],  ['justifyLeft', 'justifyCenter', 'justifyRight', 'indent', 'outdent'], ['insertImage', 'insertLink', 'wordcount', 'charcount']]"
+									ta-toolbar-class="btn-toolbar" 
+									ta-toolbar-group-class="btn-group" 
+									ta-toolbar-button-class="btn btn-primary" 
+									ta-toolbar-button-active-class="active"
+									ta-focussed-class="focussed"
+									ta-text-editor-class="form-control"
+									ta-html-editor-class="form-control"></div>
+								</div>
+								
+							</div>
+							
+							<div class="well well-sm clearfix">
+								<div class="pull-right">
+									<label class="sr-only" for="submit">{{'Save'|translate}}</label>
+									<input type="submit" class="btn btn-primary btn-lg" id="submit" value="{{'Save'|translate}}" >
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>				
+			</div>
+		</div>
+	  </div>
+	</div>
+</section>

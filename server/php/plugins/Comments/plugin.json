@@ -1,0 +1,9 @@
+{
+	"name": "Comments", 
+	"class": "fa fa-2x fa-comments",
+	"description": "By enabling this plugin, users can share their feecback and thoughts about the courses. It has two Comments way <strong>Facebook Comments</strong> and <strong>Disqus Comments</strong> You can enable any one of these.",
+	"dependencies": "Courses",
+	"module_id": "",
+	"module_hash": "",
+	"display_order": "7"
+}

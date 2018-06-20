@@ -1,0 +1,71 @@
+<section class="">
+		<div class="container">
+		<div class="panel">
+			<div class="list-header text-center well-sm">
+				<h3>{{'My Subscriptions'|translate}}</h3>
+			</div>					
+		</div>
+		<div class="col-xs-12 panel">
+			<div class="col-xs-12"  ng-repeat="subscribeplan in model.mySubscriptions">
+				<div class="col-xs-6 navbar-btn ">
+					<div class="well-sm"><h4 popover-placement="top" popover-html-unsafe="{{subscribeplan.description}}" ><p><strong> {{subscribeplan.name}}</strong><span>&nbsp; &nbsp;<amount-display amount='{{subscribeplan.price}}' fraction='2' is-course-price='no'></amount-display> / {{subscribeplan.interval_unit}}</span></p></h4></div>
+				</div>
+				<div class="col-xs-6">
+					<div class="col-sm-6 col-xs-12  pull-right text-center navbar-btn well-sm" ng-if="subscribeplan.is_current_plan === 'true'">
+						<a href="#" class="btn btn-primary" title="{{'Click Here for Unsubscribe'|translate}}" ng-click="Update(subscribeplan.current_plan_id, subscribeplan, $event)"> <strong><i class="fa fa-tick fa-lg"></i>{{'Active' |translate}}</strong></a>
+					</div>
+					
+					<div class="col-sm-6 col-xs-12 pull-right text-center navbar-btn well-sm" ng-if="subscribeplan.is_current_plan === 'false'">
+						<a href="#" ng-click="Subscribe(subscription_count, subscribeplan.id, $event)" title="{{'Click Here for Subscribe'|translate}}" class="btn btn-default navbar-btn"> <strong>{{'Subscribe Now' |translate}}</strong></a>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="panel">
+			<div class="list-header text-center well-sm">
+				<h3>{{'Payment Histories' | translate}}</h3>
+			</div>
+		</div>
+		<div class="col-xs-12 panel" id="my_subscriptions_results">
+			<div class="col-xs-12">
+				<div class="table-responsive">
+					<table class="table table-striped">
+					<thead>
+					<tr>
+						<th class="text-center">{{'Payment Received On' |translate}}</th>
+						<th class="text-center">{{'Plan' |translate}}</th>
+						<th class="text-center">{{'Valid From' |translate}}</th>
+						<th class="text-center">{{'Valid To' |translate}}</th>
+						<th class="text-center">{{'Amount' |translate}}<span ng-if="$root.settings['site.currency_symbol'] !== ''">&nbsp;({{$root.settings['site.currency_symbol']}})</span>
+						<span ng-if="$root.settings['site.currency_symbol'] === ''">&nbsp;({{$root.settings['site.currency_code']}})</span></th>
+						<th class="text-center">{{'Status' |translate}}</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr  ng-repeat="UserSub in model.UserSubscriptions" ng-show="_metadata.total_records > 0">
+						<td class="text-center">{{UserSub.start_date}}</td>
+						<td class="text-center">{{UserSub.name}}</td>
+						<td class="text-center">{{UserSub.start_date}}</td>
+						<td class="text-center">{{UserSub.end_date}}</td>
+						<td class="text-center">{{UserSub.amount}}</td>
+						<td class="text-center">
+							<span class="text-muted">{{UserSub.status_name}} <i class="fa fa-question-circle" tooltip="{{'Canceled On:' |translate}} {{UserSub.canceled_date}}" tooltp-placement="top" ng-if="UserSub.status_name === 'Canceled'"></i></span>
+						</td>
+					</tr>
+					<tr ng-show="_metadata.total_records <= 0">
+					   <td colspan="6" class="text-center">
+						<span class="hor-space">{{'No Record Found' |translate}}</span>
+					   </td>
+					</tr>
+					</tbody>
+				</table>
+				</div>				
+			</div>	
+		</div>
+		<div class="paging clearfix text-center" ng-show="_metadata.total_records > 0">
+				<pagination total-items="_metadata.total_records"  ng-model="currentPage" ng-change="paginate('#my_subscriptions_results')" max-size="_metadata.maxSize" boundary-links="true" num-pages="_metadata.noOfPages" items-per-page="_metadata.limit" first-text="{{'First'|translate}}" last-text="{{'Last'|translate}}" next-text="{{'Next'|translate}}" previous-text="{{'Previous'|translate}}"></pagination>
+		</div>
+	</div>
+</section>

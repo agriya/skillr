@@ -1,0 +1,9 @@
+{
+	"name": "SocialShare", 
+	"class": "fa fa-2x fa-share",
+	"description": "By enabling this plugin, users share the courses in their social meduium account like twitter, facebook and google+.",
+	"dependencies": "",
+	"module_id": "",
+	"module_hash": "",
+	"display_order": "18"
+}

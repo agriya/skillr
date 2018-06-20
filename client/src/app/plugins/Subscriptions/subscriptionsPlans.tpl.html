@@ -1,0 +1,23 @@
+
+<div class="navbar-btn clearfix"></div>
+<div class="cleafix">
+	<div class="col-sm-6 well-sm"  ng-repeat="plan in model.subscriptionsplan.data">
+		<div class="thumbnail subscription_plans">
+		  <div class="well-sm">
+			<div class="pull-left">
+			  <h4 class="h3"><strong>{{plan.name}}</strong></h4>
+			</div>
+			<div class="pull-right h3 text-success navbar-btn"><amount-display amount='{{plan.price}}' fraction='0' is-course-price='no'></amount-display><span class="small text-success"> /{{plan.interval_unit}}</span></div>
+			<div class="navbar-btn clearfix list-group-item-text"></div>
+			<p class="text-left" ng-bind-html='plan.description'></p>
+			<div class="navbar-btn clearfix list-group-item-heading"></div>
+			<a ng-if="!$root.isAuth" href="#!/users/signup?subscription_id={{plan.id}}" title="{{'Subscribe'| translate}}" class="btn btn-primary btn-block navbar-btn">{{'Subscribe'| translate}}</a>
+			<a ng-if="$root.isAuth" href="#!/subscribe/payment/{{plan.id}}" title="{{'Subscribe'| translate}}" class="btn btn-primary btn-block navbar-btn">{{'Subscribe'| translate}}</a>
+			<div class="navbar-btn clearfix list-group-item-heading"></div>
+		  </div>
+		</div>
+		</div>
+	</div>
+</div>
+<div class="well-lg clearfix"></div>
+

@@ -1,0 +1,9 @@
+{
+	"name": "SEO", 
+	"class": "fa fa-2x fa-search-plus",
+	"description": "By enabling this plugin, google and other search engines can crawler our site. (Our site is Single-Page Applications (SPA); So for search engine, we must enable this SEO plugin).",
+	"dependencies": "",
+	"module_id": "",
+	"module_hash": "",
+	"display_order": "19"
+}

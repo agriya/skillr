@@ -1,0 +1,60 @@
+<section class="clearfix" ng-show="model.loading === false">
+	<div class="container">	
+		<course-navbar></course-navbar>		
+		<div class="">
+		<div class="tab-content col-sm-8 col-xs-12 col-md-10 clearfix " ng-if="model.loading === false">	
+			<div class="tab-pane active" id="promo_video">
+				<div class="panel">					
+					<div class="list-header text-center">
+						<h3>{{'Promo Video'|translate}}</h3>
+						<p>{{'Add a promotional video to your course.'|translate}}</p>										
+					</div>	
+				</div>				
+				<div class="panel clearfix well-sm">
+					<span class="navbar-btn">{{'Video Preview'|translate}}:*</span>
+					<div class="thumbnail clearfix">
+						<div ng-if="model.courseVideo.video_url && model.courseVideo.is_promo_video_convert_error === 0 && model.courseVideo.is_promo_video_converting_is_processing === 0">
+							<video id="video" ng-src="{{model.courseVideo.video_url}}" controls="true" ></video>
+						</div>
+						
+						<div class="alert alert-info" ng-if="model.courseVideo.is_promo_video_converting_is_processing === 1">
+							<span class="well-sm">{{'Video converting under progressing'|translate}}</span>
+						</div>
+						<div class="alert alert-danger" ng-if=" model.courseVideo.is_promo_video_converting_is_processing === 0 && model.courseVideo.is_promo_video_convert_error === 1">
+							<span class="well-sm">{{'Video conversion Failed. Students can\'t view this lesson'|translate}}</span>
+						</div>
+						<h3 class="text-primary"><span>{{'Explore our second-by-second researched recipe for creating the perfect promo video'|translate}}</span></h3>
+						<div class="panel-body">
+							<p><strong>{{'Don\'t forget to add a promo video!'|translate}}</strong></p>
+							<p>{{'Students who watch a well-made promo video are 5X more likely to enroll in your course. We\'ve seen that statistic go up to 10X for exceptionally awesome videos. Learn how to make yours awesome'|translate}}!</p>							
+						</div>
+					</div>
+					<div class="well-lg">
+						<form role="form" class="form-horizontal clearfix" name="manage_course_provideo" ng-submit="model.videoSave()">		
+							<div class="form-group">
+								<label class="col-md-3 col-sm-3 control-label" for="course_video">{{'Add/Change Video'|translate}}:</label>
+								<div class="col-md-8 col-sm-9">
+									<div class="alert alert-warning">
+										<p><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{'Should be 720p minimum with clear lighting, composition, and a steady camera exported in 16:9 format.'|translate}}</p>
+										<p ng-if="$root.settings['video.max_size_to_allow_video_file'] !== ''"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{'File size should be lesser than'|translate}} {{$root.settings['video.max_size_to_allow_video_file'] | bytes}}</p>
+									</div>
+									<input type="file" class="navbar-btn" id="inputTaskAttachments" name="attachment" onchange="angular.element(this).scope().uploadVideo(this.files)" required="" ng-model="model.courseVideo.promo_video"/>	
+									<span class="text-danger help-block">{{'Allowed extensions: mov, mpeg4, avi, wmv, mpeg, flv, 3gpp, webm, mp4'|translate}}</span>
+								</div>
+							</div>
+							<div class="well well-sm clearfix">
+								<div class="pull-right">
+									<label class="sr-only" for="course_video_save">{{'Save'|translate}}</label>
+									<input type="submit" class="btn btn-primary btn-lg"  id="course_video_save" value="{{'Save'|translate}}" ng-hide="disableSave" >
+									<input type="submit" class="btn btn-primary btn-lg" ng-disabled="true" id="course_video_save" value="{{' Validating...'|translate}}" ng-hide="!disableSave" >
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	  </div>
+	</div>
+</section>

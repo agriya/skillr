@@ -1,0 +1,52 @@
+DirectoryIndex index.html index.php
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	# If installed in local or under a path say /acev3	/: (otherwise, doesn't need RewriteBase)
+	RewriteBase	/
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule ^img/([a-zA-Z_]*)/([a-zA-Z_]*)/(.*)$ server/php/image.php?size=$1&model=$2&filename=$3 [NC]
+	RewriteRule ^client/download/([0-9]*)/([a-zA-Z0-9_\.]*)/([0-9]*)$ server/php/plugins/DownloadableFileLessons/download.php?id=$1&hash=$2&timestamp=$3 [NC]
+	RewriteRule ^video/([a-zA-Z_]*)/([0-9]*)/([a-zA-Z0-9_\.]*)/([0-9]*)$ server/php/plugins/VideoLessons/play_video.php?type=$1&id=$2&hash=$3&timestamp=$4 [NC]
+
+	RewriteRule ^api/(.*)$ server/php/R/r.php?_url=$1 [QSA,L]
+	RewriteRule ^ipn/receiver_account_ipn/([0-9]*)/users/([0-9]*)/hash/([a-zA-Z0-9_\.]*)$ server/php/plugins/Payout/receiver_account_ipn.php?gateway_id=$1&user_id=$2&hash=$3 [NC]
+	
+	RewriteRule ^ipn/process_ipn/([0-9]*)/hash/([a-zA-Z0-9_\.]*)$ server/php/plugins/SudoPay/process_ipn.php?course_user_id=$1&hash=$2 [NC]
+	RewriteRule ^ipn/paypal_process_ipn/([0-9]*)/hash/([a-zA-Z0-9_\.]*)$ server/php/plugins/PayPal/paypal_payment_process_ipn.php?course_user_id=$1&hash=$2 [NC]
+
+	RewriteRule ^ipn/process_ipn/user_subscription_logs/([0-9]*)/hash/([a-zA-Z0-9_\.]*)$ server/php/plugins/SudoPay/process_ipn.php?user_subscription_logs_id=$1&hash=$2 [NC]
+	RewriteRule ^ipn/paypal_process_ipn/user_subscriptions/([0-9]*)/hash/([a-zA-Z0-9_\.]*)$ server/php/plugins/PayPal/paypal_subscription_process_ipn.php?user_subscription_id=$1&hash=$2 [NC]
+	RewriteCond %{QUERY_STRING} ^_escaped_fragment_=(.*)$
+	RewriteRule ^$ server/php/plugins/SEO/seo.php$1 [QSA,L]
+
+	RewriteRule ^$ client/ [QSA,L]
+	RewriteRule ^ag-admin$ client/ag-admin/index.html [QSA,L]
+	RewriteRule ^(assets|api_explorer|ag-admin|vendor|src)/(.*)$ client/$1/$2 [QSA,L]
+	RewriteRule ^favicon.ico$ client/favicon.ico [L]
+	RewriteRule ^apple-touch-icon(.*)$ client/apple-touch-icon$1 [L]
+</IfModule>
+
+# gzip
+<IfModule mod_deflate.c>
+    	AddOutputFilterByType DEFLATE text/javascript application/x-javascript text/css text/html
+</IfModule>
+
+# browser caching
+<IfModule mod_expires.c>
+	ExpiresByType text/css "access plus 1 month"
+	ExpiresByType text/javascript "access plus 1 month"
+	ExpiresByType image/gif "access plus 1 month"
+	ExpiresByType image/jpeg "access plus 1 month"
+	ExpiresByType image/png "access plus 1 month"
+#	ExpiresByType video/x-flv "access plus 1 month"
+	ExpiresByType application/x-shockwave-flash "access plus 1 month"
+
+	# special MIME type for icons
+	AddType image/vnd.microsoft.icon .ico
+	# now we have icon MIME type, we can use it
+	# my favicon doesn't change much
+	ExpiresByType image/vnd.microsoft.icon "access plus 3 months"
+</IfModule>

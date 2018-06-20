@@ -1,0 +1,5 @@
+{
+    "require": {
+        "dereuromark/media-embed": "0.*"
+    }
+}

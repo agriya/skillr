@@ -1,0 +1,7 @@
+<!--- Contact Form--->
+<div class="container">
+	<div banner position="topBanner" ng-if="$root.settings['site.enabled_plugins'].indexOf('Banner') > -1"></div>
+	<h2>{{model.page.title}}</h2>
+	<p ng-bind-html='model.page.content'></p>
+	<div banner position="bottomBanner" ng-if="$root.settings['site.enabled_plugins'].indexOf('Banner') > -1"></div>
+</div>

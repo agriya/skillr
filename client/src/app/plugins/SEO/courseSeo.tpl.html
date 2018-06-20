@@ -1,0 +1,37 @@
+<section class="clearfix" ng-show="model.loading === false">
+	<div class="container">	
+		<course-navbar></course-navbar>		
+		<div class="">
+		<div class="tab-content col-sm-10 col-xs-12 col-md-10 clearfix " ng-if="model.loading === false">	
+			<div class="navbar_default tab-pane active" id="price_coupons">
+				<div class="panel">					
+					<div class="list-header text-center">
+						<h3 class="text-default">{{'SEO' | translate}}</h3>
+						<span class="text-default">{{'Set the seo of your course.'|translate}}</span>
+					</div>					
+				</div>	
+				<form role="form" class="form-horizontal panel clearfix" name="course_seo" ng-submit="model.saveCourseSeo()">			
+					<div class="form-group navbar-btn">
+						<label class="col-md-3 col-sm-3 control-label" for="meta_keywords">{{'Meta Title'|translate}}</label>
+						<div class="col-md-5 col-sm-9">
+							<input type="text" class="form-control" id="meta_keywords" placeholder="{{'Meta Title'|translate}}" ng-model="model.seo.meta_keywords" required>						
+						</div>
+					</div>
+					<div class="form-group navbar-btn">
+						<label class="col-md-3 col-sm-3 control-label" for="meta_description">{{'Meta Description'|translate}}</label>
+						<div class="col-md-5 col-sm-9">							
+							<textarea type="text" class="form-control" id="meta_description" name="meta_description" placeholder="{{'Description'|translate}}" ng-model="model.seo.meta_description"  required> </textarea>
+						</div>
+					</div>
+					<div class="well well-sm clearfix">
+						<div class="pull-right">
+							<label class="sr-only" for="submit">{{'Save'|translate}}</label>
+							<input type="submit" class="btn btn-lg btn-primary" id="submit" value="{{'Save'|translate}}" >
+						</div>
+					</div>
+				</form>
+			</div>	
+		</div>
+	  </div>
+	</div>
+</section>

@@ -1,0 +1,78 @@
+<section class="clearfix" ng-show="model.loading === false">
+	<div class="container">	
+		<course-navbar></course-navbar>		
+		<div class="">
+		<div class="tab-content col-sm-8 col-xs-12 col-md-10 clearfix " ng-if="model.loading === false">	
+			<div  class="tab-pane active" id="course_image">
+				<div class="panel">					
+					<div class="list-header text-center">
+						<h3>{{'Image'|translate}}</h3>
+					</div>
+					
+				</div>				
+				<div class="panel clearfix well-sm">
+					<span class="navbar-btn">{{'Cover Preview'|translate}}:*</span>
+					<div class="thumbnail clearfix">
+							<!-- course image when is_from_mooc_affiliate false -->
+						<div ng-if="model.courseImage.is_from_mooc_affiliate !== 1">
+							<a ng-if="model.courseImage.image_hash && preview_picture_filename === ''" href="#"> 
+								<img ng-src="{{$root.site_url}}img/big_thumb/Course/{{model.courseImage.image_hash}}" alt="[Image: {{model.courseImage.title}}]" title="{{model.courseImage.title}}" class="img-responsive" />
+							</a>
+							<a ng-if="!model.courseImage.image_hash && preview_picture_filename === ''" href="#"> 
+								<img ng-src="{{$root.site_url}}img/big_thumb/Course/0.default.jpg" alt="[Image: {{model.courseImage.title}}]" title="{{model.courseImage.title}}" class="img-responsive" />
+							</a>
+							<a ng-if="preview_picture_filename !== ''" href="#"> 
+								<img ng-src="{{$root.site_url}}img/big_thumb/CoursePreview/{{model.courseImage.id}}.{{preview_picture_filename}}" alt="[Image: {{model.courseImage.title}}]" title="{{model.courseImage.title}}" class="img-responsive" />
+							</a>
+						</div>
+						<!-- course image when is_from_mooc_affiliate true -->
+						<div ng-if="model.courseImage.is_from_mooc_affiliate === 1" >							
+							<a ng-if="model.courseImage.course_image && preview_picture_filename === ''" href="#"> 
+								<img ng-src="{{model.courseImage.course_image}}" alt="[Image: {{model.courseImage.title}}]" title="{{model.courseImage.title}}" class="img-responsive" />
+							</a>
+							<a ng-if="!model.courseImage.course_image  && preview_picture_filename === ''" href="#"> 
+								<img ng-src="{{$root.site_url}}img/big_thumb/Course/0.default.jpg" alt="[Image: {{model.courseImage.title}}]" title="{{model.courseImage.title}}" class="img-responsive" />
+							</a>
+							<a ng-if="preview_picture_filename !== ''" href="#"> 
+								<img ng-src="{{$root.site_url}}img/big_thumb/CoursePreview/{{model.courseImage.id}}.{{preview_picture_filename}}" alt="[Image: {{model.courseImage.title}}]" title="{{model.courseImage.title}}" class="img-responsive" />
+							</a>
+						</div>
+						
+						<div class="panel-body">
+							<p>{{'A good course image is critical to a course'|translate}}'{{'s success. It should grab the attention of the viewer and help them understand the essence of what the course has to offer.'|translate}}</p>					
+						</div>
+					</div>
+					
+					<div class="well-lg">
+						<form role="form" class="form-horizontal clearfix" name="manage_course_image"  ng-submit="model.saveCourseImage()">		
+							<div class="form-group">
+								<label class="col-md-3 col-sm-3 control-label" for="course_image">{{'Add/Change Image'|translate}}:</label>
+								<div class="col-md-9 col-sm-9">
+									<div class="pull-left col-md-12 col-sm-12 col-xs-12" ng-init="beforeUpload=true; afterUpload= false; duringUpload= false;">
+										<!--<span class="">
+										<i class="fa fa-upload" ng-show="beforeUpload"></i>
+										<i class="fa fa-spinner fa-spin" ng-show="duringUpload"></i>
+										<i class="fa fa-check" ng-show="afterUpload"></i>
+										Upload</span>-->
+										<input type="file" class="navbar-btn" id="inputTaskAttachments" name="attachment" required onchange="angular.element(this).scope().uploadFile(this.files)" >
+										<span class="text-danger help-block">{{'Allowed extensions: jpg, jpeg, gif, png'|translate}}</span>
+									</div>
+								</div>
+							</div>
+							
+							<div class="well well-sm clearfix">
+								<div class="pull-right">
+									<label class="sr-only" for="submit">{{'Save'|translate}}</label>
+									<input type="submit" class="btn btn-primary btn-lg"  id="course_image_save" value="{{'Save'|translate}}" ng-hide="disableSave" >
+									<input type="submit" class="btn btn-primary btn-lg" ng-disabled="true" id="course_image_save" value="{{' Validating...'|translate}}" ng-hide="!disableSave" >
+									<input type="button" class="btn btn-primary btn-lg" ng-click="model.uploadCancel()"  value="Cancel"  ng-show="duringUpload" >
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+		    </div>	
+		</div>
+	  </div>
+	</div>
+</section>

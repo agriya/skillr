@@ -1,0 +1,115 @@
+<a class="btn btn-primary navbar-btn size-sm" title="{{'Add Article'|translate}}" ng-class="{'active' :showForm}" ng-click="uploadConfigure()" ng-if="action === 'add' ">
+<i class="fa fa-pencil-square-o"></i>&nbsp;<span class="hidden-xs">{{label}}</span></a>
+
+<div ng-if="showForm && action === 'add'" class="col-xs-12">
+	<h4 class="text-muted navbar-btn">{{'Add Article'|translate}}</h4>		
+	<form class="col-lg-12 form-horizontal" name="add_article" ng-submit="addArticle($event , add_article);add_article.$setPristine()">
+			<div id="row-title" class="form-group has-feedback" ng-class="add_article.name.$dirty ? (add_article.name.$valid ? 'has-success' : 'has-error') : ''">
+					<label for="name" class="control-label text-muted">{{'Title'|translate}}&nbsp;*&nbsp;</label>
+					<div  class="">
+						<input type="text" ng-model="model.onlineLesson.name" class="form-control" name="name" required="" maxlength="50"/>
+						<span ng-show="add_article.name.$dirty" class="glyphicon form-control-feedback" ng-class="add_article.name.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+					</div>
+			</div>
+			<div id="row-description" class="form-group has-feedback" ng-class="add_article.description.$dirty ? (add_article.description.$valid ? 'has-success' : 'has-error') : ''">
+					<label for="description" class=" control-label text-muted">{{'Description'|translate}}</label>
+					<div class="">	
+						<textarea type="text" size="10" ng-model="model.onlineLesson.description" name="description" class="form-control" maxlength="150"></textarea>
+					</div>
+			</div>
+			<div id="row-description" class="form-group has-feedback" ng-class="add_article.article_content.$dirty ? (add_article.article_content.$valid ? 'has-success' : 'has-error') : ''">
+					<label for="article_content" class=" control-label text-muted">{{'Article Content'|translate}}&nbsp;*&nbsp;</label>
+					<div class="">	
+						<div text-angular ng-model="model.onlineLesson.article_content" name="article_content"
+									ta-toolbar="[['p','pre','quote'], ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol'],  ['justifyLeft', 'justifyCenter', 'justifyRight', 'indent', 'outdent'], ['insertImage', 'insertLink', 'wordcount', 'charcount']]"
+									ta-toolbar-class="btn-toolbar" 
+									ta-toolbar-group-class="btn-group" 
+									ta-toolbar-button-class="btn btn-default" 
+									ta-toolbar-button-active-class="active"
+									ta-focussed-class="focussed"
+									ta-text-editor-class="form-control"
+									ta-html-editor-class="form-control" ta-required='true' data-ng-required="true" required ></div>												
+						<span ng-show="add_article.article_content.$dirty" class="glyphicon form-control-feedback" ng-class="add_article.article_content.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+					</div>
+					<div class="alert navbar-btn" ng-class="{'alert-info': !error, 'alert-danger': error}" role="alert" ng-if='error'>{{info}}</div>
+			</div>
+			<div id="row-is_preview" class="form-group has-feedback" ng-class="add_article.is_preview.$dirty ? (add_article.is_preview.$valid ? 'has-success' : 'has-error') : ''">
+					<label for="is_preview" class=" control-label text-muted"></label>
+					<div class="">	
+						<div class="">
+							<label class="text-muted"><input type="checkbox" ng-model="model.onlineLesson.is_preview" id="is_preview" ng-true-value="1" ng-false-value="0" >&nbsp;{{'Preview Lesson?'|translate}}</label>							 
+						</div>											
+						<span class="help-block"><i class="fa fa-info-circle "></i> &nbsp; {{'Students can view this lesson without pay'|translate}}.</span>
+					</div>					
+			</div>
+			<div id="row-is_active" class="form-group has-feedback" ng-class="add_article.is_active.$dirty ? (add_article.is_active.$valid ? 'has-success' : 'has-error') : ''">
+				<div class="">
+					<label class="text-muted"><input  type="checkbox" ng-model="model.onlineLesson.is_active" id="is_active" ng-true-value="true" ng-false-value="false" >&nbsp;{{'Active?'|translate}}</label>							 
+				</div>																			
+			</div>
+			<div class="form-group">
+					<div class="text-center">
+						<button type="submit" ng-disabled="disableButton" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> {{'Submit'|translate}} <span ng-show="disableButton"><i class="fa fa-spinner fa-pulse fa-lg"></i></span></button>&nbsp;{{'or'|translate}}&nbsp;
+						<a href="#" ng-click="hideForm($event)" class="text-primary">{{'Cancel'|translate}}</a>
+					</div>
+			</div>
+	</form>
+</div>
+<div ng-if="action === 'edit' && editForm">
+	<h4 class="text-muted navbar-btn">{{'Edit Article'|translate}}</h4>	
+	<form class="col-lg-12 form-horizontal" name="edit_article" ng-submit="editArticle($event, edit_article);edit_article.$setPristine()">
+			<div id="row-title" class="form-group has-feedback" ng-class="edit_article.name.$dirty ? (edit_article.name.$valid ? 'has-success' : 'has-error') : ''">
+					<label for="name" class="control-label text-muted">{{'Title'|translate}}&nbsp;*&nbsp;</label>
+					<div  class="">
+						<input type="text" ng-model="model.editOnlineLesson.lesson_name" class="form-control" name="name" required="" maxlength="50" />
+						<span ng-show="edit_article.name.$dirty" class="glyphicon form-control-feedback" ng-class="edit_article.name.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+					</div>
+			</div>
+			<div id="row-description" class="form-group has-feedback" ng-class="edit_article.description.$dirty ? (edit_article.description.$valid ? 'has-success' : 'has-error') : ''">
+					<label for="description" class="control-label text-muted">{{'Description'|translate}}</label>
+					<div class="">																	
+						<textarea type="text" size="10" ng-model="model.editOnlineLesson.lesson_description" name="description" class="form-control" maxlength="150"></textarea>	
+					</div>
+			</div>
+			<div id="row-description" class="form-group has-feedback" ng-class="edit_article.edit_article_content.$dirty ? (edit_article.edit_article_content.$valid ? 'has-success' : 'has-error') : ''">
+					<label for="edit_article_content" class="control-label text-muted">{{'Article Content'|translate}}&nbsp;*&nbsp;</label>
+					<div class="">											
+						<div text-angular ng-model="model.editOnlineLesson.edit_article_content" name="edit_article_content"
+									ta-toolbar="[['p','pre','quote'], ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol'],  ['justifyLeft', 'justifyCenter', 'justifyRight', 'indent', 'outdent'], ['insertImage', 'insertLink', 'wordcount', 'charcount']]"
+									ta-toolbar-class="btn-toolbar" 
+									ta-toolbar-group-class="btn-group" 
+									ta-toolbar-button-class="btn btn-default" 
+									ta-toolbar-button-active-class="active"
+									ta-focussed-class="focussed"
+									ta-text-editor-class="form-control"
+									ta-html-editor-class="form-control" ta-required='true' required=""></div>	
+						
+						<span ng-show="edit_article.edit_article_content.$dirty" class="glyphicon form-control-feedback" ng-class="edit_article.edit_article_content.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+					<div class="alert navbar-btn" ng-class="{'alert-info': !error, 'alert-danger': error}" role="alert" ng-if='error'>{{info}}</div>
+					</div>
+			</div>
+			<div id="row-is_preview" class="form-group has-feedback" ng-class="edit_article.is_preview.$dirty ? (edit_article.is_preview.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="is_preview" class=" control-label text-muted"></label>
+				<div class="">	
+					<div class="" >
+						<label class="text-muted"><input  type="checkbox" ng-model="model.editOnlineLesson.is_preview" id="is_preview" ng-true-value="1" ng-false-value="0" >
+						 &nbsp; {{'Preview Lesson?'|translate}} 
+						 </label>
+					</div>											
+					<span class="help-block"><i class="fa fa-info-circle text-info"></i> &nbsp; {{'Students can view this lesson without pay'|translate}}.</span>
+				</div>					
+			</div>
+			<div id="row-is_active" class="form-group has-feedback" ng-class="edit_article.is_active.$dirty ? (edit_article.is_active.$valid ? 'has-success' : 'has-error') : ''">
+				<div class="" >
+					<label class="text-muted"><input type="checkbox" ng-model="model.editOnlineLesson.is_active" id="is_active" ng-true-value="true" ng-false-value="false" >
+					 &nbsp; {{'Active?'|translate}} 
+					 </label>
+				</div>																					
+			</div>
+			<div class="form-group">
+					<div class="text-center">
+						<button type="submit" class="btn btn-primary" ng-disabled="disableButton"><span class="glyphicon glyphicon-ok"></span> {{'Save'|translate}} <span ng-show="disableButton"><i class="fa fa-spinner fa-pulse fa-lg"></i></span></button>
+					</div>
+			</div>
+	</form>
+</div>

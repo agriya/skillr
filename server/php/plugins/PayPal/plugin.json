@@ -1,0 +1,9 @@
+{
+	"name": "PayPal", 
+	"class": "fa fa-2x fa-paypal",
+	"description": "By enabling this plugin, users to pay their payment through PayPal account.",
+	"dependencies": "PaymentGateways",
+	"module_id": "",
+	"module_hash": "",
+	"display_order": "13"
+}

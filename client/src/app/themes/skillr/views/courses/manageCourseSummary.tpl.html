@@ -1,0 +1,43 @@
+<section class="clearfix" ng-show="model.loading === false">
+	<div class="container">			
+		<course-navbar></course-navbar>		
+		<div class="">
+		<div class="tab-content col-sm-8 col-xs-12 col-md-10 clearfix " ng-if="model.loading === false">	
+			<div  class="tab-pane active" id="course_summary">
+				<div class="panel well-sm">					
+					<div class="list-header text-center">
+						<h3>{{'Course Summary'|translate}}</h3>
+						<span>{{'Highlight what the course covers, how it is taught, benefits of course and why students should enroll.'|translate}}</span>
+					</div>	
+					<div class="well-lg clearfix">
+						
+						<form role="form" class="form-horizontal clearfix" name='manage_course_summary' ng-submit="model.saveCourseSummary(manage_course_summary)">		
+							<div class="form-group">
+									<div class="col-md-12 col-sm-12">
+									<div text-angular ng-model="model.courseSummary.description"  name='summary' 
+									ta-toolbar="[['p','pre','quote'], ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol'],  ['justifyLeft', 'justifyCenter', 'justifyRight', 'indent', 'outdent'], ['insertImage', 'insertLink', 'wordcount', 'charcount']]"
+									ta-toolbar-class="btn-toolbar" 
+									ta-toolbar-group-class="btn-group" 
+									ta-toolbar-button-class="btn btn-primary" 
+									ta-toolbar-button-active-class="active"
+									ta-focussed-class="focussed"
+									ta-text-editor-class="form-control"
+									ta-html-editor-class="form-control"  ta-required='true' required=""></div>	
+									<div class="alert navbar-btn" ng-class="{'alert-info': !error, 'alert-danger': error}" role="alert" ng-if='error'>{{info}}</div>
+								</div>
+							</div>
+							<div class="well well-sm clearfix">
+								<div class="pull-right">
+									<label class="sr-only" for="submit">{{'Save'|translate}}</label>
+									<input type="submit" class="btn btn-primary btn-lg" id="submit" value="{{'Save'|translate}}" >
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				
+		    </div>
+		</div>
+	  </div>
+	</div>
+</section>

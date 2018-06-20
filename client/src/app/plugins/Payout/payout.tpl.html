@@ -1,0 +1,49 @@
+<section class="clearfix" ng-show="model.loading === false">
+	<div class="container">		
+		<course-navbar></course-navbar>		
+		<div class="">
+		<div class="tab-content col-sm-10 col-xs-12 col-md-10 clearfix " ng-if="model.loading === false">	
+			<div class="navbar_default tab-pane active" id="danger_zone">
+				<div class="panel navbar-btn">					
+					<div class="list-header text-center">
+						<h3 class="text-default">{{'Payout Preferences'|translate}}</h3>									
+					</div>					
+				</div>
+				<div class="well-lg panel clearfix">
+				<div growl></div>
+					<h3>{{'Payment Options / Payout Methods'|translate}}</h3>
+					<p>{{'When you receive a payment, we call that payment to you a "payout". Our secure payment system supports below payout methods, which can be setup here.'|translate}}</p>
+					<p>{{'Note that buyers will be provided with the payment options, based on below setup only.'|translate}}</p>
+					<div class="panel panel-default clearfix">
+						<div class="clearfix" ng-repeat="availPayouts in model.availPayouts">
+							<div class="col-md-2 navbar-btn">
+								<h3>{{availPayouts.sudopay_gateway_name}}</h3>
+							</div>
+							<div class="col-md-7 navbar-btn">
+								<div class="well well-sm">
+									<span ng-bind-html="availPayouts.connect_instruction"></span>
+								</div>
+								
+							</div>
+							<div class="col-md-3 navbar-btn" ng-if="availPayouts.is_connected">
+								<a href="#" class="btn btn-default navbar-btn disabled"><i class="fa fa-check"></i> {{'Connected' | translate}}</a>
+							</div>
+							<div class="col-md-3 navbar-btn" ng-if="!availPayouts.is_connected" >
+								<a href="#" class="btn btn-success navbar-btn" ng-click="model.connectToPayment(availPayouts.sudopay_gateway_id, $event)">
+								{{'Connect my'|translate}} {{availPayouts.sudopay_gateway_name}} <br/> {{'account'| translate}}</a>
+							</div>
+						</div>	
+						<div class="row" ng-if="!model.availPayouts.length">
+							<div class="col-xs-3"></div>
+							<div class="col-xs-6 alert alert-danger text-center navbar-btn">
+								<span>{{'There is no payment gateway enabled' | translate}}</span> 
+							</div>
+							<div class="col-xs-3"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	  </div>
+	</div>
+</section>

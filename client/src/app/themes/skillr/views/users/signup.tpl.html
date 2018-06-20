@@ -1,0 +1,78 @@
+<div class="well-lg" ng-class="{'container': currentPageType === 'page'}">
+  <div class="row">
+    <div class="center-form" ng-class="{'col-sm-6 col-sm-offset-3 col-xs-12 col-xs-offset-0': currentPageType === 'page' ,'panel': currentPageType === 'modal'}">
+      <div class="panel-body row">
+		<a data-dismiss="modal" ng-click="modalClose($event)" class="modalClose" ng-if="currentPageType === 'modal'"><i class="fa fa-lg fa-times-circle close"></i></a>
+		<div banner position="topBanner" ng-if="$root.settings['site.enabled_plugins'].indexOf('Banner') > -1 && currentPageType === 'page'"></div>
+        <h3 class="lead text-center text-primary"><strong>{{'Sign up to'|translate}} {{$root.settings['site.name']}} {{'account!'|translate}}</strong></h3>		
+		<hr>		
+		<div class="col-xs-12">
+			<div class="well-sm"></div>	
+			<div ng-if="$root.settings['site.enabled_plugins'].indexOf('Subscriptions') > -1">
+				<h3 class="lead text-center text-primary">{{'Choose Subscription Plan'|translate}}</h3>
+					<div class="well-sm" ng-repeat="subscriptions in model.SubscriptionsList" ng-class="{ 'bg-success' : model.Subscriptions.id === subscriptions.id  }">
+						<div class="radio" ng-click="model.Subscriptions.id = subscriptions.id;">
+							<div class="form-group">
+								<label for="{{subscriptions.name}}" class="h4" ng-class="{ 'text-muted' : model.Subscriptions.id !== subscriptions.id  }" popover-placement="top" popover-html-unsafe="{{subscriptions.description}}">
+									<input type="radio" value="{{subscriptions.id}}" id="subscriptions_{{subscriptions.id}}" name="subscriptions_Level" ng-model="model.Subscriptions.id">
+									{{subscriptions.name}} - <amount-display amount='{{subscriptions.price}}' fraction='0' is-course-price='no'> / {{subscriptions.interval_unit}}
+								</label>				
+							</div>
+						</div>
+					</div>
+				<hr>
+			</div>
+			<div ng-if="$root.settings['site.enabled_plugins'].indexOf('SocialLogins') > -1">
+				<h3 class="lead text-center text-primary">{{'Sign up with social accounts'|translate}}</h3>
+				<social-login page-type='{{currentPageType}}'></social-login>
+			</div>
+			<form method="post" name="signupForm">
+				<input type="hidden" name="subscription_id" ng-model="user.subscription_id" ng-if="subscriptionId && $root.settings['site.enabled_plugins'].indexOf('Subscriptions') > -1">				
+				<div ng-if='!contentInIframe'>
+					<h3 class="lead text-center text-primary">{{'Sign up with your email'|translate}}</h3>
+						
+					<div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.displayname.$invalid && signupForm.displayname.$dirty }">
+						<input class="form-control input-lg" type="text" name="displayname" ng-model="user.displayname" placeholder="{{'Name'|translate}}" required autofocus>
+						<span class="ion-person form-control-feedback"></span>
+						<div class="help-block text-danger" ng-if="signupForm.displayname.$dirty" ng-messages="signupForm.displayname.$error">
+						  <div ng-message="required">{{'You must enter your name'|translate}}.</div>
+						</div>
+					</div>
+					<div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.email.$invalid && signupForm.email.$dirty }">
+						<input class="form-control input-lg" type="email" id="email" name="email" ng-model="user.email" placeholder="{{'Email'|translate}}" required autofocus>
+						<span class="ion-at form-control-feedback"></span>
+						<div class="help-block text-danger" ng-if="signupForm.email.$dirty" ng-messages="signupForm.email.$error">
+						  <div ng-message="required">{{'Your email address is required'|translate}}.</div>
+						  <div ng-message="email">{{'Your email address is invalid'|translate}}.</div>
+						</div>
+					</div>
+					<div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.password.$invalid && signupForm.password.$dirty }">
+						<input class="form-control input-lg" type="password" minlength="5" name="password" ng-model="user.password" placeholder="{{'Password'|translate}}" required>
+						<span class="ion-key form-control-feedback"></span>
+						<div class="help-block text-danger" ng-if="signupForm.password.$dirty" ng-messages="signupForm.password.$error">
+						  <div ng-message="required">{{'Password is required'|translate}}.</div>
+						  <div ng-message="minlength">{{'Password must be 5 characters'|translate}}.</div>
+						</div>
+					</div>
+					<div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.confirmPassword.$invalid && signupForm.confirmPassword.$dirty }">
+						<input password-match="user.password" class="form-control input-lg" type="password" minlength="5" name="confirmPassword" ng-model="user.confirm_password" placeholder="{{'Confirm Password'|translate}}" required>
+						<span class="ion-key form-control-feedback"></span>
+						<div class="help-block text-danger" ng-if="signupForm.confirmPassword.$dirty" ng-messages="signupForm.confirmPassword.$error">
+						  <div ng-message="compareTo">{{'Password and confirm password must be same'|translate}}.</div>
+						  <div ng-message="required">{{'Confirm password is required'|translate}}.</div>
+						  
+					   </div>
+					</div>
+					  <p class="text-center text-muted"><small>{{'By clicking on Sign up, you agree to'|translate}} <a href="#!/page/terms" target="_blank" ng-bind-html="'Terms & Conditions'|translate|to_trusted"></a> {{'and'|translate}}&nbsp;<a href="#!/page/privacy-policy" target="_blank">{{'privacy policy'|translate}}</a></small></p>
+					  <button  ng-click="onSubmitted(user);signupForm.$setPristine();" ng-disabled="signupForm.$invalid || disableButton" class="btn btn-lg btn-block btn-primary">{{'Sign up'|translate}} <span ng-show="disableButton"><i class="fa fa-spinner fa-pulse fa-lg"></i></span></button>
+					  <br/>
+					  <p class="text-center text-muted row">{{'Already have an account?'|translate}} <a ng-if="currentPageType === 'page'" ng-href="#!/users/login" >{{'Log in now'|translate}}</a>
+					  <a ng-if="currentPageType === 'modal'" ng-click="goToState('Login')" ng-href="#!/users/login" >{{'Log in now'|translate}}</a></p>
+				</div>
+			</form>
+		</div>
+	  </div>
+    </div>
+  </div>
+  <div banner position="bottomBanner" ng-if="$root.settings['site.enabled_plugins'].indexOf('Banner') > -1 && currentPageType === 'page'"></div>
+</div>

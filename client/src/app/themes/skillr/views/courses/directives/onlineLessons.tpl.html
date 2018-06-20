@@ -1,0 +1,21 @@
+<div ng-show="model.OnlineCourse.data.length" class="online-lessons-list">
+<ul class="list-group clearfix  navbar-btn">
+			<li ng-repeat="OnlineCourse in model.OnlineCourse.data" class="list-group-item clearfix ng-scope" data-toggle="tooltip" tooltip-placement="bottom"  tooltip="{{OnlineCourse.lesson_description}}" >
+				<div  ng-if="OnlineCourse.is_chapter == 1" class="col-xs-12"><strong>{{OnlineCourse.lesson_name}}</strong></div>
+				<div  class="col-xs-12" ng-if="OnlineCourse.is_chapter == 0">
+					<span  class="text-muted" ><i class="fa fa-download" ng-if='OnlineCourse.online_lesson_type_id === 5'></i>
+					<i class="fa fa-file-video-o" ng-if='OnlineCourse.online_lesson_type_id === 4'> </i>
+					<i class="fa fa-play-circle-o"  ng-if='OnlineCourse.online_lesson_type_id === 3'></i>
+					<i class="fa fa-edit"  ng-if='OnlineCourse.online_lesson_type_id === 1'></i>
+					<i class="fa fa-file"  ng-if='OnlineCourse.online_lesson_type_id === 2'></i>
+					<i class="fa fa-edit"  ng-if='OnlineCourse.online_lesson_type_id === 6'></i>
+					<i class="fa fa-edit"  ng-if='!OnlineCourse.online_lesson_type_id'></i>&nbsp;{{OnlineCourse.lesson_name}}</span>
+
+					&nbsp;&nbsp; <span  class="" id="lesson_list" ng-if="OnlineCourse.lesson_description" >
+						<i class="fa fa-question-circle"></i>
+					</span>
+					<div  ng-if='OnlineCourse.is_preview === 1 && OnlineCourse.is_chapter == 0' class="pull-right" ><a href="#!/{{OnlineCourse.course_slug}}/learn/{{OnlineCourse.course_id}}?lesson={{OnlineCourse.id}}" title="{{'Preview'|translate}}" class="text-primary"><i class="fa fa-eye"></i></a> </div>
+				</div>				
+			</li>
+	</ul>
+</div>

@@ -1,0 +1,132 @@
+  
+    <div class="clearfix lesson_container">
+       <div class="navbar-default bg-primary col-sm-3 col-md-3 col-lg-2">   
+           <h4 class="initialism">
+				<a ng-if="!$root.isAuth && model.OnlinelessonLength > 0" href="#!/course/{{model.OnlineCourse[0].course_id}}/{{model.OnlineCourse[0].course_slug}}" class="btn btn-sm btn-danger"> <i class="glyphicon glyphicon-chevron-left"></i>{{'Back'|translate}}</a>
+				<a ng-if="!$root.isAuth && model.OnlinelessonLength === 0" href="#!/" class="btn btn-sm btn-danger"> <i class="glyphicon glyphicon-chevron-left"></i>{{'Back'|translate}}</a>
+				<a ng-if="$root.isAuth && $root.auth.providertype !== 'admin'" href="#!/my-courses/learning" class="btn btn-sm btn-danger"> <i class="glyphicon glyphicon-chevron-left"></i>{{'Dashboard'|translate}}</a>
+				<a ng-if="$root.isAuth && $root.auth.providertype === 'admin'" href="ag-admin/#/courses/list" class="btn btn-sm btn-danger"> <i class="glyphicon glyphicon-chevron-left"></i>{{'Admin Panel'|translate}}</a>
+			</h4>
+            <ul class="list-unstyled nav navbar-default list-group">
+                 <li class="row learn-page-lesson-list" ng-repeat="OnlineCourse in model.OnlineCourse" ng-class="{'btn-primary' : OnlineCourse.is_chapter === 1, ' list-group-item':OnlineCourse.is_chapter === 0}" >
+					<!-- showing lesson chapter name-->
+					<span class="row " ng-if='OnlineCourse.is_chapter === 1'>
+                        <div class="col-xs-12 "><strong>{{'Chapter'|translate}}: {{OnlineCourse.lesson_name}} </strong></div>
+                    </span>
+					<!-- showing lesson name -->
+					<a class="media" ng-class="{'text-success': OnlineCourse.completed === 1 && !coursePurchased, 'btn-default active': model.viewLessonDetails.id === OnlineCourse.id || lessonID === OnlineCourse.id }" href="#!/{{OnlineCourse.course_slug}}/learn/{{OnlineCourse.course_id}}?lesson={{OnlineCourse.id}}" ng-if='OnlineCourse.is_chapter === 0'>
+						<!-- completed lesson with success tick icon -->
+						<span class="pull-left" ng-if="coursePurchased && OnlineCourse.completed === '1'|| model.viewLessonDetails.completedId === OnlineCourse.id">
+						<i class="fa fa-check-circle fa-lg" ng-class="{'text-success': model.viewLessonDetails.completedId === OnlineCourse.id || OnlineCourse.completed === '1'}" ng-if="model.viewLessonDetails.completedId === OnlineCourse.id || OnlineCourse.completed === '1'"></i>
+						<i class="fa fa-circle-o fa-lg" ng-class="{'text-success': OnlineCourse.viewcompleted === 1}" ng-if="model.viewLessonDetails.completedId !== OnlineCourse.id && OnlineCourse.completed !== '1'" ></i>
+						</span>
+						<!-- not completed but viewed lesson with success green circle icon -->
+						<span class="pull-left" ng-if="coursePurchased && OnlineCourse.completed !== '1'"><i class="fa fa-circle-o fa-lg" ng-class="{'text-success': OnlineCourse.viewcompleted === 1 || OnlineCourse.viewed === '1'}" ng-if="model.viewLessonDetails.completedId !== OnlineCourse.id && OnlineCourse.viewed === '1'" ></i></span>
+						<!-- not completed also not viewed lesson with success gary or white circle icon -->
+						<span class="pull-left" ng-if="coursePurchased && OnlineCourse.completed !== '1'"><i class="fa fa-circle-o fa-lg" ng-class="{'text-success': OnlineCourse.viewcompleted === 1}" ng-if="OnlineCourse.viewed === '0' " ></i></span>
+						<!-- not completed and not eligible to view lesson -->
+						<span class="pull-left" ng-if='!coursePurchased && $root.isAuth || !OnlineCourse.completed'><i class="fa fa-circle-o fa-lg" ng-class="{'text-success': OnlineCourse.completed === 1 || OnlineCourse.viewed === '1' }" ></i></span>
+						<span class="media-body">{{'Lesson'|translate}}: {{OnlineCourse.lesson_name}}</span>	
+					</a>								
+				</li>                           
+                
+                <div class="well-sm"></div>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-md-9 col-lg-10 bg-primary navbar-inverse"> 
+			 <div class="btn-default row">
+				<div class="well-sm">
+					<a class="btn btn-primary" ng-disabled="model.neighbourDetails.previous_id === null" href="#!/{{model.neighbourDetails.course_slug}}/learn/{{model.neighbourDetails.course_id}}?lesson={{model.neighbourDetails.previous_id}}" > <i class="glyphicon glyphicon-chevron-left"></i>  {{'PREVIOUS LECTURE'|translate}}</a>	
+					<a class="btn btn-primary navbar-right"  ng-disabled="model.neighbourDetails.next_id === null" href="#!/{{model.neighbourDetails.course_slug}}/learn/{{model.neighbourDetails.course_id}}?lesson={{model.neighbourDetails.next_id}}">{{'NEXT LECTURE'|translate}}  <i class="glyphicon glyphicon-chevron-right"></i></a>
+					<a class="btn navbar-right list-group-item-heading"  ng-disabled="shouldBuyCourse" ng-click="model.lessonComplete(model.viewLessonDetails.id, model.viewLessonDetails)" ng-if='model.viewLessonDetails.id && coursePurchased'>
+					<i class="fa fa-check-circle fa-lg fa-fw text-muted" ng-class="{'text-success': model.viewLessonDetails.completed === '1'}" ></i><strong class="text-primary" ng-if=" model.viewLessonDetails.completed === '1'"> {{'Mark as Unread'|translate}}</strong><strong class="text-primary" ng-if=" model.viewLessonDetails.completed !== '1'"> {{'Mark as Completed'|translate}}</strong></a>								
+				</div>
+			</div>
+            <div class="well-lg clearfix lesson_details" ng-if='model.viewLessonDetails !== null && !shouldBuyCourse'>
+			    <div class="text-center" ng-if="model.OnlinelessonLength === 0" >
+					<h2 class="fa-inverse">{{'No lessons available.'|translate}}</h2>
+				</div>
+            	<div class="col-xs-12" >
+                	<div class="col-sm-12 clearfix">
+                        <h3 class="list-group-item-heading"><strong>{{model.viewLessonDetails.lesson_name}}</strong></h3>
+                        <div class="navbar-btn clearfix"></div>
+                        <p class="h6">{{model.viewLessonDetails.lesson_description}}</p>
+						<div class="well-sm"></div>
+                    </div>
+               		<div class="col-sm-6 pull-right text-right">
+                       
+                   </div>
+                </div>
+                <div class="col-xs-12 clearfix">
+					<div class="col-xs-12">					
+						<div ng-if='model.viewLessonDetails.online_lesson_type_id === 1'><p ng-bind-html='model.viewLessonDetails.article_content'></div>
+						<div ng-if='model.viewLessonDetails.online_lesson_type_id === 2'>
+							<div class="well-lg text-center"><a href="#" class="btn"> <h4>{{'Open Document'|translate}} &nbsp; <i class="fa fa-file"></i>&nbsp;{{model.viewLessonDetails.filename}}</h4></a></div>
+						</div>
+						<div ng-if='model.viewLessonDetails.online_lesson_type_id === 3'>										
+							<div class="alert alert-info" ng-if="model.viewLessonDetails.is_video_converting_is_processing === 1">
+								<span class="well-sm">{{'Video converting under progressing'|translate}}</span>
+							</div>
+							<div class="alert alert-danger" ng-if="model.viewLessonDetails.is_video_converting_is_processing === 0 && model.viewLessonDetails.is_lesson_ready_to_view !== 1">
+								<span class="well-sm">{{'Video conversion Failed. Students can\'t view this lesson'|translate}}</span>
+							</div>							
+							<div class="well-lg col-xs-11 ml-4">
+								<video id="video"  ng-src="{{model.viewLessonDetails.video_url}}" controls="true" ng-if="model.viewLessonDetails.is_lesson_ready_to_view === 1"></video>
+							</div>
+						</div>
+						<div ng-if='model.viewLessonDetails.online_lesson_type_id === 4'>
+						 <p class="videoWrapper" ng-bind-html='model.viewLessonDetails.embed_code'></p>
+						 </div>
+						<div ng-if='model.viewLessonDetails.online_lesson_type_id === 5'>
+							<div class="well-lg text-center">
+								<h4>{{'Download this lesson'|translate}}</h4>
+								<p>{{model.viewLessonDetails.filename}}</p>
+								<a class="btn ng-binding btn-default" ng-href = "{{model.viewLessonDetails.download_url}}"><i class="fa fa-3x fa-download fa-3x"></i></a>							
+							</div>
+						</div>
+						<div ng-if='model.viewLessonDetails.online_lesson_type_id === 6'>{{model.viewLessonDetails.lessondescription}}</div>
+					</div>
+				</div>
+            </div> 
+			<!-- User not able to view this lesson because of payment pending or subscription -->
+			<div class="well-lg clearfix" ng-if='shouldBuyCourse && model.OnlineCourse.length > 0 ' >	
+					<div class="well-lg"></div>
+					<div class="well-lg"></div>
+					<div class="well-lg"></div>
+					<div class="well-sm"></div>
+					<!-- if user not logged in -->
+					<div ng-if='!isAuth'>
+						<div class="clearfix text-center">
+							<h4>{{'Already have an account?'|translate}}</h4>
+							<a ng-href="#!/users/login"  ng-click="modalLogin($event)" title="{{'Login'| translate}}"  class="btn btn-primary">{{'Login'|translate}}</a> 
+						</div>
+					</div>
+					<!-- available payment options to view this lesson -->
+					<div class="clearfix text-center" ng-if="$root.settings['site.enabled_plugins'].indexOf('Subscriptions') > -1 || $root.settings['site.enabled_plugins'].indexOf('CourseCheckout') > -1">
+						<h3>{{'Ready to watch this entire course?'|translate}}</h3>
+						<div class="well-sm"></div>
+						<div class="h2 list-group-item-heading text-center">
+							<strong><amount-display amount='{{model.neighbourDetails.course_price}}' fraction='2' is-course-price='yes'></amount-display></strong>
+						</div>
+						<div class="well-sm"></div>
+						<!-- user subscribed plan but its not able to access this lesson course's instruction level -->
+						<div ng-if="shouldChangePlan" class="col-md-6 col-md-offset-3">
+							<div class="navbar-btn alert alert-warning clearfix">
+								<span class="clearfix text-info">{{'Your subscription plan not enough to access this course level.'|translate}}</span>				
+							</div>
+							<a href="#!/me/subscriptions" title="{{'Change Your Plan'|translate}}" class="btn btn-lg btn-primary">{{'Change Plan'|translate}}</a>
+						</div>
+						<!-- user not subscribed any plan -->
+						<a href="#!/subscribe/plans" class="btn btn-primary" ng-if="$root.settings['site.enabled_plugins'].indexOf('Subscriptions') > -1 && !shouldChangePlan">{{'Start Learning Now'|translate}}</a>&nbsp;						
+						<!-- payment plugin enabled -->
+						<buy-button   btn-class-name='btn-primary'  course-id='{{model.OnlineCourse[0].course_id}}' course-status='false' ng-if="$root.settings['site.enabled_plugins'].indexOf('CourseCheckout') > -1 && $root.settings['site.enabled_plugins'].indexOf('Subscriptions') === -1" ></buy-button>									
+					</div>
+             </div>
+            
+         </div>
+		
+     </div>
+	<div class="navbar-default clearfix">   
+		<div class="well-sm"></div>
+	</div>
+	

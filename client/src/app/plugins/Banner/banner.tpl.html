@@ -1,0 +1,24 @@
+<!-- banner content starts -->
+<section class="clearfix text-center max-img">	
+	<div ng-if="model.position === 'topBanner' && $root.settings['banner.all_page_top']">
+		<div class="well-sm"></div>
+		<p ng-bind-html="$root.settings['banner.all_page_top']"></p>
+		<div class="well-sm"></div>
+	</div>
+	<div ng-if="model.position === 'bottomBanner' && $root.settings['banner.all_page_bottom']">
+		<div class="well-sm"></div>
+		<p ng-bind-html="$root.settings['banner.all_page_bottom']"></p>
+		<div class="well-sm"></div>
+	</div>
+	<div ng-if="model.position === 'courseBanner' && $root.settings['banner.course_page_sidebar']">
+		<div class="well-sm"></div>
+		<p ng-bind-html="$root.settings['banner.course_page_sidebar']"></p>
+		<div class="well-sm"></div>
+	</div>
+	<div ng-if="model.position === 'profileBanner' && $root.settings['banner.profile_page_sidebar']">
+		<div class="well-sm"></div>
+		<p ng-bind-html="$root.settings['banner.profile_page_sidebar']"></p>
+		<div class="well-sm"></div>
+	</div>	
+</section>
+<!-- banner content ends -->

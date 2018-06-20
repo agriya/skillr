@@ -1,0 +1,111 @@
+<a class="btn btn-primary navbar-btn size-sm" title="{{'Add Downloadable File'|translate}}" ng-class="{'active' :showForm}" ng-click="uploadConfigure()" ng-if="action === 'add'" >
+<i class="fa fa-download"></i>&nbsp;<span class="hidden-xs">{{label}}</span></a>
+
+<div ng-if="showForm && action === 'add'" class="col-xs-12">
+	<h4 class="text-muted navbar-btn">{{'Add Downloadable File'|translate}}</h4>	
+	<form class="col-lg-12 form-horizontal" name="add_downloable_file" ng-submit="addDownloadFile($event);add_downloable_file.$setPristine()">
+		<div class="row">
+			<div id="row-title" class="form-group has-feedback" ng-class="add_downloable_file.name.$dirty ? (add_downloable_file.name.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="name" class="col-sm-3 control-label text-muted">{{'Title'|translate}}&nbsp;*&nbsp;</label>
+				<div  class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">
+					<input type="text" ng-model="model.onlineDownloadableLesson.name" class="form-control" name="name" required="" maxlength="50"/>
+					<span ng-show="add_downloable_file.name.$dirty" class="glyphicon form-control-feedback" ng-class="add_downloable_file.name.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-description" class="form-group has-feedback" ng-class="add_video_embed.description.$dirty ? (add_video_embed.description.$valid ? 'has-success' : 'has-error') : ''">
+					<label for="description" class="col-sm-3 control-label text-muted">{{'Description'|translate}}</label>
+					<div class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">					
+						<textarea type="text" size="10" ng-model="model.onlineDownloadableLesson.description" name="description" class="form-control" maxlength="150" ></textarea>
+					</div>
+			</div>
+			<div id="row-file" class="form-group has-feedback" ng-class="add_downloable_file.filename.$dirty ? (add_downloable_file.filename.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="filename" class="col-sm-3 control-label text-muted">{{'Downloadable File'|translate}}&nbsp;*&nbsp;</label>
+				<div  class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">
+					<input type="file" name="filename" onchange="angular.element(this).scope().uploadDocumentFile(this.files)" required="" ng-model=" model.onlineDownloadableLesson.filename" />						
+					<span ng-show="add_downloable_file.filename.$dirty" class="glyphicon form-control-feedback" ng-class="add_downloable_file.filename.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-is_preview" class="form-group has-feedback" ng-class="add_downloable_file.is_preview.$dirty ? (add_downloable_file.is_preview.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="is_preview" class="col-sm-3 control-label text-muted"></label>
+				<div class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">	
+					<div class="">
+						<label class="text-muted"><input type="checkbox" ng-model="model.onlineDownloadableLesson.is_preview" id="is_preview" ng-true-value="1" ng-false-value="0">
+						&nbsp;{{'Preview Lesson?'|translate}}</label>
+					</div>											
+					<span class="help-block"><i class="fa fa-info-circle text-info "></i> &nbsp;{{'Students can view this lesson without pay'|translate}}.</span>
+				</div>					
+			</div>
+			<div id="row-is_active" class="form-group has-feedback" ng-class="add_downloable_file.is_active.$dirty ? (add_downloable_file.is_active.$valid ? 'has-success' : 'has-error') : ''">				
+				<label for="is_preview" class="col-sm-3 control-label text-muted"></label>
+				<div class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">	
+					<div class="">
+						<label class="text-muted"><input  type="checkbox" ng-model="model.onlineDownloadableLesson.is_active" id="is_active" ng-true-value="true" ng-false-value="false">
+						 &nbsp;{{'Active?'|translate}}</label>
+					</div>														
+				</div>					
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+					<button ng-hide="disableSave" ng-disabled="disableButton" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> {{'Submit'|translate}}</button>
+					<button ng-hide="!disableSave" ng-disabled="true" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> {{'Validating'|translate}} <span><i class="fa fa-spinner fa-pulse fa-lg"></i></span></button>
+					&nbsp;{{'or'|translate}}&nbsp;
+					<a href="#" ng-click="hideForm($event)" class="text-primary">{{'Cancel'|translate}}</a>
+				</div>
+			</div>
+			
+		</div>	
+	</form>
+</div>
+<div ng-if="action === 'edit' && editForm">
+	<h4 class="text-muted navbar-btn">{{'Edit Downloadable File'|translate}}</h4>	
+	<form class="col-lg-12 form-horizontal" name="edit_downloable_file" ng-submit="editDownloadFile($event);edit_downloable_file.$setPristine()">
+		<div class="row">
+			<div id="row-title" class="form-group has-feedback" ng-class="edit_downloable_file.name.$dirty ? (edit_downloable_file.name.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="name" class="col-sm-3 control-label text-muted">{{'Title'|translate}}&nbsp;*&nbsp;</label>
+				<div  class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">
+					<input type="text" ng-model="model.editDownloadableLesson.lesson_name" class="form-control" name="name" required="" maxlength="50"/>
+					<span ng-show="edit_downloable_file.name.$dirty" class="glyphicon form-control-feedback" ng-class="edit_downloable_file.name.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-description" class="form-group has-feedback" ng-class="edit_downloable_file.description.$dirty ? (edit_downloable_file.description.$valid ? 'has-success' : 'has-error') : ''">
+					<label for="description" class="col-sm-3 control-label text-muted">{{'Description'|translate}}</label>
+					<div class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">					
+						<textarea type="text" size="10" ng-model="model.editDownloadableLesson.lesson_description" name="description" class="form-control" maxlength="150"></textarea>
+					</div>
+			</div>
+			<div id="row-title" class="form-group has-feedback" ng-class="edit_downloable_file.filename.$dirty ? (edit_downloable_file.filename.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="filename" class="col-sm-3 control-label text-muted">{{'Downloadable File'|translate}}&nbsp;*&nbsp;</label>
+				<div  class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">
+					<input type="file" name="filename" onchange="angular.element(this).scope().uploadDocumentFile(this.files)" ng-model=" model.editDownloadableLesson.filename" />						
+					<span ng-show="edit_downloable_file.filename.$dirty" class="glyphicon form-control-feedback" ng-class="edit_downloable_file.filename.$valid ? 'glyphicon-ok' : 'glyphicon-remove'"></span>
+				</div>
+			</div>
+			<div id="row-is_preview" class="form-group has-feedback" ng-class="edit_downloable_file.is_preview.$dirty ? (edit_downloable_file.is_preview.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="is_preview" class="col-sm-3 control-label text-muted"></label>
+				<div class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">	
+					<div class="">
+						<label class="text-muted"><input type="checkbox" ng-model="model.editDownloadableLesson.is_preview" id="is_preview" ng-true-value="1" ng-false-value="0">
+						 &nbsp; {{'Preview Lesson?'|translate}}</label>
+					</div>											
+					<span class="help-block"><i class="fa fa-info-circle text-info"></i> &nbsp; {{'Students can view this lesson without pay'|translate}}.</span>
+				</div>					
+			</div>
+			<div id="row-is_active" class="form-group has-feedback" ng-class="edit_downloable_file.is_active.$dirty ? (edit_downloable_file.is_active.$valid ? 'has-success' : 'has-error') : ''">
+				<label for="is_active" class="col-sm-3 control-label text-muted"></label>
+				<div class="ng-admin-type-text col-sm-9 col-md-8 col-lg-7">	
+					<div class="">
+						<label class="text-muted"><input type="checkbox" ng-model="model.editDownloadableLesson.is_active" id="is_active" ng-true-value="true" ng-false-value="false">
+						 &nbsp;{{'Active?'|translate}}</label>
+					</div>											
+				</div>					
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+					<button ng-hide="disableSave" type="submit" ng-disabled="disableButton" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> {{'Save'|translate}}</button>
+					<button ng-hide="!disableSave" ng-disabled="true" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> {{'Validating'|translate}} <span><i class="fa fa-spinner fa-pulse fa-lg"></i></span></button>
+				</div>
+			</div>
+			
+		</div>	
+	</form>
+</div>

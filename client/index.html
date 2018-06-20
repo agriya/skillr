@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html ng-app="ace" ng-controller="AppController">
+<head>
+    <title ng-bind="pageTitle"></title>
+
+    <!-- font awesome from BootstrapCDN -->
+   <!-- <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">-->
+
+    <!-- compiled CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/skillr-v1.0b1.css" />
+	
+	<!-- Le fav and touch icons -->
+	<link rel="shortcut icon" href="assets/favicon.ico">
+	<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="assets/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="assets/apple-touch-icon-114x114.png" />
+	<link rel="icon" type="images/svg+xml" href="assets/img/logo.svg"/>
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>	
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="{{$root.metaDescription}}"/>
+	<meta name="keywords" content="{{$root.metaKeywords}}"/>
+	<meta property="og:app_id" content=""/>
+	<meta property="fb:app_id" content=""/>
+	<meta property="fb:admins" content="{{$root.settings['facebook.admin.userid']}}" ng-if="$root.settings['facebook.admin.userid']"/>
+	<meta property="og:title" content="{{$root.pageTitle}}"/>
+	<meta property="og:description" content="{{$root.metaDescription}}"/>
+	<meta property="og:image" content="{{$root.site_url}}img/big_thumb/Course/0.default.jpg"/>
+	<meta property="og:site_name" content="{{$root.settings['site.name']}}"/>
+	<meta property="og:url" content="{{$root.site_url}}"/>   	
+</head>
+<body >
+  <div id="preloader" class="loadAng">
+	<div id="status">&nbsp;</div>
+  </div>
+	<div id="index" class="content">
+	<div growl></div>
+		<!--header section start-->
+		<div header></div>
+		<div ng-if="$root.GENERAL_CONFIG['theme'] === 'tutor' && $root.isHome === false">
+			<div class="well-lg"></div>
+			<div class="well-sm"></div>
+		</div>
+		<div ng-if="$root.GENERAL_CONFIG['theme'] === 'learnr' && $root.isHome === false">
+			<div class="well-lg"></div>
+			<div class="well-sm navbar-btn list-group-item-heading" ng-show="$root.isCourse === false"></div>
+		</div>
+		<div ng-if="$root.GENERAL_CONFIG['theme'] === 'teamr' && $root.isHome === false">
+			<div class="well-lg"></div>
+			<div class="well-lg"></div>
+		</div>		
+		<!--header section end-->
+		<!--main section start-->
+		<main id="main">	
+		<div ui-view="main" autoscroll="true" class="page fade" ng-hide="isOn404"></div>
+		<div ng-show="isOn404" >
+			<div class="container">
+				<div class="well-lg"></div>
+				<div class="well-lg"></div>
+				<div class="">	
+					<h3>404 Page Not Found</h3>
+				</div>	
+			</div>
+		</div>
+		</main>
+		<!--main section end-->
+		<!--footer section start-->
+		<div footer></div>
+	  <!--footer section end-->	  
+	</div>	
+	<div id="fb-root"></div>
+	<div oc-lazy-load='$root.loadanalytics'>
+		<div google-analytics ng-if="$root.settings['site.enabled_plugins'].indexOf('Analytics') > -1 && $root.settings['analytics.is_enabled_google_analytics'] === '1'"></div>
+		<div facebook-pixel  ng-if="$root.settings['site.enabled_plugins'].indexOf('Analytics') > -1 && $root.settings['analytics.is_enabled_facebook_pixel'] === '1'"></div>
+	</div>
+
+	<script>
+		var api_url = '/';
+		var token = '';
+	</script>
+	 <!-- compiled JavaScript -->
+	
+    <script type="text/javascript" src="vendor/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="vendor/jquery/dist/jquery.timeago.js"></script>
+    <script type="text/javascript" src="vendor/jquery/dist/jquery.cookie.js"></script>
+    <script type="text/javascript" src="vendor/angular/angular.js"></script>
+    <script type="text/javascript" src="vendor/angular-sanitize/angular-sanitize.js"></script>
+    <script type="text/javascript" src="vendor/angular-resource/angular-resource.js"></script>
+    <script type="text/javascript" src="vendor/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-animate/angular-animate.js"></script>
+    <script type="text/javascript" src="vendor/angular-ui-router/src/angular-ui-router.js"></script>
+    <script type="text/javascript" src="vendor/angular-translate/angular-translate.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-dynamic-locale/tmhDynamicLocale.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-cookies/angular-cookies.js"></script>
+    <script type="text/javascript" src="vendor/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+    <script type="text/javascript" src="vendor/angular-translate-handler-log/angular-translate-handler-log.js"></script>
+    <script type="text/javascript" src="vendor/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-slugify/angular-slugify.js"></script>
+    <script type="text/javascript" src="vendor/angular-http-auth/src/http-auth-interceptor.js"></script>
+    <script type="text/javascript" src="vendor/angular-growl/build/angular-growl.js"></script>
+    <script type="text/javascript" src="vendor/angular-messages/angular-messages.js"></script>
+    <script type="text/javascript" src="vendor/angular-nl2br/angular-nl2br.js"></script>
+    <script type="text/javascript" src="vendor/satellizer/satellizer.js"></script>
+    <script type="text/javascript" src="vendor/bootstrap/js/collapse.js"></script>
+    <script type="text/javascript" src="vendor/bootstrap/js/dropdown.js"></script>
+    <script type="text/javascript" src="vendor/bootstrap/js/tab.js"></script>
+    <script type="text/javascript" src="vendor/bootstrap/js/alert.js"></script>
+    <script type="text/javascript" src="vendor/bootstrap/js/scrollspy.js"></script>
+    <script type="text/javascript" src="vendor/bootstrap/js/affix.js"></script>
+    <script type="text/javascript" src="vendor/textangular/dist/textAngular-rangy.min.js"></script>
+    <script type="text/javascript" src="vendor/textangular/dist/textAngular-sanitize.min.js"></script>
+    <script type="text/javascript" src="vendor/textangular/dist/textAngular.min.js"></script>
+    <script type="text/javascript" src="vendor/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-ui-sortable/sortable.js"></script>
+    <script type="text/javascript" src="vendor/OcLazyLoad/ocLazyLoad.js"></script>
+    <script type="text/javascript" src="vendor/angular-socialshare/dist/angular-socialshare.min.js"></script>
+    <script type="text/javascript" src="vendor/angulartics/dist/angulartics.min.js"></script>
+    <script type="text/javascript" src="vendor/angulartics-google-analytics/dist/angulartics-google-analytics.min.js"></script>
+    <script type="text/javascript" src="vendor/angulartics-facebook-pixel/dist/angulartics-facebook-pixel.min.js"></script>
+    <script type="text/javascript" src="vendor/img-lazyload/imglazyload.js"></script>
+    <script type="text/javascript" src="src/app/common/common.module.js"></script>
+    <script type="text/javascript" src="src/app/contactUs/contactUs.module.js"></script>
+    <script type="text/javascript" src="src/app/courses/courses.module.js"></script>
+    <script type="text/javascript" src="src/app/home/home.module.js"></script>
+    <script type="text/javascript" src="src/app/pages/pages.module.js"></script>
+    <script type="text/javascript" src="src/app/users/users.module.js"></script>
+    <script type="text/javascript" src="src/ag-admin/js/ng-admin.app.js"></script>
+    <script type="text/javascript" src="src/app/app.js"></script>
+    <script type="text/javascript" src="src/app/common/commonService.js"></script>
+    <script type="text/javascript" src="src/app/common/footer.js"></script>
+    <script type="text/javascript" src="src/app/common/header.js"></script>
+    <script type="text/javascript" src="src/app/constant.js"></script>
+    <script type="text/javascript" src="src/app/contactUs/contactUS.js"></script>
+    <script type="text/javascript" src="src/app/contactUs/contactUsService.js"></script>
+    <script type="text/javascript" src="src/app/courses/addCourse.js"></script>
+    <script type="text/javascript" src="src/app/courses/courseService.js"></script>
+    <script type="text/javascript" src="src/app/courses/courses.js"></script>
+    <script type="text/javascript" src="src/app/courses/directives/amountDisplay.js"></script>
+    <script type="text/javascript" src="src/app/courses/directives/categoriesList.js"></script>
+    <script type="text/javascript" src="src/app/courses/directives/courseCategory.js"></script>
+    <script type="text/javascript" src="src/app/courses/directives/homeCourse.js"></script>
+    <script type="text/javascript" src="src/app/courses/directives/manageCourseNavbar.js"></script>
+    <script type="text/javascript" src="src/app/courses/directives/onlineLessons.js"></script>
+    <script type="text/javascript" src="src/app/courses/directives/paymentButtons.js"></script>
+    <script type="text/javascript" src="src/app/courses/directives/relatedCoursesByCategory.js"></script>
+    <script type="text/javascript" src="src/app/courses/directives/relatedCoursesByUser.js"></script>
+    <script type="text/javascript" src="src/app/courses/learnCourse.js"></script>
+    <script type="text/javascript" src="src/app/courses/learning.js"></script>
+    <script type="text/javascript" src="src/app/courses/manageCourse.js"></script>
+    <script type="text/javascript" src="src/app/courses/search.js"></script>
+    <script type="text/javascript" src="src/app/courses/teaching.js"></script>
+    <script type="text/javascript" src="src/app/courses/viewCourse.js"></script>
+    <script type="text/javascript" src="src/app/courses/wishlist.js"></script>
+    <script type="text/javascript" src="src/app/home/home.js"></script>
+    <script type="text/javascript" src="src/app/home/homeService.js"></script>
+    <script type="text/javascript" src="src/app/pages/pages.js"></script>
+    <script type="text/javascript" src="src/app/pages/pagesService.js"></script>
+    <script type="text/javascript" src="src/app/plugins/Comments/Comments.js"></script>
+    <script type="text/javascript" src="src/app/plugins/CourseWishlist/CourseWishlist.js"></script>
+    <script type="text/javascript" src="src/app/plugins/Instructor/Instructor.js"></script>
+    <script type="text/javascript" src="src/app/plugins/RatingAndReview/RatingAndReview.js"></script>
+    <script type="text/javascript" src="src/app/plugins/SEO/SEO.js"></script>
+    <script type="text/javascript" src="src/app/plugins/SocialLogins/SocialLogins.js"></script>
+    <script type="text/javascript" src="src/app/plugins/SocialShare/SocialShare.js"></script>
+    <script type="text/javascript" src="src/app/plugins/Subscriptions/Subscriptions.js"></script>
+    <script type="text/javascript" src="src/app/plugins/UserProfile/UserProfile.js"></script>
+    <script type="text/javascript" src="src/app/plugins/VideoLessons/VideoLessons.js"></script>
+    <script type="text/javascript" src="src/app/themes/skillr/assets/js/common.js"></script>
+    <script type="text/javascript" src="src/app/themes/skillr/assets/js/libs/jquery.payment.js"></script>
+    <script type="text/javascript" src="src/app/users/activation.js"></script>
+    <script type="text/javascript" src="src/app/users/change_password.js"></script>
+    <script type="text/javascript" src="src/app/users/directives/customPopover.js"></script>
+    <script type="text/javascript" src="src/app/users/directives/passwordMatch.js"></script>
+    <script type="text/javascript" src="src/app/users/directives/profileImage.js"></script>
+    <script type="text/javascript" src="src/app/users/directives/profileName.js"></script>
+    <script type="text/javascript" src="src/app/users/forget_password.js"></script>
+    <script type="text/javascript" src="src/app/users/login.js"></script>
+    <script type="text/javascript" src="src/app/users/logout.js"></script>
+    <script type="text/javascript" src="src/app/users/signup.js"></script>
+    <script type="text/javascript" src="src/app/users/users.js"></script>
+    <script type="text/javascript" src="src/app/users/usersService.js"></script>
+    <script type="text/javascript" src="templates-common.js"></script>
+    <script type="text/javascript" src="templates-app.js"></script>
+	
+</body>
+</html>

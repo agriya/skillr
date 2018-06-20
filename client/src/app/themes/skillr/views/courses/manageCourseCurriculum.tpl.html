@@ -1,0 +1,173 @@
+<section class="clearfix" ng-show="model.loading === false">
+	<div class="container">	
+		<course-navbar></course-navbar>		
+		<div class="">
+		<div class="tab-content col-sm-8 col-xs-12 col-md-10 clearfix curriculum" ng-if="model.loading === false">	
+			 <div class="navabar-default tab-pane active" id="curriculum">
+			 <div class="panel">
+				<div class="list-header text-center"><h3>{{'Curriculum'|translate}}</h3></div>	
+			 </div>
+				<div class="panel clearfix">
+					<!-- lessons and chapters listing -->
+					<ul class="clearfix list-unstyled navbar-btn col-xs-12" ui-sortable="sortableOptions" ng-model="model.OnlineCourse.data">													 
+						<li class="clearfix" ng-repeat='OnlineCourse in model.OnlineCourse.data' >
+							<div class="col-xs-12 navbar-btn" ng-if="OnlineCourse.is_chapter === 1"  ng-class="{'btn-default': OnlineCourse.is_chapter == '1'}">
+								<div class="clearfix well-sm">
+								<div class="col-xs-10 row">
+									<span class="clearfix"><strong>{{'Chapter'|translate}}: {{OnlineCourse.lesson_name}}</strong></span>
+									<i class="clearfix htruncate-m2">{{OnlineCourse.lesson_description}}</i>
+								</div>								
+								<ul class="list-inline clearfix pull-right">
+										<li ng-if="!OnlineCourse.showDetailsChapter">
+										  <a href="#" class="btn pull-right text-info" ng-click="model.lessonTitleEdit($event, OnlineCourse.id, OnlineCourse, 'chapter')" ><span class="" ><i class="fa fa-pencil"></i></span></a>	
+										</li>
+										<li ng-if="OnlineCourse.showDetailsChapter">
+										  <a href="#" class="btn  btn-default text-info pull-right" ng-click="model.lessonTitleEditClose($event, OnlineCourse.id, OnlineCourse, 'chapter')" ><span class="" ><i class="fa fa-times"></i></span></a>	
+										</li>								
+									</ul>
+									
+								<a href="#" class="btn pull-right  text-info" ng-click="model.deleteLessonFun($event, OnlineCourse.id)"><span class="" ><i class="fa fa-trash-o"></i></span></a>
+								
+								</div>
+								<div  class="navbar-btn clearfix panel text-primary well-sm " ng-if="OnlineCourse.id === OnlineCourse.currenItem1 && currentView === 'edit' && OnlineCourse.showDetailsChapter" >																		
+								<div class="col-xs-12 clearfix " >
+								<div class="panel well-sm clearfix " ng-show="model.editsection === true">
+									<form role="form" name="chapter_edit "class="form-horizontal clearfix text-muted"  ng-submit="model.updateChapter(OnlineCourse.id )" >		
+											<div class="form-group" >
+												<div class="col-md-10 col-sm-10 col-md-offset-1 col-sm-offset-1 col-xs-8 col-xs-offset-2 row">
+													<label class="control-label" for="chapter_name">{{'Title'|translate}}</label>											
+													<div class="input-group">			
+															<input type="text" class="form-control" name="chapter_name" id="chapter_name" ng-model="model.editOnlineChapter.lesson_name" required maxlength="50">
+															<span class="input-group-addon">{{model.editOnlineChapter.lesson_name.length}}</span>																						
+													</div>													
+												</div>
+											</div>
+											<div class="form-group" >
+												<div class="col-md-10 col-sm-10 col-md-offset-1 col-sm-offset-1 col-xs-8 col-xs-offset-2 row">
+													<label class="control-label" for="chapter_description">{{'Enter short description about this chapter'|translate}}</label>				
+													<textarea type="text" class="form-control" id="chapter_description" name="chapter_description" ng-model="model.editOnlineChapter.lesson_description" maxlength="150"></textarea>														
+												</div>
+											</div>
+											<div class="clearfix">
+												<div class="text-center">
+													<label class="sr-only" for="section_save">{{'Save'|translate}}</label>
+													<input type="submit" ng-disabled="disableUpdateButton" class="btn btn-primary" id="section_save" value="{{'Save'|translate}}" >
+												 </div>
+										</div>
+									</form>
+									</div>
+								</div>
+								
+							</div>
+							
+							</div>
+							<div class="col-xs-12 navbar-btn" ng-if="OnlineCourse.is_chapter === 0" >
+								<div class="col-xs-12" ng-class="{'btn-default': OnlineCourse.is_chapter == '1', 'btn-success':OnlineCourse.is_chapter == '0'}">
+									<div class="clearfix well-sm"><span><strong>{{'Lecture'|translate}}: {{OnlineCourse.lesson_name}}</strong></span>									
+									<a ng-click="showDetails = ! showDetails" class="btn text-info pull-right"><span><i class="fa fa-lg fa-caret-square-o-down"></i></span></a>									
+									<a href="#" class="btn  text-info pull-right" ng-click="model.deleteLessonFun($event, OnlineCourse.id)"><span class="" ><i class="fa fa-trash-o"></i></span></a>
+									</div>
+									<div  class="navbar-btn clearfix panel text-primary well-sm " ng-show="showDetails">
+										<div class="clearfix">
+											<div ng-show="OnlineCourse.lesson_description"><span class="htruncate-m2">&nbsp;{{OnlineCourse.lesson_description}}</span></div>
+											<span ng-if="OnlineCourse.online_lesson_type_id === 5" class="text-muted"><i class="fa fa-download"></i>&nbsp;{{OnlineCourse.filename}}</span>
+											<span ng-if="OnlineCourse.online_lesson_type_id === 4" class="text-muted"><i class="fa fa-file-video-o"></i>&nbsp;{{OnlineCourse.lesson_name}}</span>
+											<span ng-if="OnlineCourse.online_lesson_type_id === 3" class="text-muted"><i class="fa fa-play-circle-o"></i></i>&nbsp;{{OnlineCourse.filename}}</span>										
+										</div>
+										<ul class="list-inline clearfix pull-right">
+										<li ng-if="!OnlineCourse.showDetailsLesson">
+										 <a href="#" class="btn  text-info pull-right" ng-click="model.lessonTitleEdit($event, OnlineCourse.id,OnlineCourse, 'lesson')" ><span class="" ><i class="fa fa-pencil"></i></span></a>
+										</li>
+										<li ng-if="OnlineCourse.showDetailsLesson">
+										  <a href="#" class="btn  btn-default text-info pull-right" ng-click="model.lessonTitleEditClose($event, OnlineCourse.id, OnlineCourse, 'lesson')" ><span class="" ><i class="fa fa-times"></i></span></a>	
+										</li>								
+									</ul>
+									<div class='text-muted navbar-btn' ng-if="!OnlineCourse.showDetailsLesson && OnlineCourse.online_lesson_type_id === 1">
+											<strong>{{'Article Content'|translate}}</strong>
+											<p ng-bind-html='OnlineCourse.article_content' class="well navbar-btn"></p>
+									</div>	
+									<div class='text-muted navbar-btn well-lg' ng-if="!OnlineCourse.showDetailsLesson && OnlineCourse.online_lesson_type_id === 3">											
+											<div class="alert alert-info" ng-if="OnlineCourse.is_video_converting_is_processing === 1">
+									
+												<span class="well-sm">{{'Video converting under progressing'|translate}}</span>
+											</div>
+											<div class="alert alert-danger" ng-if="OnlineCourse.is_video_converting_is_processing === 0 && OnlineCourse.is_lesson_ready_to_view !== 1">
+												<span class="well-sm">{{'Video conversion Failed. Students can\'t view this lesson'|translate}}</span>
+											</div>
+											<video id="video"  ng-src="{{OnlineCourse.video_url}}" controls="true" ng-if="OnlineCourse.is_lesson_ready_to_view === 1"></video>
+									</div>
+									<div class='text-muted navbar-btn well-lg' ng-if="!OnlineCourse.showDetailsLesson && OnlineCourse.online_lesson_type_id === 4">											
+										<p class="videoWrapper" ng-bind-html="OnlineCourse.embed_code | to_trusted"></p>													
+									</div>
+									<div class="col-xs-12 clearfix " ng-if="OnlineCourse.id === OnlineCourse.currenItemLesson && currentLessonView === 'edit'  && OnlineCourse.showDetailsLesson">									
+									<div class="panel well-sm clearfix ">
+										<video-lessons-form course='{{courseID}}' action='edit' lesson-id='{{OnlineCourse.id}}'  ng-if="OnlineCourse.online_lesson_type_id === 3 && $root.settings['site.enabled_plugins'].indexOf('VideoLessons') > -1"  updateparent="model.getOnlineCourses()" ></video-lessons-form>
+										<video-external-embed-lessons-form course='{{courseID}}' action='edit' lesson-id='{{OnlineCourse.id}}' ng-if="OnlineCourse.online_lesson_type_id === 4 && $root.settings['site.enabled_plugins'].indexOf('VideoExternalEmbedLessons') > -1" updateparent="model.getOnlineCourses()"></video-external-embed-lessons-form>
+										<article-lessons-form course='{{courseID}}' action='edit' lesson-id='{{OnlineCourse.id}}' ng-if="OnlineCourse.online_lesson_type_id === 1 && $root.settings['site.enabled_plugins'].indexOf('ArticleLessons') > -1" updateparent="model.getOnlineCourses()"></article-lessons-form>
+										<downloadable-file-lessons-form course='{{courseID}}' lesson-id='{{OnlineCourse.id}}' action='edit'  ng-if="OnlineCourse.online_lesson_type_id === 5 && $root.settings['site.enabled_plugins'].indexOf('DownloadableFileLessons') > -1" updateparent="model.getOnlineCourses()"></downloadable-file-lessons-form>		
+										</div>
+									</div>
+								</div>
+							</div>							
+													
+						</li>									
+					</ul>
+					<!-- lesson and chapter add section -->	
+					<div class="navbar-btn clearfix">		
+							<div class="well-lg navbar-btn">
+								<div class="well-lg clearfix"></div>
+								<div class="col-xs-12 col-sm-6">
+									<a class="btn btn-info btn-block btn-lg navbar-btn" href="#" ng-click="model.addChapterClick($event)" ng-disabled="model.addsection === true" ><i class="fa fa-plus-square"></i>&nbsp; {{'Add Chapter'|translate}}</a>
+								</div>
+								<div class="col-xs-12 col-sm-6">
+									<a class="btn btn-primary btn-block btn-lg navbar-btn" href="#" ng-click="model.addLesson($event)" ><i class="fa fa-plus-square"></i>&nbsp; {{'Add Lesson'|translate}}</a>
+								</div>
+							</div>
+							<div class="col-xs-12 clearfix  navbar-btn" ng-show="model.addsection === true">							
+								<div class="panel panel-default well-sm">				
+									<form role="form" name="chapter_add" class="form-horizontal clearfix" ng-submit="model.addChapter($event)">		
+										<div class="form-group" >
+											<div class="col-md-10 col-sm-10 col-md-offset-1 col-sm-offset-1 col-xs-8 col-xs-offset-2 row">
+												<label class="control-label" for="chapter_name">{{'Title'|translate}}</label>											
+												<div class="input-group">			
+														<input type="text" class="form-control" name="chapter_name" id="chapter_name" ng-model="model.AddOnlineChapter.name" required maxlength="50">
+														<span class="input-group-addon">{{model.AddOnlineChapter.name.length}}</span>																						
+												</div>
+												
+											</div>
+										</div>
+										<div class="form-group" >
+											<div class="col-md-10 col-sm-10 col-md-offset-1 col-sm-offset-1 col-xs-8 col-xs-offset-2 row">
+												<label class="control-label" for="chapter_description">{{'Enter short description about this chapter'|translate}}</label>
+													<textarea type="text" class="form-control" id="chapter_description" name="chapter_description" ng-model="model.AddOnlineChapter.description" maxlength="150"></textarea>												
+											</div>
+										</div>
+										<div class="clearfix">
+											<div class="text-center">
+												<label class="sr-only" for="section_save">{{'Save'|translate}}</label>
+												<input type="submit" ng-disabled="disableButton" class="btn btn-primary" id="section_save"  value="{{'Save'|translate}}" >
+												<a href="#" ng-click="model.addChapterCancel($event)" class="">{{'Cancel'|translate}}</a>
+											 </div>
+										</div>
+									</form>
+								</div>
+							</div>
+							
+							<div class="col-xs-12 clearfix  navbar-btn lessonTypes" ng-show="currentView === 'add'">
+									
+									<div class="panel panel-default well-sm clearfix">
+										<a href="#" class="navbar-btn pull-right text-primary add-lession-cancel" ng-click="model.cancelAddLesson($event);" >{{'Cancel'|translate}}</a>
+										<video-lessons-form course='{{courseID}}' action='add' ng-if="$root.settings['site.enabled_plugins'].indexOf('VideoLessons') > -1" updateparent="model.getOnlineCourses()"></video-lessons-form>
+										<video-external-embed-lessons-form course='{{courseID}}' action='add'  ng-if="$root.settings['site.enabled_plugins'].indexOf('VideoExternalEmbedLessons') > -1" updateparent="model.getOnlineCourses()"></video-external-embed-lessons-form>
+										<article-lessons-form course='{{courseID}}' action='add'  ng-if="$root.settings['site.enabled_plugins'].indexOf('ArticleLessons') > -1" updateparent="model.getOnlineCourses()"></article-lessons-form>
+										<downloadable-file-lessons-form course='{{courseID}}' action='add' ng-if="$root.settings['site.enabled_plugins'].indexOf('DownloadableFileLessons') > -1"  updateparent="model.getOnlineCourses()"></downloadable-file-lessons-form>						
+									</div>
+							</div>
+							<div class="well-lg"></div>
+						</div>																								
+					</div>						    					  
+				</div>	
+			</div>
+	    </div>
+	</div>
+</section>

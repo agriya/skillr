@@ -1,0 +1,30 @@
+<div class="well-lg" ng-class="{'container': currentPageType === 'page'}">
+  <div class="row">
+    <div class="center-form" >
+      <div class="panel-body ">
+		<a data-dismiss="modal" ng-click="modalClose($event)" class="modalClose" ng-if="currentPageType === 'modal'"><i class="fa fa-lg fa-times-circle close"></i></a>
+       <h3 class="lead text-center text-primary"><strong class="ng-binding">{{'Please enter your email address. To complete registration process.'|translate}}</strong></h3>
+	   <hr>
+	   <div class="well-lg clearfix" ng-class="{'panel': currentPageType === 'page'}">
+			<div class="col-xs-12 col-sm-8 col-xs-offset-0 col-sm-offset-2">
+				<form method="post" name="userEmail">
+					<div class="form-group">
+						<input class="form-control input-lg" type="email" name="email" ng-model="user.email" placeholder="{{'Email'|translate}}" required autofocus>
+					</div>
+					<div class="form-group">
+						<div class="well well-sm clearfix">
+							<div class="pull-right">
+								<label class="sr-only" for="submit">{{'Submit'|translate}}</label>
+								<button ng-click="loginnow(user)" class="btn btn-lg btn-primary">{{'Submit'|translate}}</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="well-sm"></div>
+      </div>
+    </div>
+  </div>
+  <div class="well-sm"></div>
+</div>

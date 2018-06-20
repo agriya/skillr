@@ -1,0 +1,61 @@
+<!--- Contact Form--->
+<div class="container">
+	<div banner position="topBanner" ng-if="$root.settings['site.enabled_plugins'].indexOf('Banner') > -1"></div>
+	<form role="form" class="form-horizontal clearfix" name="contactForm" ng-submit="model.contactFormSubmit();contactForm.$setPristine();">
+		<div class="text-center"><h3 >{{'Contact Us'|translate}}</h3></div> 
+		<hr>
+		<div class="form-group" ng-class="{ 'has-error' : contactForm.firstname.$invalid && contactForm.firstname.$dirty }">
+		  <label class="col-md-3 col-sm-3 control-label" for="firstname">{{'First Name'|translate}}</label>
+		  <div class="col-md-5 col-sm-9">
+			<input type="text" class="form-control" id="firstname" name="firstname" placeholder="{{'First Name'|translate}}" ng-model='model.contactForm.first_name' required>
+			<div class="help-block text-danger" ng-if="contactForm.firstname.$dirty" ng-messages="contactForm.firstname.$error">
+				  <div ng-message="required">{{'You must enter your first name'|translate}}.</div>
+			</div>
+		   </div>
+		</div>
+		<div class="form-group" ng-class="{ 'has-error' : contactForm.lastname.$invalid && contactForm.lastname.$dirty }">
+		  <label class="col-md-3 col-sm-3 control-label" for="lastname">{{'Last Name'|translate}}</label>
+		  <div class="col-md-5 col-sm-9">
+			<input type="text" class="form-control" name="lastname" id="lastname" placeholder="{{'Last Name'|translate}}" ng-model='model.contactForm.last_name' required>  
+			<div class="help-block text-danger" ng-if="contactForm.lastname.$dirty" ng-messages="contactForm.lastname.$error">
+				  <div ng-message="required">{{'You must enter your last name'|translate}}.</div>
+			</div>
+			</div>
+		</div>
+		<div class="form-group" ng-class="{ 'has-error' : contactForm.email.$invalid && contactForm.email.$dirty }">
+		  <label class="col-md-3 col-sm-3 control-label" for="email">{{'Email'|translate}}</label>
+		  <div class="col-md-5 col-sm-9">
+			   <input type="email" class="form-control" name="email" id="email" placeholder="{{'email'|translate}}" ng-model='model.contactForm.email' required>
+				<div class="help-block text-danger" ng-if="contactForm.email.$dirty" ng-messages="contactForm.email.$error">
+				  <div ng-message="required">{{'Your email address is required'|translate}}.</div>
+				  <div ng-message="email">{{'Your email address is invalid'|translate}}.</div>
+				</div>
+		  </div>
+		</div>
+		<div class="form-group" ng-class="{ 'has-error' : contactForm.subject.$invalid && contactForm.subject.$dirty }">
+		  <label class="col-md-3 col-sm-3 control-label" for="subject">{{'Subject'|translate}}</label>
+		  <div class="col-md-5 col-sm-9">
+			<input type="text" class="form-control" name="subject" id="subject" ng-model='model.contactForm.subject' placeholder="{{'subject'|translate}}" required> 
+				<div class="help-block text-danger" ng-if="contactForm.subject.$dirty" ng-messages="contactForm.subject.$error">
+				  <div ng-message="required">{{'You must enter subject'|translate}}.</div>
+				</div> 			
+		  </div>
+		</div>
+		<div class="form-group" ng-class="{ 'has-error' : contactForm.message.$invalid && contactForm.message.$dirty }">
+		  <label class="col-md-3 col-sm-3 control-label" for="subject">{{'Message'|translate}}</label>
+		  <div class="col-md-5 col-sm-9">
+		   <textarea rows="6" id="message" class="form-control" name="message" placeholder="{{'Message'|translate}}" ng-model='model.contactForm.message' required></textarea>
+				<div class="help-block text-danger" ng-if="contactForm.message.$dirty" ng-messages="contactForm.message.$error">
+				  <div ng-message="required">{{'You must enter message'|translate}}.</div>
+				</div>		   
+		  </div>
+		</div>               
+		<div class="well well-sm clearfix">
+		  <div class="pull-right">
+			<label class="sr-only" for="submit2">{{'Submit'|translate}}</label>
+			<button type="submit" class="btn btn-primary btn-lg" id="submit2">{{'Submit'|translate}} <span ng-show="disableButton"><i class="fa fa-spinner fa-pulse fa-lg"></i></span></button>
+		  </div>
+		</div>
+	</form>
+	<div banner position="bottomBanner" ng-if="$root.settings['site.enabled_plugins'].indexOf('Banner') > -1"></div>
+</div>

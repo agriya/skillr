@@ -1,0 +1,72 @@
+   <div class="row">		
+	 <div class="navbar-btn">
+		<div class="well well-sm">
+			
+			<div class="col-xs-12 col-md-4 col-sm-12">				
+				<div class="media">
+					<div class="pull-left col-xs-5 row">
+					<!-- course image when is_from_mooc_affiliate false -->	
+					<img ng-if="model.manageCourseOption.image_hash && model.manageCourseOption.is_from_mooc_affiliate !== 1" ng-src="{{$root.site_url}}img/small_thumb/Course/{{model.manageCourseOption.image_hash}}" class="img-responsive thumbnail clearfix" title="{{model.manageCourseOption.title}}" alt="[Image: Course Image]" > 
+					<img ng-if="!model.manageCourseOption.image_hash && model.manageCourseOption.is_from_mooc_affiliate !== 1" class="img-responsive thumbnail clearfix" title="{{model.manageCourseOption.title}}" alt="[Image: {{model.manageCourseOption.title}}]" ng-src="{{$root.site_url}}img/small_thumb/Course/0.default.jpg">
+					<!-- course image when is_from_mooc_affiliate true -->
+					<img ng-if="model.manageCourseOption.course_image && model.manageCourseOption.is_from_mooc_affiliate === 1"   class="img-responsive thumbnail clearfix" title="{{model.manageCourseOption.title}}" alt="[Image: {{model.manageCourseOption.title}}]" ng-src="{{model.manageCourseOption.course_image}}">
+					<img ng-if="!model.manageCourseOption.course_image && model.manageCourseOption.is_from_mooc_affiliate === 1"  class="img-responsive thumbnail clearfix" title="{{model.manageCourseOption.title}}" alt="[Image: {{model.manageCourseOption.title}}]" ng-src="{{$root.site_url}}img/small_thumb/Course/0.default.jpg">
+					</div>
+					<div class="media-body">
+					  <p><a title="{{model.manageCourseOption.title}}" href="#!/course/{{model.manageCourseOption.id}}/{{model.manageCourseOption.slug}}">{{model.manageCourseOption.title}}</a></p>
+					  <p ng-if="$root.settings['site.enabled_plugins'].indexOf('Instructor') > -1"><profile-name  user-display-name='model.manageCourseOption.displayname' user-profile-id='model.manageCourseOption.user_id' ng-if='model.manageCourseOption.user_id' ></profile-name></p>	
+					</div>
+				</div>					
+			</div>				
+			<div class="col-xs-12 col-md-3 col-sm-12">
+				<span>{{'Published Curriculum items'|translate}}</span>
+					<h2>{{model.manageCourseOption.active_online_course_lesson_count}}/{{model.manageCourseOption.online_course_lesson_count}}</h2>
+			</div>
+			<div class="col-xs-12 col-md-5 col-sm-12" ng-show="model.loadingNavBar === false">
+				<div class="">
+					<p ng-if='model.manageCourseOption.course_status_id === 1'>{{'Your course is in draft mode.'|translate}}</p>
+					<p ng-if='model.manageCourseOption.course_status_id === 2'>{{'Your course is under review.'|translate}}</p>
+					<p ng-if='model.manageCourseOption.course_status_id === 3'>{{'Your course is in published status.'|translate}}</p>
+					<a href="#!/course/{{model.manageCourseOption.id}}/{{model.manageCourseOption.slug}}" class="btn btn-default">{{'Preview'|translate}}</a>
+					<a class="btn btn-primary" ng-if="model.manageCourseOption.course_status_id === 2 || model.manageCourseOption.course_status_id === 3" ng-click="model.publishCourse('draft')" >{{'Make as Draft'|translate}}</a>
+					<a class="btn btn-primary" ng-if="$root.auth.providertype !== 'admin' && model.manageCourseOption.course_status_id !== 2 && model.manageCourseOption.course_status_id !== 3 && ($root.settings['course.is_auto_approval_enabled'] === '0' || $root.settings['course.is_auto_approval_enabled'] === '')" ng-click="model.publishCourse('waiting')" >{{'Submit For Review'|translate}}</a>
+					<span ng-if="$root.auth.providertype === 'admin' || $root.settings['course.is_auto_approval_enabled'] === '1'" class="navbar-btn">
+						<a class="btn btn-primary" ng-click="model.publishCourse('publish')" ng-if='model.manageCourseOption.course_status_id !== 3' >{{'Publish This Course'|translate}}</a>
+						<p ng-if="$root.auth.providertype === 'admin'" class="navbar-btn">{{'You Are Accessing as Admin.'|translate}} <a href="ag-admin/#/courses/list">{{'Click here to see all courses.'|translate}}</a></p>
+					</span>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+      </div>
+    </div>
+	  	 		  
+	<div class="col-sm-4 col-xs-12 col-md-2 pull-left clearfix" role="navigation">
+		<div class="row panel">				 
+			<ul class="nav nav-stacked  nav-pills list-group-item-heading list-group-item-text" id="leftnavbar">
+				<li class="" ng-class="{active: activetab == 'course_roadmap'}"><a  href="#!/manage-course/edit-getting-started/{{model.manageCourseOption.id}}" class="" >&nbsp; {{'Course Roadmap'|translate}} </a></li>
+				<li class="" ng-class="{active: activetab == 'course_feedback'}"><a href="#!/manage-course/edit-status/{{model.manageCourseOption.id}}" class="">&nbsp; {{'Course Feedback'|translate}} </a></li>
+				<li class="" ><strong><span>&nbsp; {{'COURSE CONTENT'|translate}}</span></strong></li>
+				<li class="" ng-class="{active: activetab == 'course_goals'}"><a  href="#!/manage-course/edit-goals-and-audience/{{model.manageCourseOption.id}}" class="">&nbsp; {{'Course Goals'|translate}} </a></li>
+				<li ng-if="$root.settings['site.enabled_plugins'].indexOf('ArticleLessons') > -1  || $root.settings['site.enabled_plugins'].indexOf('DownloadableFileLessons') > -1 || $root.settings['site.enabled_plugins'].indexOf('VideoExternalEmbedLessons') > -1 || $root.settings['site.enabled_plugins'].indexOf('VideoLessons') > -1" class="" ng-class="{active: activetab == 'course_curriculum'}"><a  href="#!/manage-course/edit-curriculum/{{model.manageCourseOption.id}}" class="">&nbsp; {{'Curriculum'|translate}} </a></li>
+				<li class="" ><strong><span>&nbsp; {{'COURSE INFO'|translate}}</span></strong></li>
+				<li class="" ng-class="{active: activetab == 'course_basics'}"><a   href="#!/manage-course/edit-basics/{{model.manageCourseOption.id}}" class="" >&nbsp; {{'Basics'|translate}} </a></li>
+				<li class="" ng-class="{active: activetab == 'course_summary'}"><a   href="#!/manage-course/edit-details/{{model.manageCourseOption.id}}" class="">&nbsp; {{'Course Summary'|translate}} </a></li>
+				<li class="" ng-class="{active: activetab == 'course_image'}"><a   href="#!/manage-course/edit-image/{{model.manageCourseOption.id}}" class="">&nbsp; {{'Image'|translate}}</a></li>
+				<li class="" ng-class="{active: activetab == 'course_promo_video'}" ng-if="$root.settings['site.enabled_plugins'].indexOf('VideoLessons') > -1 && $root.settings['video.is_enabled_promo_video'] === '1'"><a   href="#!/manage-course/edit-promo-video/{{model.manageCourseOption.id}}" class="">&nbsp; {{'Promo Video'|translate}}</a></li>
+				<li class="" ><strong><span>&nbsp; {{'COURSE SETTINGS'|translate}}</span></strong></li>
+				<li class="" ng-if="$root.settings['site.enabled_plugins'].indexOf('CourseCheckout') > -1" ng-class="{active: activetab == 'course_price'}"><a   href="#!/manage-course/edit-price-and-promotions/{{model.manageCourseOption.id}}" class="">&nbsp; {{'Price'|translate}}</a></li>
+				<div oc-lazy-load='loadCoupons'  class="nav nav-stacked nav-pills"><li class="" ng-class="{active: activetab == 'coupons'}" course-coupon course-id='{{model.manageCourseOption.id}}' ng-if="model.manageCourseOption.id && $root.settings['site.enabled_plugins'].indexOf('Coupons') > -1"></li></div>
+				<li class="" ng-class="{active: activetab == 'course_danger_zone'}"><a   href="#!/manage-course/edit-danger-zone/{{model.manageCourseOption.id}}" class="">&nbsp;{{'Danger Zone'|translate}}</a></li>
+				<li class="" ng-if="$root.settings['site.enabled_plugins'].indexOf('Subscriptions') === -1 && $root.settings['site.enabled_plugins'].indexOf('CourseCheckout') > -1 && $root.settings['site.enabled_plugins'].indexOf('Payout') > -1" ><strong><span>&nbsp; {{'PAYOUT'|translate}}</span></strong></li>
+				<div oc-lazy-load='loadPayout' class="nav nav-stacked nav-pills"><li class=""  ng-class="{active: activetab == 'payout'}" pay-out course-id='{{model.manageCourseOption.id}}' ng-if="model.manageCourseOption.id && $root.settings['site.enabled_plugins'].indexOf('Subscriptions') === -1 && $root.settings['site.enabled_plugins'].indexOf('CourseCheckout') > -1 && $root.settings['site.enabled_plugins'].indexOf('Payout') > -1"></li></div>
+				<li class="" ng-if="$root.settings['site.enabled_plugins'].indexOf('RatingAndReview') > -1"><strong><span>&nbsp; {{'ANALYTICS'|translate}}</span></strong></li>
+				<div ng-if="$root.settings['site.enabled_plugins'].indexOf('RatingAndReview') > -1" oc-lazy-load='loadRatingAndReview' class="nav nav-stacked nav-pills"><li ng-class="{active: activetab == 'coursestudtsatisfaction'}" student-satisfaction course-id='{{model.manageCourseOption.id}}' ng-if="model.manageCourseOption.id && $root.settings['site.enabled_plugins'].indexOf('RatingAndReview') > -1">
+				</li></div>
+				<li class="" ng-if="$root.settings['site.enabled_plugins'].indexOf('SEO') > -1"  ><strong><span>&nbsp; {{'SEO'|translate}}</span></strong></li>
+				<div oc-lazy-load='loadSeo'  class="nav nav-stacked nav-pills"><li class="" ng-class="{active: activetab == 'seo'}" course-seo course-id='{{model.manageCourseOption.id}}' ng-if="model.manageCourseOption.id && $root.settings['site.enabled_plugins'].indexOf('SEO') > -1"></li></div>
+				<li class="" ><strong><span>&nbsp; {{'MORE'|translate}}</span></strong></li>
+				<li class="" ng-class="{active: activetab == 'course_help'}"><a  href="#!/manage-course/edit-help/{{model.manageCourseOption.id}}" class="">&nbsp; {{'Help'|translate}}</a></li>							
+			</ul> 
+		</div>
+	 </div>

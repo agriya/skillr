@@ -1,0 +1,9 @@
+{
+	"name": "Coupons", 
+	"class": "fa fa-2x fa-barcode",
+	"description": "By enabling this plugin, instructor can generate and share coupon code for his course to their friends, family or whom the instructor wants. By using this coupon code the learners can get the particular courses for free of cost. Other benefits in the way is more users can enrolled into the site and they can invite more people into it so that the site commission and number of users automatically become higher numbers.",
+	"dependencies": "PaymentAndCart",
+	"module_id": "784",
+	"module_hash": "f9d697c7b765a2fe143b7cc7dde72b9a",
+	"display_order": "11"
+}

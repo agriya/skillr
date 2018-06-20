@@ -1,0 +1,11 @@
+<div class="form-group text-center" ng-repeat="login in model.sociallogin.data">
+  <button class=" btn btn-lg btn-block btn-social {{login.button_class}}" ng-click="authenticate('facebook')"  ng-if="login.name === 'Facebook'" >
+    <i class="fa {{login.icon_class}} fa-fw"></i> <span class="col-xs-12 text-center nav">{{'Sign in with'|translate}} {{login.name}}</span>
+  </button>
+  <button class=" btn btn-lg btn-block btn-social {{login.button_class}}" ng-click="authenticate('twitter')"  ng-if="login.name === 'Twitter' && contentInIframe !== true" >
+    <i class="fa {{login.icon_class}} fa-fw"></i> <span class="col-xs-12 text-center nav">{{'Sign in with'|translate}} {{login.name}}</span>
+  </button>
+  <button class=" btn btn-lg btn-block btn-social {{login.button_class}}" ng-click="authenticate('google')"  ng-if="login.name === 'Google' && !contentInIframe" >
+    <i class="fa {{login.icon_class}} fa-fw"></i> <span class="col-xs-12 text-center nav">{{'Sign in with'|translate}} {{login.name}}</span>
+  </button>
+</div>

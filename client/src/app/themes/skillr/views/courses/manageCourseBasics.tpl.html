@@ -1,0 +1,86 @@
+<section class="clearfix" ng-show="model.loading === false">
+	<div class="container">	
+		<course-navbar></course-navbar>		
+		<div class="">
+		<div class="tab-content col-sm-8 col-xs-12 col-md-10 clearfix " ng-if="model.loading === false">	
+			 <div  class="navbar-default tab-pane active" id="basics">
+				<div class="panel">					
+					<div class="list-header text-center">
+						<h3>{{'Basics'|translate}}</h3>
+						<span>{{'Help students find your course.'|translate}}</span>
+					</div>					
+				</div>				
+				<div class="well-lg panel clearfix">
+					<div class="col-md-10 col-sm-10 col-md-offset-1 col-sm-offset-1 col-xs-12">
+						
+						<form role="form" class="form-horizontal clearfix" name='manage_course_basics' ng-submit='model.saveCourseBasic()'>
+								<div class="form-group"  ng-show="$root.auth.providertype === 'admin'">
+									<label class="control-label" for="course_title">{{'Lecturer'|translate}}</label>
+									<select class="form-control" id="sub_category" ng-model="model.courseBasic.user_id" ng-options="Instructors.user_id as Instructors.displayname for Instructors in model.instructors"  name="sub_category">
+										<option value="" >---{{'Please select'|translate}}---</option>													
+									</select>
+									<span class="help-block"><span class="text-info">{{'Leave it blank, if it is site\'s course.'|translate}}</span></span>
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="course_title">{{'Title'|translate}}</label>
+									<div class="input-group">
+										<input type="text" class="form-control" id="course_title" placeholder="{{'Title'|translate}}" maxlength = "100" ng-model="model.courseBasic.title" required >	
+										<span class="input-group-addon">{{model.courseBasic.title.length}}</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="course_subtitle">{{'Sub Title'|translate}}</label>
+									<div class="input-group">
+										<input type="text" class="form-control" id="course_sub_title" placeholder="{{'Sub Title'|translate}}" maxlength = "200" ng-model="model.courseBasic.subtitle" required>
+										<span class="input-group-addon">{{model.courseBasic.subtitle.length}}</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-6">
+											<label class="control-label" for="language">{{'Language'|translate}}</label>
+												<div class="">
+													<select class="form-control" id="language"  name="language" ng-model="model.courseBasic.language_id" ng-options="languages.id as languages.name for languages in model.languages" required >
+														<option value="" >---{{'Please select'|translate}}---</option>
+													</select>							
+												</div>
+										</div>
+										<div class="col-md-6">
+											<label class="control-label" for="parent_category">{{'Category'|translate}}</label>
+											<div class="">
+												<select class="form-control" id="parent_category" name="parent_category" ng-model="model.courseBasic.parent_category_id" data-ng-change="model.getSubCategories()" ng-options="parentCategory.id as parentCategory.sub_category_name for parentCategory in model.listcourse.category" required >
+													<option value="" >---{{'Please select'|translate}}---</option>
+												</select>							
+											</div>
+										</div>										
+									</div>
+								</div>
+								 <div class="form-group" ><!-- ng-show="model.subCategories.length" -->
+									<div class="row">
+										<div class="col-md-6">
+											
+										</div>
+										<div class="col-md-6">
+											<label class="control-label" for="sub_category">{{'Sub Category'|translate}}</label>
+											<div class="">
+												<select class="form-control" id="sub_category" ng-model="model.courseBasic.category_id" ng-options="subCategory.category_id as subCategory.sub_category_name for subCategory in model.subCategories"  name="sub_category" required >
+													<option value="" >---{{'Please select'|translate}}---</option>
+												</select>							
+											</div>
+										</div>
+									</div>
+								</div>															
+								<div class="well well-sm clearfix">
+									<div class="pull-right">
+										<label class="sr-only" for="submit">{{'Save'|translate}}</label>
+										<input type="submit" class="btn btn-primary btn-lg" id="submit" value="{{'Save'|translate}}" >
+									</div>
+								</div>
+						</form>
+					</div>
+				</div>
+		    </div>		  
+		</div>
+	  </div>
+	</div>
+</section>
